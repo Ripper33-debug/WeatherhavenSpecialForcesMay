@@ -38,7 +38,7 @@ export function ProductCard({
   description,
   tags = [],
   href,
-  linkLabel = "View details",
+  linkLabel = "View solution outline",
   icon = "default",
 }: ProductCardProps) {
   const inner = (
@@ -49,7 +49,7 @@ export function ProductCard({
         <div className="relative flex min-h-[112px] flex-col gap-4 px-6 pb-5 pt-6 sm:flex-row sm:items-stretch sm:justify-between">
           <div className="flex flex-1 flex-col justify-center">
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">
-              Capability
+              Solution line
             </span>
             <div className="mt-3 flex items-center gap-3">
               <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-sm border border-zinc-600/60 bg-black/40 shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]">

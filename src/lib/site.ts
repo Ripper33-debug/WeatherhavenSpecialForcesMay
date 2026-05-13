@@ -1,13 +1,14 @@
 export const company = {
   name: "Weatherhaven Resource Inc.",
   shortName: "Weatherhaven",
-  tagline: "Expeditionary shelters and mobile camp infrastructure for defense programs worldwide.",
+  tagline:
+    "Mission-specific deployable infrastructure—shelter, power, environmental, and camp integration tailored to program requirements.",
 } as const;
 
 export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/sof-solutions", label: "SOF Solutions" },
-  { href: "/products", label: "Products" },
+  { href: "/products", label: "Solutions" },
   { href: "/ai-configurator", label: "AI Configurator" },
   { href: "/capabilities", label: "Capabilities" },
   { href: "/ent-4943", label: "ENT 4943" },
@@ -19,7 +20,7 @@ export const footerColumns = [
     title: "Solutions",
     links: [
       { href: "/sof-solutions", label: "Special Operations" },
-      { href: "/products", label: "Shelter Systems" },
+      { href: "/products", label: "Mission packages & systems" },
       { href: "/capabilities", label: "Engineering & Field Support" },
     ],
   },

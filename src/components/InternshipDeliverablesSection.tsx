@@ -6,7 +6,7 @@ const items = [
     title: "SOF-aligned public website",
     badge: "Deliverable",
     summary:
-      "Next.js experience covering SOF solutions, products, capabilities, and contact paths—structured for defense program audiences without classified or export-controlled content.",
+      "Next.js experience covering SOF solutions, mission packages, capabilities, and contact paths—structured for defense program audiences without classified or export-controlled content.",
     outcomes: [
       "Responsive layouts and shared UI patterns for credibility and readability.",
       "Clear routing between marketing pages and controlled disclosure (Request Access).",
@@ -25,7 +25,7 @@ const items = [
       "Clear separation between advisory output and production configuration management.",
     ],
     href: "/ai-configurator",
-    cta: "Open AI configurator",
+    cta: "Open solution builder",
   },
   {
     id: "lead-flow",
@@ -42,16 +42,16 @@ const items = [
   },
   {
     id: "positioning",
-    title: "Product positioning narrative",
+    title: "Mission & solution positioning narrative",
     badge: "Deliverable",
     summary:
-      "Modular storytelling for deployable shelters, mobile camp infrastructure, and advisory tooling—aligned to expeditionary operations without performance claims tied to specific programs.",
+      "Modular storytelling for mission-tailored deployable infrastructure—configurable shelter, camp integration, and advisory workflows—without performance claims tied to specific programs.",
     outcomes: [
       "Consistent value props: tempo, integration discipline, and field support.",
-      "Product cards and capability sections tuned for acquisition and operator readers.",
+      "Solution-line cards and capability sections tuned for acquisition and operator readers.",
     ],
     href: "/products",
-    cta: "Browse products",
+    cta: "View solution outlines",
   },
   {
     id: "market-research",

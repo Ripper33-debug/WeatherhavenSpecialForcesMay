@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     template: `%s | ${company.shortName}`,
   },
   description:
-    "Weatherhaven Resource Inc. delivers deployable shelters, mobile infrastructure, and SOF-aligned support with disciplined engineering and AI-assisted configuration.",
+    "Weatherhaven Resource Inc. engineers tailored deployable infrastructure for defense and SOF programs—configurable shelter, power, environmental, and sustainment packages built around mission requirements, not pulled from a shelf.",
 };
 
 export default function RootLayout({

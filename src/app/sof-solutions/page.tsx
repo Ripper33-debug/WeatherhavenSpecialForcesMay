@@ -19,7 +19,7 @@ export default function SofSolutionsPage() {
         description="Infrastructure that deploys fast, scales with the task force, and sustains under pressure—clear layouts, disciplined MEP, and documentation crews can execute."
         pullQuote="Signature and interoperability start with utilities and circulation—not slogans."
         primaryCta={{ href: "/request-access", label: "Request technical exchange" }}
-        secondaryCta={{ href: "/products", label: "Product families" }}
+        secondaryCta={{ href: "/products", label: "Solution portfolio" }}
       />
 
       <CapabilitySection
@@ -75,11 +75,11 @@ export default function SofSolutionsPage() {
             Mission packages
           </p>
           <h2 className="font-display mt-4 text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl lg:text-4xl">
-            Representative shelter bundles
+            Example mission packages
           </h2>
           <p className="mt-4 max-w-2xl text-sm text-zinc-400 sm:text-base">
-            Configurations vary by unit, theater, and lift. Illustrative bundles—request access for
-            program-specific narratives.
+            Illustrative bundles—every fielded layout is re-derived from unit, theater, lift, and
+            sustainment inputs. Request access for program-specific narratives.
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <ProductCard
@@ -87,28 +87,31 @@ export default function SofSolutionsPage() {
               title="Forward mission support node"
               description="Command, planning, and communications spaces with redundant power paths and disciplined utility distribution."
               tags={["C2", "Power"]}
+              linkLabel="View outline"
             />
             <ProductCard
               icon="aviation"
               title="Aviation maintenance envelope"
               description="High-bay rigid options with crane hardpoints, tool control zones, and environmental separation for volatile workloads."
               tags={["SOF Aviation"]}
+              linkLabel="View outline"
             />
             <ProductCard
               icon="secure"
               title="Sensitive mission suite"
               description="Controlled-access workflows and acoustic treatments. Detailed compartmentation and program-specific options via Request Access."
               tags={["Controlled access"]}
+              linkLabel="View outline"
             />
           </div>
         </div>
       </section>
 
       <CTA
-        title="Start with a mission narrative—not a catalog number."
-        description="Engineers translate CONOPS and environmental envelopes into bounded options with explicit tradeoffs."
+        title="Start with a mission narrative—not a part number."
+        description="Engineers translate CONOPS, environment, and sustainment constraints into bounded solution options with explicit tradeoffs."
         primary={{ href: "/request-access", label: "Request access" }}
-        secondary={{ href: "/ai-configurator", label: "AI configurator" }}
+        secondary={{ href: "/ai-configurator", label: "Solution builder" }}
       />
     </>
   );

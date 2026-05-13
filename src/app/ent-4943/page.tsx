@@ -5,7 +5,7 @@ import { Hero } from "@/components/Hero";
 export const metadata: Metadata = {
   title: "ENT 4943 · Internship deliverables",
   description:
-    "Summary of ENT 4943 and internship-aligned deliverables: SOF website, AI configuration demo, lead intake, product positioning, and unclassified defense market context.",
+    "Summary of ENT 4943 and internship-aligned deliverables: SOF website, guided solution builder, lead intake, mission positioning, and unclassified defense market context.",
 };
 
 const panels = [
@@ -13,17 +13,17 @@ const panels = [
     id: "sof-website",
     title: "1. SOF public website (this experience)",
     body: [
-      "Responsive Next.js application with defense-industry typography, navigation, and page structure for SOF solutions, products, capabilities, and contact paths.",
+      "Responsive Next.js application with defense-industry typography, navigation, and page structure for SOF solutions, mission packages, capabilities, and contact paths.",
       "Content is unclassified and avoids export-controlled technical detail; sensitive program discussions route through Request Access.",
     ],
     link: { href: "/", label: "Home" },
   },
   {
-    id: "ai-demo",
-    title: "2. AI configuration demo",
+    id: "ai-configurator",
+    title: "2. Guided solution builder",
     body: [
-      "Mission profile, operating environment, power baseline, and notional crew size drive a generated sample configuration brief.",
-      "Demonstrates how structured inputs can accelerate workshops while preserving engineering authority and procurement disclaimers.",
+      "Mission profile, operating environment, power baseline, and notional crew size drive a structured advisory outline—not a product selector.",
+      "Shows how structured inputs accelerate solution workshops while preserving engineering authority and procurement disclaimers.",
     ],
     link: { href: "/ai-configurator", label: "AI Configurator" },
   },
@@ -38,12 +38,12 @@ const panels = [
   },
   {
     id: "positioning",
-    title: "4. Product positioning",
+    title: "4. Mission & solution positioning",
     body: [
-      "Product families and capability narratives emphasize expeditionary shelter classes, mobile infrastructure integration, and field support—without program-specific performance claims.",
+      "Narratives emphasize mission-tailored deployable infrastructure—configurable shelter, integration, and sustainment—without program-specific performance claims.",
       "Cards and sections are designed for screenshot evidence in internship and course documentation.",
     ],
-    link: { href: "/products", label: "Products" },
+    link: { href: "/products", label: "Solutions" },
   },
   {
     id: "market-research",
@@ -62,7 +62,7 @@ export default function Ent4943Page() {
       <Hero
         eyebrow="ENT 4943 · Internship documentation"
         title="Deliverables aligned to course and internship outcomes."
-        description="This page is a screenshot-friendly index of the work embodied in this site: public SOF web experience, AI advisor demo, lead intake, positioning narrative, and unclassified market context."
+        description="This page is a screenshot-friendly index of the work embodied in this site: public SOF web experience, guided solution builder, lead intake, mission positioning, and unclassified market context."
         pullQuote="Evidence for academic submission should be clear, professional, and free of controlled technical data."
         primaryCta={{ href: "/#ent-4943-deliverables", label: "Jump to home summary" }}
         secondaryCta={{ href: "/request-access", label: "Lead intake example" }}

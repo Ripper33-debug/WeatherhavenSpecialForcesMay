@@ -102,7 +102,7 @@ export default function CapabilitiesPage() {
         title="Where is the risk—schedule, performance, or integration?"
         description="We scope work with measurable acceptance criteria."
         primary={{ href: "/request-access", label: "Request access" }}
-        secondary={{ href: "/products", label: "Browse products" }}
+        secondary={{ href: "/products", label: "Mission packages" }}
       />
     </>
   );

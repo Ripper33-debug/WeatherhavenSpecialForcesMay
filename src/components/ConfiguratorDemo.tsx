@@ -82,11 +82,12 @@ export function ConfiguratorDemo() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className="font-display text-lg font-semibold tracking-tight text-zinc-50">
-              Configuration workspace
+              Guided solution builder
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-zinc-500">
-              Map mission and theater constraints, then generate an advisory summary suitable for
-              internal workshops. Unclassified; not a substitute for engineering release.
+              Walk mission profile, theater environment, power baseline, and notional crew size. The
+              output is a mission-tailored advisory outline for workshops—not a product selector or
+              procurement record. Unclassified; engineering release still applies.
             </p>
           </div>
         </div>
@@ -136,7 +137,7 @@ export function ConfiguratorDemo() {
           onClick={generate}
           className="mt-10 w-full rounded-sm bg-amber-500 py-3.5 text-sm font-semibold uppercase tracking-wide text-zinc-950 shadow-[0_0_0_1px_rgb(245_158_11/0.35)] transition duration-200 hover:bg-amber-400 active:scale-[0.99]"
         >
-          Generate configuration brief
+          Generate mission advisory outline
         </button>
         {stale && generated && (
           <p className="mt-3 text-center text-xs text-amber-500/90">Inputs updated — generate again to refresh.</p>
@@ -147,10 +148,11 @@ export function ConfiguratorDemo() {
         {!generated || !brief ? (
           <div className="flex min-h-[320px] flex-col justify-center rounded-sm border border-zinc-800/80 bg-zinc-950/40 p-10 text-center lg:min-h-[420px]">
             <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-zinc-600">
-              Advisory output
+              Mission advisory outline
             </p>
             <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-zinc-500">
-              Select parameters on the left, then generate a structured configuration summary.
+              Define parameters on the left, then generate a structured summary of a notional
+              mission package—shelter class, power and environment, and support considerations.
             </p>
           </div>
         ) : (
@@ -165,7 +167,7 @@ export function ConfiguratorDemo() {
                     Weatherhaven Resource Inc.
                   </p>
                   <h3 className="font-display mt-2 text-xl font-semibold tracking-tight text-zinc-50 sm:text-2xl">
-                    Configuration advisory
+                    Mission advisory outline
                   </h3>
                 </div>
                 <div className="text-right font-mono text-[11px] leading-relaxed text-zinc-500">
