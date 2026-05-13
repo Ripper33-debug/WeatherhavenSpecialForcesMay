@@ -34,12 +34,37 @@ export async function POST(req: Request) {
   }
 
   const reference = `WH-RA-${Date.now().toString(36).toUpperCase().slice(-8)}`;
+  const submittedAt = new Date().toISOString();
+  const payload = {
+    reference,
+    submittedAt,
+    name: body.name.trim(),
+    organization: body.organization.trim(),
+    email: body.email.trim(),
+    role: body.role.trim(),
+    program: body.program?.trim() || null,
+    message: body.message?.trim() || null,
+  };
 
-  /** Placeholder: forward `body` to CRM, secure email, or ticketing (e.g. webhook, ServiceNow). */
+  let webhookDelivered = false;
+  const webhookUrl = process.env.REQUEST_ACCESS_WEBHOOK_URL;
+  if (webhookUrl) {
+    try {
+      const wh = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: "request_access", ...payload }),
+      });
+      webhookDelivered = wh.ok;
+    } catch {
+      webhookDelivered = false;
+    }
+  }
 
   return NextResponse.json({
     ok: true,
     reference,
+    webhookDelivered: webhookUrl ? webhookDelivered : undefined,
     message: "Request recorded. A programs representative will respond through official channels.",
   });
 }

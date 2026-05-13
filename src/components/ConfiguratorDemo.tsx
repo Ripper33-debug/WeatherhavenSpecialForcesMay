@@ -1,10 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
-type Mission = "fad" | "training" | "hq" | "medical";
-type Climate = "hot" | "cold" | "maritime" | "mountain";
-type Power = "grid" | "tactical" | "hybrid";
+import {
+  buildConfiguratorBrief,
+  type Climate,
+  type Mission,
+  type Power,
+} from "@/lib/configuratorBrief";
 
 const missionOptions: { value: Mission; title: string; hint: string }[] = [
   { value: "fad", title: "Forward support", hint: "Throughput, circulation, fuel separation planning" },
@@ -51,37 +53,10 @@ export function ConfiguratorDemo() {
     );
   }, [generated, inputSnapshot, mission, climate, power, crew]);
 
-  const summary = useMemo(() => {
-    const shelter =
-      crew <= 12
-        ? "Expeditionary soft-wall footprint (≤12 personnel)"
-        : crew <= 36
-          ? "Modular rigid-frame cluster (≈24–36 personnel)"
-          : "Multi-cell deployable campus (36+ personnel)";
-    const env =
-      climate === "cold"
-        ? "Insulated envelope, snow-load kit, vestibule airlock package"
-        : climate === "maritime"
-          ? "Corrosion-resistant hardware, elevated floor, drainage-aware subfloor"
-          : climate === "mountain"
-            ? "Anchoring package, wind bracing, split HVAC zoning"
-            : "Solar shading, dust mitigation, expanded ECU headroom";
-    const pwr =
-      power === "hybrid"
-        ? "Battery storage + tactical gen-set; staged load shedding profile"
-        : power === "grid"
-          ? "PDU distribution, surge isolation, shore interconnect discipline"
-          : "Deployable gen-set bank; quiet-hours power curve";
-    const missionNote =
-      mission === "fad"
-        ? "High-throughput circulation, fuel-handling separation, recovery lanes"
-        : mission === "medical"
-          ? "Patient-flow lanes, clean utility chase, optional negative-pressure kit"
-          : mission === "hq"
-            ? "Secure comms alcove, planning wall backing, raceway discipline"
-            : "Training lanes, AAR space, stow for sensitive kit";
-    return { shelter, env, pwr, missionNote };
-  }, [mission, climate, power, crew]);
+  const brief = useMemo(
+    () => (inputSnapshot ? buildConfiguratorBrief(inputSnapshot) : null),
+    [inputSnapshot],
+  );
 
   function generate() {
     const id =
@@ -106,8 +81,8 @@ export function ConfiguratorDemo() {
               Interactive demo
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-zinc-500">
-              Select inputs to preview a structured advisory brief. Output is illustrative and not
-              engineering sign-off.
+              Select inputs, then generate a realistic sample brief. Illustrative only—not engineering
+              sign-off or procurement authority.
             </p>
           </div>
           <span className="shrink-0 rounded-sm border border-zinc-700/80 bg-zinc-950/80 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
@@ -123,7 +98,7 @@ export function ConfiguratorDemo() {
             onChange={(v) => setMission(v)}
           />
           <OptionGroup
-            label="Environment"
+            label="Operating environment"
             options={climateOptions}
             value={climate}
             onChange={(v) => setClimate(v)}
@@ -151,7 +126,7 @@ export function ConfiguratorDemo() {
               aria-valuemax={80}
               aria-valuenow={crew}
             />
-            <p className="mt-2 text-xs text-zinc-600">Used to scale footprint class only.</p>
+            <p className="mt-2 text-xs text-zinc-600">Scales footprint class and illustrative floor area band.</p>
           </div>
         </div>
 
@@ -179,49 +154,99 @@ export function ConfiguratorDemo() {
           )}
         </div>
 
-        {!generated ? (
+        {!generated || !brief ? (
           <div className="mt-10 rounded-sm border border-dashed border-zinc-800/90 bg-zinc-950/40 p-8 text-center">
             <p className="text-sm leading-relaxed text-zinc-500">
-              Adjust mission parameters, then generate a sample brief to preview the format used in
-              customer workshops.
+              Set mission profile, operating environment, power baseline, and crew size—then generate
+              a workshop-style sample output.
             </p>
           </div>
         ) : (
           <div key={briefId ?? "brief"} className="wh-brief-in mt-6 space-y-6">
             <div className="rounded-sm border border-zinc-800/80 bg-zinc-950/80 p-4 font-mono text-[11px] leading-relaxed text-zinc-400 sm:text-xs">
-              <p className="text-zinc-500">WEATHERHAVEN RESOURCE INC. — ADVISORY OUTPUT (DEMONSTRATION)</p>
-              <p className="mt-2 text-amber-600/90">UNCLASSIFIED // DEMO ONLY — NOT FOR PROCUREMENT</p>
+              <p className="text-zinc-500">WEATHERHAVEN RESOURCE INC. — CONFIGURATION ADVISORY (DEMONSTRATION)</p>
+              <p className="mt-2 text-amber-600/90">UNCLASSIFIED // SAMPLE OUTPUT — NOT FOR PROCUREMENT</p>
               <p className="mt-2 text-zinc-500">Timestamp (UTC): {stamp}</p>
             </div>
 
-            <BriefBlock k="01" title="Inputs summary">
+            <BriefBlock k="00" title="Executive summary">
+              <p className="mt-2">{brief.exec}</p>
+            </BriefBlock>
+
+            <BriefBlock k="01" title="Recorded inputs">
               <ul className="mt-2 list-disc space-y-1 pl-4">
-                <li>Mission profile: {missionOptions.find((m) => m.value === mission)?.title}</li>
-                <li>Environment: {climateOptions.find((c) => c.value === climate)?.title}</li>
-                <li>Power baseline: {powerOptions.find((p) => p.value === power)?.title}</li>
-                <li>Notional crew: {crew}</li>
+                <li>Mission profile: {brief.mission}</li>
+                <li>Operating environment: {brief.environment}</li>
+                <li>Power baseline: {brief.power}</li>
+                <li>Notional crew: {brief.crew}</li>
               </ul>
             </BriefBlock>
 
-            <BriefBlock k="02" title="Recommended footprint class">
-              <p className="mt-2">{summary.shelter}</p>
+            <BriefBlock k="02" title="Footprint & spatial planning (illustrative)">
+              <p className="mt-2">
+                <span className="font-medium text-zinc-200">Class: </span>
+                {brief.footprintLabel}
+              </p>
+              <p className="mt-2">
+                <span className="font-medium text-zinc-200">Notional conditioned area: </span>
+                {brief.notionalFloor}
+              </p>
             </BriefBlock>
 
             <BriefBlock k="03" title="Environmental kit">
-              <p className="mt-2">{summary.env}</p>
+              <p className="mt-2">{brief.envKit}</p>
             </BriefBlock>
 
             <BriefBlock k="04" title="Power architecture">
-              <p className="mt-2">{summary.pwr}</p>
+              <p className="mt-2">{brief.pwrArch}</p>
             </BriefBlock>
 
             <BriefBlock k="05" title="Mission alignment">
-              <p className="mt-2">{summary.missionNote}</p>
+              <p className="mt-2">{brief.missionAlignment}</p>
+            </BriefBlock>
+
+            <BriefBlock k="06" title="Sample BOM lines (notional SKUs)">
+              <ul className="mt-2 list-decimal space-y-1.5 pl-5">
+                {brief.bomSample.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </BriefBlock>
+
+            <BriefBlock k="07" title="Logistics & receipt assumptions">
+              <p className="mt-2">{brief.logistics}</p>
+            </BriefBlock>
+
+            <BriefBlock k="08" title="Deployment phasing (planning-level)">
+              <ul className="mt-2 space-y-2">
+                {brief.phases.map((ph) => (
+                  <li key={ph.t}>
+                    <span className="font-medium text-zinc-200">{ph.t}</span>
+                    <span className="text-zinc-400"> — {ph.d}</span>
+                  </li>
+                ))}
+              </ul>
+            </BriefBlock>
+
+            <BriefBlock k="09" title="Assumptions & limits">
+              <ul className="mt-2 list-disc space-y-1 pl-4">
+                {brief.risks.map((r) => (
+                  <li key={r}>{r}</li>
+                ))}
+              </ul>
+            </BriefBlock>
+
+            <BriefBlock k="10" title="Recommended next steps (internal)">
+              <ol className="mt-2 list-decimal space-y-1.5 pl-5">
+                <li>Validate environmental and electrical assumptions with site survey data.</li>
+                <li>Lock option set under formal configuration management.</li>
+                <li>Schedule a controlled technical exchange via Request Access if program-specific.</li>
+              </ol>
             </BriefBlock>
 
             <p className="border-t border-zinc-800/80 pt-4 text-xs leading-relaxed text-zinc-500">
-              Production deployments integrate validated load cases, codes, program constraints, and
-              formal configuration management. Request access for a controlled technical exchange.
+              This document is generated for demonstration and ENT 4943 evidence only. Production use
+              requires engineering verification, codes, and program constraints.
             </p>
           </div>
         )}

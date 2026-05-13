@@ -83,14 +83,15 @@ export function HomeHero({
                 <div className="absolute left-3 top-3 z-10 flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500/90 shadow-[0_0_12px_rgb(16_185_129/0.5)]" />
                   <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
-                    Visualization
+                    Weatherhaven imagery
                   </span>
                 </div>
-                <div className="absolute right-3 top-3 z-10 font-mono text-[10px] uppercase tracking-wider text-zinc-600">
-                  Placeholder
+                <div className="absolute right-3 top-3 z-10 max-w-[42%] text-right font-mono text-[10px] uppercase leading-tight tracking-wider text-zinc-600">
+                  Hero slot · 16:9–4:5
                 </div>
 
-                <div className="relative aspect-[5/6] w-full sm:aspect-[16/11] lg:aspect-[4/5]">
+                <div className="relative aspect-[16/10] w-full lg:aspect-[4/5]">
+                  <div className="pointer-events-none absolute inset-3 rounded-sm border border-zinc-700/25 bg-zinc-950/20" />
                   <div
                     className="pointer-events-none absolute inset-0 opacity-[0.06]"
                     style={{
@@ -98,14 +99,29 @@ export function HomeHero({
                         "repeating-linear-gradient(0deg, transparent, transparent 2px, rgb(244 244 245) 2px, rgb(244 244 245) 3px)",
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
-                  <div className="absolute inset-x-8 bottom-24 top-16 flex items-end justify-center sm:inset-x-12">
-                    <ShelterSilhouette className="w-full max-w-[280px] text-zinc-600/90 opacity-90 sm:max-w-[320px]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_85%,rgb(146_64_14/0.12),transparent_55%)]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/15 to-zinc-950/40" />
+                  <div className="absolute inset-x-6 bottom-32 top-12 flex flex-col items-center justify-end gap-3 sm:inset-x-10 sm:bottom-36">
+                    <p className="text-center font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-zinc-600">
+                      Shelter / product photography or render
+                    </p>
+                    <ShelterSilhouette className="w-full max-w-[300px] text-zinc-500/95 opacity-95 sm:max-w-[340px]" />
                   </div>
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-zinc-950 to-transparent" />
-                  <p className="absolute bottom-4 left-4 right-4 font-mono text-[10px] leading-relaxed text-zinc-500">
-                    Drop in photography or a 3D render of your program reference shelter. This frame
-                    preserves aspect ratio across breakpoints.
+                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-zinc-950 to-transparent" />
+                  <p className="absolute bottom-3 left-4 right-4 font-mono text-[10px] leading-relaxed text-zinc-500 sm:bottom-4">
+                    Replace the silhouette with approved Weatherhaven shelter stills, cutaways, or a
+                    neutral 3D turntable. Frame scales from wide hero (mobile/tablet) to portrait
+                    emphasis on large screens.
+                  </p>
+                </div>
+
+                <div className="border-t border-zinc-800/80 bg-zinc-950/80 px-4 py-3 sm:flex sm:items-center sm:justify-between sm:px-5">
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">
+                    Secondary strip
+                  </p>
+                  <p className="mt-1 font-mono text-[10px] leading-relaxed text-zinc-600 sm:mt-0 sm:max-w-[70%] sm:text-right">
+                    Optional: second image for interior fit-out, ECU yard, or palletized logistics—keeps
+                    hero screenshot-ready for course packets.
                   </p>
                 </div>
 

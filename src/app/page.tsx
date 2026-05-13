@@ -1,4 +1,5 @@
 import { HomeHero } from "@/components/HomeHero";
+import { InternshipDeliverablesSection } from "@/components/InternshipDeliverablesSection";
 import { ProductCard } from "@/components/ProductCard";
 import { CapabilitySection } from "@/components/CapabilitySection";
 import { StatsSection } from "@/components/StatsSection";
@@ -32,17 +33,17 @@ export default function HomePage() {
           {
             value: "45+",
             label: "Years",
-            detail: "Heritage in deployable shelter and camp infrastructure.",
+            detail: "Expeditionary shelter and deployable camp systems heritage.",
           },
           {
             value: "52+",
             label: "Patents",
-            detail: "Innovation portfolio supporting modular systems and integration.",
+            detail: "Modular shelter, integration, and environmental control innovation.",
           },
           {
-            value: "39+",
+            value: "39",
             label: "Militaries served",
-            detail: "Allied programs with disciplined disclosure and sustainment.",
+            detail: "Allied defense programs with disciplined disclosure and sustainment.",
           },
           {
             value: "96+",
@@ -112,6 +113,8 @@ export default function HomePage() {
           },
         ]}
       />
+
+      <InternshipDeliverablesSection />
 
       <CTA
         title="Engage our SOF solutions team."

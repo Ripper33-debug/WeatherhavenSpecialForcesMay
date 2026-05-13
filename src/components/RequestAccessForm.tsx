@@ -15,6 +15,7 @@ export function RequestAccessForm() {
   const [form, setForm] = useState(initial);
   const [submitted, setSubmitted] = useState(false);
   const [reference, setReference] = useState<string | null>(null);
+  const [webhookDelivered, setWebhookDelivered] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,12 +33,20 @@ export function RequestAccessForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      const data = (await res.json()) as { ok?: boolean; reference?: string; error?: string };
+      const data = (await res.json()) as {
+        ok?: boolean;
+        reference?: string;
+        error?: string;
+        webhookDelivered?: boolean;
+      };
       if (!res.ok || !data.ok) {
         setError(data.error ?? "Submission failed. Please verify required fields.");
         return;
       }
       setReference(data.reference ?? null);
+      setWebhookDelivered(
+        typeof data.webhookDelivered === "boolean" ? data.webhookDelivered : null,
+      );
       setSubmitted(true);
     } catch {
       setError("Network error. Confirm connectivity and retry.");
@@ -61,6 +70,11 @@ export function RequestAccessForm() {
             <p className="mt-4 inline-flex items-center gap-2 rounded-sm border border-zinc-800/90 bg-zinc-900/50 px-3 py-2 font-mono text-sm text-zinc-200">
               <span className="text-[11px] uppercase tracking-wider text-zinc-500">Reference</span>
               <span className="font-semibold text-amber-500/95">{reference}</span>
+            </p>
+          )}
+          {webhookDelivered !== null && (
+            <p className="mt-3 font-mono text-[11px] text-zinc-500">
+              Webhook forward: {webhookDelivered ? "delivered" : "not confirmed — check integration logs"}
             </p>
           )}
           <p className="mt-6 max-w-xl text-sm leading-relaxed text-zinc-400">
@@ -197,6 +211,15 @@ export function RequestAccessForm() {
             onChange={(e) => update("message", e.target.value)}
             placeholder="Theater, timeline, footprint class, and integration constraints (unclassified)."
           />
+        </div>
+        <div className="rounded-sm border border-zinc-800/80 bg-zinc-950/50 p-4">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-zinc-400">Backend integration</p>
+          <p className="mt-2 text-[11px] leading-relaxed text-zinc-500">
+            Submissions POST to <span className="font-mono text-zinc-400">/api/request-access</span>. Set{" "}
+            <span className="font-mono text-zinc-400">REQUEST_ACCESS_WEBHOOK_URL</span> in Vercel (or
+            <span className="font-mono text-zinc-400"> .env.local</span>) to forward JSON payloads to
+            CRM, ticketing, or automation—response includes <span className="font-mono text-zinc-400">webhookDelivered</span> when configured.
+          </p>
         </div>
         <div className="rounded-sm border border-zinc-800/80 bg-zinc-950/50 p-4">
           <p className="text-[11px] leading-relaxed text-zinc-500">
