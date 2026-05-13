@@ -9,30 +9,28 @@ export type CTAProps = {
 
 export function CTA({ title, description, primary, secondary }: CTAProps) {
   return (
-    <section className="border-t border-zinc-800/90">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <div className="relative overflow-hidden rounded-sm border border-zinc-800/90 bg-gradient-to-br from-zinc-900/90 via-zinc-950 to-zinc-950 px-6 py-12 shadow-[0_24px_80px_-48px_rgb(0_0_0/0.85)] transition duration-300 hover:border-zinc-700/90 sm:px-10 lg:px-14">
-          <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-amber-700/80 via-amber-600 to-amber-800/80" />
-          <div className="relative pl-5 sm:pl-8">
-            <h2 className="font-display max-w-2xl text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
+    <section className="border-t border-white/[0.06]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-10">
+        <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-900/40 px-6 py-10 sm:px-10 lg:px-12 lg:py-12">
+          <div className="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-amber-600/50 to-transparent" />
+          <div className="relative pl-6 sm:pl-8">
+            <h2 className="font-display max-w-xl text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl">
               {title}
             </h2>
             {description && (
-              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
-                {description}
-              </p>
+              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-zinc-400">{description}</p>
             )}
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
               <Link
                 href={primary.href}
-                className="inline-flex min-h-11 items-center justify-center rounded-sm bg-amber-600 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-zinc-950 shadow-[0_0_0_1px_rgb(180_83_9/0.35)] transition duration-200 hover:bg-amber-500 hover:shadow-[0_0_24px_-4px_rgb(245_158_11/0.35)] active:scale-[0.99]"
+                className="inline-flex min-h-10 items-center justify-center rounded-full bg-zinc-100 px-5 py-2.5 text-[13px] font-semibold text-zinc-950 transition hover:bg-white"
               >
                 {primary.label}
               </Link>
               {secondary && (
                 <Link
                   href={secondary.href}
-                  className="inline-flex min-h-11 items-center justify-center rounded-sm border border-zinc-500 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-zinc-200 transition duration-200 hover:border-zinc-400 hover:bg-zinc-900/50 active:scale-[0.99]"
+                  className="inline-flex min-h-10 items-center justify-center rounded-full border border-white/[0.1] px-5 py-2.5 text-[13px] font-semibold text-zinc-200 transition hover:border-white/[0.16] hover:bg-white/[0.04]"
                 >
                   {secondary.label}
                 </Link>

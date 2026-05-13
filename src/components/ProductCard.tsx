@@ -13,26 +13,21 @@ export type ProductCardProps = {
 
 function ProductVisualPanel({ icon }: { icon: ProductIconKey }) {
   return (
-    <div className="relative h-[100px] w-full shrink-0 overflow-hidden rounded-sm border border-zinc-700/50 bg-zinc-950 sm:h-[104px] sm:w-[46%] sm:max-w-[168px]">
-      <div className="absolute inset-0 bg-gradient-to-br from-zinc-800/40 via-zinc-950 to-black" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgb(146_64_14/0.12),transparent_55%)]" />
+    <div className="relative h-[92px] w-full shrink-0 overflow-hidden rounded-xl border border-white/[0.06] bg-zinc-950 sm:h-[100px] sm:w-[44%] sm:max-w-[160px]">
+      <div className="absolute inset-0 bg-gradient-to-br from-zinc-800/30 via-zinc-950 to-black" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgb(146_64_14/0.1),transparent_55%)]" />
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
         style={{
           backgroundImage:
             "linear-gradient(to right, rgb(161 161 170) 1px, transparent 1px), linear-gradient(to bottom, rgb(161 161 170) 1px, transparent 1px)",
-          backgroundSize: "14px 14px",
+          backgroundSize: "16px 16px",
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-zinc-800/10" />
-      <div className="pointer-events-none absolute left-1.5 top-1.5 h-4 w-4 border-l border-t border-amber-700/25" />
-      <div className="pointer-events-none absolute right-1.5 top-1.5 h-4 w-4 border-r border-t border-amber-700/25" />
-      <div className="pointer-events-none absolute bottom-1.5 left-1.5 h-4 w-4 border-b border-l border-amber-700/20" />
-      <div className="pointer-events-none absolute bottom-1.5 right-1.5 h-4 w-4 border-b border-r border-amber-700/20" />
-      <div className="absolute bottom-2 left-2 right-2 top-2 flex items-center justify-center opacity-[0.35]">
-        <ProductCardIcon name={icon} className="h-16 w-16 text-zinc-300" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+      <div className="absolute inset-0 flex items-center justify-center opacity-[0.32]">
+        <ProductCardIcon name={icon} className="h-14 w-14 text-zinc-300 sm:h-16 sm:w-16" />
       </div>
-      <div className="absolute bottom-2 left-2 h-0.5 w-8 rounded-full bg-amber-600/60" />
     </div>
   );
 }
@@ -42,22 +37,19 @@ export function ProductCard({
   description,
   tags = [],
   href,
-  linkLabel = "Map to mission inputs",
+  linkLabel = "Learn more",
   icon = "default",
 }: ProductCardProps) {
   const inner = (
     <>
-      <div className="relative -mx-6 -mt-7 mb-5 overflow-hidden border-b border-zinc-800/90">
-        <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/90 via-zinc-950 to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_0%_0%,rgb(146_64_14/0.08),transparent_50%)]" />
-        <div className="relative flex min-h-[112px] flex-col gap-4 px-6 pb-5 pt-6 sm:flex-row sm:items-stretch sm:justify-between">
+      <div className="relative -mx-5 -mt-6 mb-5 overflow-hidden border-b border-white/[0.06] px-5 pb-5 pt-6">
+        <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/60 via-zinc-950 to-black" />
+        <div className="relative flex min-h-[100px] flex-col gap-4 sm:flex-row sm:items-stretch sm:justify-between">
           <div className="flex flex-1 flex-col justify-center">
-            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">
-              Configurable block
-            </span>
-            <div className="mt-3 flex items-center gap-3">
-              <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-sm border border-zinc-600/60 bg-black/40 shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]">
-                <ProductCardIcon name={icon} className="h-8 w-8 text-amber-500/95" />
+            <span className="text-[11px] font-medium text-zinc-500">Configurable area</span>
+            <div className="mt-2.5 flex items-center gap-3">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-black/30">
+                <ProductCardIcon name={icon} className="h-6 w-6 text-amber-500/90" />
               </span>
             </div>
           </div>
@@ -65,11 +57,11 @@ export function ProductCard({
         </div>
       </div>
       {tags.length > 0 && (
-        <div className="mb-3 flex flex-wrap gap-2">
+        <div className="mb-3 flex flex-wrap gap-1.5">
           {tags.map((t) => (
             <span
               key={t}
-              className="rounded-sm border border-zinc-600/70 bg-zinc-950/90 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-zinc-300"
+              className="rounded-full border border-white/[0.08] bg-zinc-950/80 px-2.5 py-0.5 text-[11px] font-medium text-zinc-400"
             >
               {t}
             </span>
@@ -79,7 +71,7 @@ export function ProductCard({
       <h3 className="font-display text-lg font-semibold tracking-tight text-zinc-50">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-zinc-400">{description}</p>
       {href && (
-        <span className="mt-5 inline-block font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-500/95 transition group-hover:text-amber-400">
+        <span className="mt-4 inline-block text-[13px] font-semibold text-amber-500/90 transition group-hover:text-amber-400">
           {linkLabel} →
         </span>
       )}
@@ -87,7 +79,7 @@ export function ProductCard({
   );
 
   const className =
-    "group relative block overflow-hidden rounded-sm border border-zinc-800/80 bg-zinc-900/30 p-6 pt-7 shadow-sm transition duration-300 before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:bg-gradient-to-r before:from-amber-900/40 before:via-amber-500/90 before:to-amber-900/40 hover:-translate-y-0.5 hover:border-zinc-600/80 hover:bg-zinc-900/55 hover:shadow-[0_24px_56px_-28px_rgb(0_0_0/0.95)] active:translate-y-0";
+    "group relative block overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-950/40 p-5 pt-6 transition hover:border-white/[0.12] hover:bg-zinc-900/35";
 
   if (href) {
     return (

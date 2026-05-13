@@ -7,11 +7,11 @@ export const company = {
 
 export const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/sof-solutions", label: "SOF Solutions" },
-  { href: "/products", label: "Configurable Systems" },
-  { href: "/ai-configurator", label: "Mission Solution Builder" },
+  { href: "/sof-solutions", label: "SOF" },
+  { href: "/products", label: "Systems" },
+  { href: "/ai-configurator", label: "Builder" },
   { href: "/capabilities", label: "Capabilities" },
-  { href: "/ent-4943", label: "ENT 4943" },
+  { href: "/ent-4943", label: "Portfolio" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
@@ -21,15 +21,15 @@ export const footerColumns = [
     links: [
       { href: "/sof-solutions", label: "Special Operations" },
       { href: "/products", label: "Configurable systems" },
-      { href: "/capabilities", label: "Engineering & Field Support" },
+      { href: "/capabilities", label: "Engineering & field support" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { href: "/ent-4943", label: "ENT 4943 deliverables" },
-      { href: "/ai-configurator", label: "Mission Solution Builder" },
-      { href: "/request-access", label: "Request Access" },
+      { href: "/ent-4943", label: "Portfolio summary" },
+      { href: "/ai-configurator", label: "Solution builder" },
+      { href: "/request-access", label: "Request access" },
       { href: "/contact", label: "Contact" },
     ],
   },

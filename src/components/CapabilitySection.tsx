@@ -21,32 +21,25 @@ export function CapabilitySection({
   reversed,
 }: CapabilitySectionProps) {
   return (
-    <section id={id} className="border-b border-zinc-800/90 last:border-b-0">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+    <section id={id} className="border-b border-white/[0.06] last:border-b-0">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-18">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <div className={reversed ? "lg:order-2" : undefined}>
             {eyebrow && (
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-500/95">
-                {eyebrow}
-              </p>
+              <p className="text-[13px] font-medium text-amber-500/90">{eyebrow}</p>
             )}
-            <h2 className="font-display mt-4 text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
+            <h2 className="font-display mt-2 text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl lg:text-4xl">
               {title}
             </h2>
             {subtitle && (
-              <p className="mt-5 text-sm leading-relaxed text-zinc-400 sm:text-base">{subtitle}</p>
+              <p className="mt-4 text-[15px] leading-relaxed text-zinc-400 sm:text-base">{subtitle}</p>
             )}
           </div>
-          <ul className={`space-y-8 sm:space-y-10 ${reversed ? "lg:order-1" : ""}`}>
+          <ul className={`space-y-8 sm:space-y-9 ${reversed ? "lg:order-1" : ""}`}>
             {items.map((item, idx) => (
-              <li
-                key={item.title}
-                className="group border-l-2 border-amber-800/50 pl-5 transition duration-200 hover:border-amber-600/70"
-              >
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-zinc-500">
-                  {String(idx + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-2 font-display text-lg font-semibold tracking-tight text-zinc-100 transition group-hover:text-zinc-50">
+              <li key={item.title} className="group border-l border-white/[0.08] pl-5 transition hover:border-white/[0.14]">
+                <p className="text-[11px] font-medium tabular-nums text-zinc-600">{String(idx + 1).padStart(2, "0")}</p>
+                <h3 className="mt-1.5 font-display text-lg font-semibold tracking-tight text-zinc-100 transition group-hover:text-zinc-50">
                   {item.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-400">{item.description}</p>

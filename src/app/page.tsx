@@ -10,41 +10,40 @@ export default function HomePage() {
     <>
       <HomeHero
         eyebrow="Mission-engineered infrastructure"
-        title="Tailored deployable infrastructure for special operations."
-        description="Weatherhaven starts with your mission narrative—environment, team size, timeline, logistics, power, sustainment, and operational goals—then configures deployable shelter and support systems for complex theaters. Every footprint is engineered with discipline, not selected from a static catalog."
+        title="Deployable infrastructure shaped around your mission."
+        description="We translate environment, footprint, timeline, and sustainment into shelter, power, and camp integration—engineered as a system, not picked from a catalog."
         pullQuote="Built around the mission, not pulled from a shelf."
-        primaryCta={{ href: "/request-access", label: "Request program access" }}
+        primaryCta={{ href: "/request-access", label: "Request access" }}
         secondaryCta={{ href: "/capabilities", label: "Capabilities" }}
       />
 
-      <section className="border-b border-zinc-800/90 bg-zinc-900/20">
-        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-          <p className="text-center font-display text-lg font-medium leading-snug tracking-tight text-zinc-200 sm:text-xl">
-            Mission-specific infrastructure packages designed around personnel, climate, timeline,
-            mobility, and sustainment needs—from command and maintenance envelopes to medical and
+      <section className="border-b border-white/[0.06] bg-zinc-950/40">
+        <div className="mx-auto max-w-7xl px-4 py-9 sm:px-6 lg:px-10">
+          <p className="text-center font-display text-[17px] font-medium leading-snug tracking-tight text-zinc-300 sm:text-lg">
+            Packages sized for personnel, climate, mobility, and sustainment—from command and maintenance to medical and
             berthing—without cookie-cutter assumptions.
           </p>
         </div>
       </section>
 
       <StatsSection
-        eyebrow="Global credibility"
-        title="Four decades of expeditionary delivery."
+        eyebrow="Credibility"
+        title="Decades of expeditionary delivery."
         stats={[
           {
             value: "45+",
             label: "Years",
-            detail: "Expeditionary shelter and deployable camp systems heritage.",
+            detail: "Expeditionary shelter and deployable camp heritage.",
           },
           {
             value: "52+",
             label: "Patents",
-            detail: "Modular shelter, integration, and environmental control innovation.",
+            detail: "Modular shelter, integration, and environmental control.",
           },
           {
             value: "39",
             label: "Militaries served",
-            detail: "Allied defense programs with disciplined disclosure and sustainment.",
+            detail: "Allied defense programs with disciplined disclosure.",
           },
           {
             value: "96+",
@@ -54,43 +53,40 @@ export default function HomePage() {
         ]}
       />
 
-      <section className="border-b border-zinc-800/90">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-500/95">
-            Mission solution areas
-          </p>
-          <h2 className="font-display mt-4 max-w-3xl text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl lg:text-4xl">
-            Representative mission packages—not fixed off-the-shelf products.
+      <section className="border-b border-white/[0.06]">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-18">
+          <p className="text-[13px] font-medium text-amber-500/90">Mission solution areas</p>
+          <h2 className="font-display mt-2 max-w-3xl text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl lg:text-4xl">
+            Representative packages—not fixed SKUs.
           </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
-            The blocks below are configurable starting points we reshape with your program office: final
-            shelter, MEP, logistics, and sustainment threads follow your mission inputs—not a product
-            grid.
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-[15px]">
+            Starting points we reshape with your program: final shelter, MEP, logistics, and sustainment follow your
+            inputs—not a product grid.
           </p>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <ProductCard
               icon="shelter"
               title="Deployable shelter architecture"
-              description="Soft-wall and rigid-frame envelopes sized for command, maintenance, berthing, and sensitive workflows—utility distribution and circulation defined from mission parameters."
+              description="Soft-wall and rigid envelopes for command, maintenance, berthing, and sensitive workflows—utilities and circulation from mission parameters."
               tags={["SOF", "Expeditionary"]}
               href="/products"
-              linkLabel="Explore solution lines"
+              linkLabel="Explore systems"
             />
             <ProductCard
               icon="camp"
               title="Integrated camp infrastructure"
-              description="Power, environmental control, flooring, and interconnects sequenced for air, sea, or ground movement and rapid integration—staged around timeline and sustainment needs."
+              description="Power, environmental control, flooring, and interconnects staged for air, sea, or ground movement—sequenced to timeline and sustainment."
               tags={["Logistics", "Integration"]}
               href="/products"
-              linkLabel="Explore solution lines"
+              linkLabel="Explore systems"
             />
             <ProductCard
               icon="ai"
               title="Advisory configuration workflow"
-              description="Structured parameters translate into workshop-ready packages so teams compare bounded options while engineering retains sign-off authority."
+              description="Structured inputs become workshop-ready packages so teams compare bounded options while engineering keeps sign-off."
               tags={["Advisory", "Workshop"]}
               href="/ai-configurator"
-              linkLabel="Open Mission Solution Builder"
+              linkLabel="Open builder"
             />
           </div>
         </div>
@@ -109,12 +105,11 @@ export default function HomePage() {
           {
             title: "Configuration discipline",
             description:
-              "Options stay inside validated subsystems—transparent trade space, not cookie-cutter bundles or endless SKUs.",
+              "Options stay inside validated subsystems—transparent trade space, not cookie-cutter bundles.",
           },
           {
             title: "Field integration",
-            description:
-              "Commissioning, training, and documentation tuned to maintenance echelons and CDRL expectations.",
+            description: "Commissioning, training, and documentation tuned to maintenance echelons and CDRL expectations.",
           },
         ]}
       />
