@@ -10,7 +10,7 @@ export default function HomePage() {
       <HomeHero
         eyebrow="Mission-engineered infrastructure"
         title="Deployable infrastructure shaped around your mission."
-        description="We translate environment, footprint, timeline, and sustainment into shelter, power, and camp integration—engineered as a system, not picked from a catalog."
+        description="Weatherhaven starts with your mission profile, environment, personnel, mobility, power, timeline, and sustainment—then composes deployable shelter, ECU, power, flooring, and layout engineering as configurable building blocks, not cookie-cutter products."
         pullQuote="Built around the mission, not pulled from a shelf."
         primaryCta={{ href: "/request-access", label: "Request access" }}
         secondaryCta={{ href: "/capabilities", label: "Capabilities" }}
@@ -19,8 +19,9 @@ export default function HomePage() {
       <section className="border-b border-white/[0.06] bg-zinc-950/40">
         <div className="mx-auto max-w-7xl px-4 py-9 sm:px-6 lg:px-10">
           <p className="text-center font-display text-[17px] font-medium leading-snug tracking-tight text-zinc-300 sm:text-lg">
-            Packages sized for personnel, climate, mobility, and sustainment—from command and maintenance to medical and
-            berthing—without cookie-cutter assumptions.
+            Weatherhaven starts with mission profile, environment, personnel, mobility, power, timeline, and sustainment—then
+            composes shelter, ECU, power, flooring, and layout as configurable building blocks for command, maintenance,
+            medical, and berthing—without cookie-cutter assumptions.
           </p>
         </div>
       </section>
@@ -60,7 +61,7 @@ export default function HomePage() {
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-[15px]">
             Starting points we reshape with your program: final shelter, MEP, logistics, and sustainment follow your
-            inputs—not a product grid.
+            inputs—not a fixed catalog stack.
           </p>
           <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <ProductCard
@@ -68,24 +69,24 @@ export default function HomePage() {
               title="Deployable shelter architecture"
               description="Soft-wall and rigid envelopes for command, maintenance, berthing, and sensitive workflows—utilities and circulation from mission parameters."
               tags={["SOF", "Expeditionary"]}
-              href="/products"
-              linkLabel="Explore systems"
+              href="/configurable-solutions"
+              linkLabel="Explore configurable solutions"
             />
             <ProductCard
               icon="camp"
               title="Integrated camp infrastructure"
               description="Power, environmental control, flooring, and interconnects staged for air, sea, or ground movement—sequenced to timeline and sustainment."
               tags={["Logistics", "Integration"]}
-              href="/products"
-              linkLabel="Explore systems"
+              href="/configurable-solutions"
+              linkLabel="Explore configurable solutions"
             />
             <ProductCard
               icon="ai"
               title="Advisory configuration workflow"
               description="Structured inputs become workshop-ready packages so teams compare bounded options while engineering keeps sign-off."
               tags={["Advisory", "Workshop"]}
-              href="/ai-configurator"
-              linkLabel="Open builder"
+              href="/mission-solution-builder"
+              linkLabel="Open Mission Solution Builder"
             />
           </div>
         </div>
@@ -93,7 +94,7 @@ export default function HomePage() {
 
       <CapabilitySection
         eyebrow="How we work"
-        title="Mission threads drive layout—not a product grid."
+        title="Mission threads drive layout—not a fixed catalog."
         subtitle="We embed with program offices and operators early to lock footprint, signature, throughput, and sustainment before metal moves."
         items={[
           {

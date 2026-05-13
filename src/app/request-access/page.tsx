@@ -14,7 +14,7 @@ export default function RequestAccessPage() {
       <Hero
         eyebrow="Controlled disclosure"
         title="Request access to program materials and technical exchanges."
-        description="Use official contact information. We verify affiliation and route requests per export and program rules. Not for classified content."
+        description="Official contact information for online customer tracking and follow-up. We verify affiliation, log requests in the SOF lead register with pipeline status, and route per export and program rules. Not for classified content."
         pullQuote="Controlled exchanges protect both sides: clearances, export posture, and program alignment before drawings move."
         primaryCta={{ href: "/capabilities", label: "Capabilities" }}
         secondaryCta={{ href: "/contact", label: "Contact programs" }}

@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     template: `%s | ${company.shortName}`,
   },
   description:
-    "Weatherhaven Resource Inc. configures mission-specific deployable infrastructure for defense and SOF—shelter, power, environmental, and sustainment packages built from mission narrative, environment, force size, timeline, and logistics—not from a catalog shelf.",
+    "Weatherhaven Resource Inc. builds mission-specific deployable infrastructure for U.S. and allied SOF—shelter, power, environmental, and sustainment composed from mission profile, environment, personnel, mobility, timeline, and sustainment—not cookie-cutter catalog rows. AI-assisted configuration advisory, lead tracking, events support, and gated technical materials behind Request Access.",
 };
 
 export default function RootLayout({

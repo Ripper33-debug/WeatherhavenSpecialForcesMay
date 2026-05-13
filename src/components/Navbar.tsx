@@ -11,7 +11,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className={`text-[13px] font-medium tracking-tight transition-colors ${
+      className={`text-[11px] font-medium tracking-tight transition-colors xl:text-[12px] ${
         active ? "text-zinc-50" : "text-zinc-500 hover:text-zinc-200"
       }`}
     >
@@ -33,7 +33,7 @@ export function Navbar() {
           <span className="hidden text-[11px] font-normal text-zinc-600 sm:inline">Resource Inc.</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-4 text-[11px] font-medium xl:gap-5 xl:text-[12px] 2xl:gap-6 lg:flex">
           {navLinks.map((item) => (
             <NavLink key={item.href} href={item.href} label={item.label} />
           ))}

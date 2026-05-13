@@ -16,7 +16,7 @@ export default function CapabilitiesPage() {
       <Hero
         eyebrow="End-to-end delivery"
         title="From design authority through field acceptance."
-        description="Engineering, configuration control, and field teams aligned to defense operating rhythms—loads, MEP coordination, commissioning, and training."
+        description="Engineering, configuration control, and field teams aligned to defense operating rhythms—starting from mission profile and theater constraints before loads, MEP coordination, commissioning, and training harden into deliverables."
         pullQuote="Traceable revisions, verified interfaces, and manuals tuned to echelon."
         primaryCta={{ href: "/request-access", label: "Request capability statement" }}
         secondaryCta={{ href: "/contact", label: "Engineering desk" }}
@@ -102,7 +102,7 @@ export default function CapabilitiesPage() {
         title="Where is the risk—schedule, performance, or integration?"
         description="We scope work with measurable acceptance criteria."
         primary={{ href: "/request-access", label: "Request access" }}
-        secondary={{ href: "/products", label: "Configurable systems" }}
+        secondary={{ href: "/configurable-solutions", label: "Configurable solutions" }}
       />
     </>
   );

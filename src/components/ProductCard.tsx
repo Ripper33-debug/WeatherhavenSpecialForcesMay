@@ -46,7 +46,7 @@ export function ProductCard({
         <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/60 via-zinc-950 to-black" />
         <div className="relative flex min-h-[100px] flex-col gap-4 sm:flex-row sm:items-stretch sm:justify-between">
           <div className="flex flex-1 flex-col justify-center">
-            <span className="text-[11px] font-medium text-zinc-500">Configurable area</span>
+            <span className="text-[11px] font-medium text-zinc-500">Configuration building block</span>
             <div className="mt-2.5 flex items-center gap-3">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-black/30">
                 <ProductCardIcon name={icon} className="h-6 w-6 text-amber-500/90" />

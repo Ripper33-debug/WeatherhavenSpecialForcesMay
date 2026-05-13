@@ -56,7 +56,7 @@ export default function ContactPage() {
         description="Use the appropriate channel so your inquiry reaches programs, teaming, or controlled technical exchange without delay. Official email domains preferred."
         pullQuote="We align disclosure to program status—starting with the mission, not a generic inbox."
         primaryCta={{ href: "/request-access", label: "Request access" }}
-        secondaryCta={{ href: "/capabilities", label: "Capabilities" }}
+        secondaryCta={{ href: "/resources", label: "Resources" }}
       />
 
       <section className="border-t border-zinc-800/90">

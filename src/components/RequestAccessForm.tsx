@@ -15,6 +15,7 @@ export function RequestAccessForm() {
   const [form, setForm] = useState(initial);
   const [submitted, setSubmitted] = useState(false);
   const [reference, setReference] = useState<string | null>(null);
+  const [leadStatus, setLeadStatus] = useState<string | null>(null);
   const [webhookDelivered, setWebhookDelivered] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,6 +37,7 @@ export function RequestAccessForm() {
       const data = (await res.json()) as {
         ok?: boolean;
         reference?: string;
+        leadStatus?: string;
         error?: string;
         webhookDelivered?: boolean;
       };
@@ -44,6 +46,7 @@ export function RequestAccessForm() {
         return;
       }
       setReference(data.reference ?? null);
+      setLeadStatus(typeof data.leadStatus === "string" ? data.leadStatus : "New");
       setWebhookDelivered(
         typeof data.webhookDelivered === "boolean" ? data.webhookDelivered : null,
       );
@@ -67,11 +70,16 @@ export function RequestAccessForm() {
             Request logged
           </h3>
           {reference && (
-            <p className="mt-4 inline-flex items-center gap-2 rounded-sm border border-zinc-800/90 bg-zinc-900/50 px-3 py-2 font-mono text-sm text-zinc-200">
+            <p className="mt-4 inline-flex flex-wrap items-center gap-2 rounded-sm border border-zinc-800/90 bg-zinc-900/50 px-3 py-2 font-mono text-sm text-zinc-200">
               <span className="text-[11px] uppercase tracking-wider text-zinc-500">Reference</span>
               <span className="font-semibold text-amber-500/95">{reference}</span>
             </p>
           )}
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-zinc-300">
+            <span className="font-semibold text-zinc-200">Lead register status:</span>{" "}
+            {leadStatus ?? "New"}. Program teams advance entries through Vetting → Contacted → Qualified → Follow-up
+            Required as appropriate. Nothing classified or export-controlled is stored on this public surface.
+          </p>
           {webhookDelivered !== null && (
             <p className="mt-3 font-mono text-[11px] text-zinc-500">
               Webhook forward: {webhookDelivered ? "delivered" : "not confirmed — check integration logs"}
@@ -99,11 +107,11 @@ export function RequestAccessForm() {
               Weatherhaven Resource Inc.
             </p>
             <h2 className="font-display mt-2 text-xl font-semibold tracking-tight text-zinc-50 sm:text-2xl">
-              Program access request
+              Request access & lead capture
             </h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-500">
-              Official contact information only. This channel routes controlled disclosures and
-              technical exchanges—not general marketing.
+              Official contact information only. Submissions are saved to the SOF lead register with pipeline status for
+              program follow-up. Controlled disclosures and technical exchanges route here—not general marketing.
             </p>
           </div>
           <dl className="grid shrink-0 gap-1 rounded-sm border border-zinc-800/80 bg-zinc-900/40 px-4 py-3 font-mono text-[10px] uppercase tracking-wider text-zinc-500 sm:text-left">
@@ -209,18 +217,8 @@ export function RequestAccessForm() {
             className={`${inputClass} resize-y min-h-[108px]`}
             value={form.message}
             onChange={(e) => update("message", e.target.value)}
-            placeholder=""
             title="Theater, timeline, footprint, and integration constraints (unclassified)."
           />
-        </div>
-        <div className="rounded-sm border border-zinc-800/80 bg-zinc-950/50 p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-zinc-400">Backend integration</p>
-          <p className="mt-2 text-[11px] leading-relaxed text-zinc-500">
-            Submissions POST to <span className="font-mono text-zinc-400">/api/request-access</span>. Set{" "}
-            <span className="font-mono text-zinc-400">REQUEST_ACCESS_WEBHOOK_URL</span> in Vercel (or
-            <span className="font-mono text-zinc-400"> .env.local</span>) to forward JSON payloads to
-            CRM, ticketing, or automation—response includes <span className="font-mono text-zinc-400">webhookDelivered</span> when configured.
-          </p>
         </div>
         <div className="rounded-sm border border-zinc-800/80 bg-zinc-950/50 p-4">
           <p className="text-[11px] leading-relaxed text-zinc-500">

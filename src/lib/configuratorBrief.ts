@@ -122,6 +122,23 @@ export function buildConfiguratorBrief(i: BriefInputs) {
     risks[1],
   ];
 
+  const advisoryExecutiveSummary = `Advisory configuration brief (unclassified): Weatherhaven recommends starting from mission profile (${mission}), operating environment (${environment}), personnel baseline (${crew}), mobility and timeline assumptions captured in workshop, and sustainment posture—then composing shelter, ECU, power distribution, flooring, and layout engineering as configurable building blocks rather than fixed catalog rows.`;
+
+  const recommendedStartingPoint = `${footprintLabel} sized to ${crew} personnel: combine ${notionalCells} notional shelter cells with utility spine, ECU yard, and ${power} power discipline as the opening trade space—not a final bill of materials.`;
+
+  const layoutFlooringEngineering = `Subfloor and flooring are configuration building blocks: leveling grid, cable egress, and traffic lanes follow circulation derived from CONOPS (${missionAlignment}). Berthing versus maintenance versus sensitive workflows drive separation and vestibule sequencing before envelope details freeze.`;
+
+  const configurationBuildingBlocks = [
+    `Shelter / envelope cells ×${notionalCells} — configurable module mix, not a single SKU`,
+    "ECU and environmental stack — matched to envelope sensible/latent band and redundancy goals",
+    "Power distribution & lighting — PDU branches, tactical vs silent-hour profiles",
+    "Flooring & integration — site-class-dependent subfloor with disciplined cable paths",
+    "Layout engineering — master circulation, separation, and life-support interfaces",
+  ];
+
+  const nextStepCta =
+    "Request a controlled technical exchange: bring clearance posture, program vehicle, and theater constraints so engineering can validate loads, MEP coordination, and export posture before any detailed configuration is released.";
+
   return {
     mission,
     environment,
@@ -129,11 +146,16 @@ export function buildConfiguratorBrief(i: BriefInputs) {
     crew,
     footprintLabel,
     notionalFloor,
+    advisoryExecutiveSummary,
+    recommendedStartingPoint,
     recommendedMissionPackage,
     shelterSystemApproach,
+    layoutFlooringEngineering,
+    configurationBuildingBlocks,
     powerBaseline,
     environmentalConsiderations,
     sustainmentSupportNotes,
+    nextStepCta,
     envKit,
     pwrArch,
     missionAlignment,

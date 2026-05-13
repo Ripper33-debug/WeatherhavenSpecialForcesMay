@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { addLead } from "@/lib/leadsStore";
 
 type Body = {
   name?: string;
@@ -46,6 +47,8 @@ export async function POST(req: Request) {
     message: body.message?.trim() || null,
   };
 
+  addLead(payload);
+
   let webhookDelivered = false;
   const webhookUrl = process.env.REQUEST_ACCESS_WEBHOOK_URL;
   if (webhookUrl) {
@@ -53,7 +56,11 @@ export async function POST(req: Request) {
       const wh = await fetch(webhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event: "request_access", ...payload }),
+        body: JSON.stringify({
+          event: "request_access",
+          leadStatus: "New",
+          ...payload,
+        }),
       });
       webhookDelivered = wh.ok;
     } catch {
@@ -64,6 +71,7 @@ export async function POST(req: Request) {
   return NextResponse.json({
     ok: true,
     reference,
+    leadStatus: "New" as const,
     webhookDelivered: webhookUrl ? webhookDelivered : undefined,
     message: "Request recorded. A programs representative will respond through official channels.",
   });
