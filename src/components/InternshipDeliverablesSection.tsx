@@ -15,17 +15,17 @@ const items = [
     cta: "View site home",
   },
   {
-    id: "ai-demo",
-    title: "AI configuration advisor demo",
+    id: "ai-configurator",
+    title: "AI configuration workspace",
     badge: "Deliverable",
     summary:
-      "Interactive demo that maps mission profile, environment, power baseline, and notional crew size into a sample configuration brief—illustrative only, not engineering sign-off.",
+      "Interactive workspace that maps mission profile, environment, power baseline, and notional crew size into a structured advisory brief—illustrative only, not engineering sign-off.",
     outcomes: [
       "Rules-based synthesis that mirrors workshop-ready documentation structure.",
-      "Explicit disclaimers for demonstration versus production configuration management.",
+      "Clear separation between advisory output and production configuration management.",
     ],
     href: "/ai-configurator",
-    cta: "Open AI demo",
+    cta: "Open AI configurator",
   },
   {
     id: "lead-flow",
@@ -86,7 +86,7 @@ export function InternshipDeliverablesSection() {
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400 sm:text-base">
                 This panel summarizes course and internship outcomes reflected in this repository:
-                public SOF website, AI demo, lead flow, positioning, and unclassified market context.
+                public SOF website, AI configurator, lead flow, positioning, and unclassified market context.
                 All materials are suitable for academic submission and employer review—no classified or
                 export-controlled technical data.
               </p>

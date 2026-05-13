@@ -27,7 +27,7 @@ export const footerColumns = [
     title: "Resources",
     links: [
       { href: "/ent-4943", label: "ENT 4943 deliverables" },
-      { href: "/ai-configurator", label: "Configuration Demo" },
+      { href: "/ai-configurator", label: "AI Configurator" },
       { href: "/request-access", label: "Request Access" },
       { href: "/contact", label: "Contact" },
     ],

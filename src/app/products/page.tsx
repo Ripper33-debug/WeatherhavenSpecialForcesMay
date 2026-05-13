@@ -92,7 +92,7 @@ export default function ProductsPage() {
         title="Need a configuration package for a solicitation or J&A?"
         description="Structured option sets, ROM framing, and technical narratives for internal review—not marketing fluff."
         primary={{ href: "/contact", label: "Contact programs" }}
-        secondary={{ href: "/ai-configurator", label: "AI configurator demo" }}
+        secondary={{ href: "/ai-configurator", label: "AI configurator" }}
       />
     </>
   );

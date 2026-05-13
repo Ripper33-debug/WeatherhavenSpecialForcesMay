@@ -108,7 +108,7 @@ export default function SofSolutionsPage() {
         title="Start with a mission narrative—not a catalog number."
         description="Engineers translate CONOPS and environmental envelopes into bounded options with explicit tradeoffs."
         primary={{ href: "/request-access", label: "Request access" }}
-        secondary={{ href: "/ai-configurator", label: "Configuration demo" }}
+        secondary={{ href: "/ai-configurator", label: "AI configurator" }}
       />
     </>
   );

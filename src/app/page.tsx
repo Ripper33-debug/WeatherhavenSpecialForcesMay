@@ -84,7 +84,7 @@ export default function HomePage() {
               icon="ai"
               title="AI-assisted configuration"
               description="Advisor workflows that translate mission parameters into structured bills of material—accelerating workshops while preserving engineering authority."
-              tags={["Advisory", "Demo"]}
+              tags={["Advisory", "Workshop"]}
               href="/ai-configurator"
             />
           </div>

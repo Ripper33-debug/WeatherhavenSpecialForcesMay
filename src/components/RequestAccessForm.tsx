@@ -209,7 +209,8 @@ export function RequestAccessForm() {
             className={`${inputClass} resize-y min-h-[108px]`}
             value={form.message}
             onChange={(e) => update("message", e.target.value)}
-            placeholder="Theater, timeline, footprint class, and integration constraints (unclassified)."
+            placeholder=""
+            title="Theater, timeline, footprint, and integration constraints (unclassified)."
           />
         </div>
         <div className="rounded-sm border border-zinc-800/80 bg-zinc-950/50 p-4">

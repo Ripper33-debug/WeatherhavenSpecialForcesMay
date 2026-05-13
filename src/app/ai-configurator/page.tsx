@@ -4,9 +4,9 @@ import { ConfiguratorDemo } from "@/components/ConfiguratorDemo";
 import { CTA } from "@/components/CTA";
 
 export const metadata: Metadata = {
-  title: "AI Configurator Demo",
+  title: "AI Configurator",
   description:
-    "Demonstration of AI-assisted product configuration for expeditionary shelter and camp systems.",
+    "AI-assisted configuration workspace for expeditionary shelter and camp systems—unclassified advisory summaries.",
 };
 
 export default function AiConfiguratorPage() {
