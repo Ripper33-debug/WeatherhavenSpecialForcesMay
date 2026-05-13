@@ -1,5 +1,4 @@
 import { HomeHero } from "@/components/HomeHero";
-import { InternshipDeliverablesSection } from "@/components/InternshipDeliverablesSection";
 import { ProductCard } from "@/components/ProductCard";
 import { CapabilitySection } from "@/components/CapabilitySection";
 import { StatsSection } from "@/components/StatsSection";
@@ -113,8 +112,6 @@ export default function HomePage() {
           },
         ]}
       />
-
-      <InternshipDeliverablesSection />
 
       <CTA
         title="Engage our SOF solutions team."

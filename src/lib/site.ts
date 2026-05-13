@@ -11,7 +11,6 @@ export const navLinks = [
   { href: "/products", label: "Systems" },
   { href: "/ai-configurator", label: "Builder" },
   { href: "/capabilities", label: "Capabilities" },
-  { href: "/ent-4943", label: "Portfolio" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
@@ -27,7 +26,6 @@ export const footerColumns = [
   {
     title: "Resources",
     links: [
-      { href: "/ent-4943", label: "Portfolio summary" },
       { href: "/ai-configurator", label: "Solution builder" },
       { href: "/request-access", label: "Request access" },
       { href: "/contact", label: "Contact" },
