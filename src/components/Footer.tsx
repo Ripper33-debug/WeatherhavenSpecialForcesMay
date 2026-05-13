@@ -10,8 +10,7 @@ export function Footer() {
             <p className="font-display text-lg font-semibold tracking-tight text-zinc-50">{company.shortName}</p>
             <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">{company.name}</p>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-zinc-400">
-              {company.tagline} Engineering-led shelter systems, camp integration, and program support
-              for U.S. and allied defense customers.
+              {company.tagline} Engineering-led delivery for U.S. and allied customers.
             </p>
           </div>
           {footerColumns.map((col) => (

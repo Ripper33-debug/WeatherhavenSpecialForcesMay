@@ -37,13 +37,16 @@ export function CapabilitySection({
               <p className="mt-5 text-sm leading-relaxed text-zinc-400 sm:text-base">{subtitle}</p>
             )}
           </div>
-          <ul className={`space-y-10 ${reversed ? "lg:order-1" : ""}`}>
+          <ul className={`space-y-8 sm:space-y-10 ${reversed ? "lg:order-1" : ""}`}>
             {items.map((item, idx) => (
-              <li key={item.title} className="border-l-2 border-amber-800/50 pl-5">
+              <li
+                key={item.title}
+                className="group border-l-2 border-amber-800/50 pl-5 transition duration-200 hover:border-amber-600/70"
+              >
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-zinc-500">
                   {String(idx + 1).padStart(2, "0")}
                 </p>
-                <h3 className="mt-2 font-display text-lg font-semibold tracking-tight text-zinc-100">
+                <h3 className="mt-2 font-display text-lg font-semibold tracking-tight text-zinc-100 transition group-hover:text-zinc-50">
                   {item.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-400">{item.description}</p>

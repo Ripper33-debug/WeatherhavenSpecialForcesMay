@@ -71,13 +71,13 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-zinc-800 bg-zinc-950 px-4 py-4 md:hidden">
-          <nav className="flex flex-col gap-3">
+        <div className="max-h-[min(70vh,520px)] overflow-y-auto border-t border-zinc-800 bg-zinc-950/95 px-4 py-4 shadow-[0_24px_60px_rgb(0_0_0/0.45)] backdrop-blur-md md:hidden">
+          <nav className="flex flex-col gap-1">
             {navLinks.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-1 text-sm font-medium text-zinc-300"
+                className="rounded-sm px-2 py-3 text-sm font-medium text-zinc-200 transition hover:bg-zinc-900/80 active:bg-zinc-900"
                 onClick={() => setOpen(false)}
               >
                 {item.label}

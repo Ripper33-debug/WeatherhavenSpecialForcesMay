@@ -1,7 +1,7 @@
 export const company = {
   name: "Weatherhaven Resource Inc.",
   shortName: "Weatherhaven",
-  tagline: "Expeditionary shelter systems and mobile camp infrastructure for defense programs.",
+  tagline: "Expeditionary shelters and mobile camp infrastructure for defense programs worldwide.",
 } as const;
 
 export const navLinks = [

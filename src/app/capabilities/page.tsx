@@ -15,35 +15,35 @@ export default function CapabilitiesPage() {
     <>
       <Hero
         eyebrow="End-to-end delivery"
-        title="Capabilities from design authority through field acceptance."
-        description="Disciplined engineering processes, transparent configuration control, and field teams who understand defense operating rhythms—from loads and MEP coordination to commissioning and training."
-        pullQuote="We deliver what contracting officers and maintainers need: traceable revisions, verified interfaces, and manuals tuned to echelon."
+        title="From design authority through field acceptance."
+        description="Engineering, configuration control, and field teams aligned to defense operating rhythms—loads, MEP coordination, commissioning, and training."
+        pullQuote="Traceable revisions, verified interfaces, and manuals tuned to echelon."
         primaryCta={{ href: "/request-access", label: "Request capability statement" }}
-        secondaryCta={{ href: "/contact", label: "Speak with engineering" }}
+        secondaryCta={{ href: "/contact", label: "Engineering desk" }}
       />
 
       <StatsSection
         stats={[
-          { value: "Multi-domain", label: "Land, littoral, cold, arid" },
-          { value: "FMV-minded", label: "Fair, reasonable pricing posture" },
-          { value: "Partnered", label: "Prime / sub / teammate structures" },
-          { value: "Secure-ready", label: "Controlled technical exchanges" },
+          { value: "Multi-domain", label: "Theater coverage", detail: "Land, littoral, cold, and arid envelopes." },
+          { value: "FMV-minded", label: "Pricing posture", detail: "Transparent basis for ROM and options." },
+          { value: "Partnered", label: "Teaming", detail: "Prime, sub, and international structures." },
+          { value: "Secure-ready", label: "Disclosure", detail: "Controlled technical exchanges by default." },
         ]}
       />
 
       <CapabilitySection
         eyebrow="Engineering & analysis"
-        title="Structural, MEP, and site integration under one technical thread."
+        title="Structural, MEP, and site integration in one thread."
         items={[
           {
             title: "Loads and code-informed design",
             description:
-              "Wind, snow, seismic, and crane pick cases documented with assumptions explicit for government review.",
+              "Wind, snow, seismic, and crane cases documented with explicit assumptions for government review.",
           },
           {
             title: "Electrical coordination",
             description:
-              "Generator sizing, cable derating, fault coordination, and lighting levels matched to mission spaces.",
+              "Generator sizing, derating, fault coordination, and lighting matched to mission spaces.",
           },
           {
             title: "Environmental performance",
@@ -61,17 +61,17 @@ export default function CapabilitiesPage() {
           {
             title: "Source control",
             description:
-              "Approved vendor lists, first-article inspections, and traceability for critical structural and electrical components.",
+              "Approved vendors, first-article inspections, and traceability for critical structural and electrical items.",
           },
           {
             title: "Factory and site acceptance",
             description:
-              "Test plans aligned to contract data requirements lists and customer witnessing when required.",
+              "Test plans aligned to CDRLs and customer witnessing when required.",
           },
           {
             title: "Change control",
             description:
-              "Engineering change proposals with impact analysis on schedule, cost, and interfaces.",
+              "ECPs with impact on schedule, cost, and interfaces—no silent drift.",
           },
         ]}
       />
@@ -83,24 +83,24 @@ export default function CapabilitiesPage() {
           {
             title: "Installation supervision",
             description:
-              "Experienced leads who speak operator and maintainer language; minimal drama on the ground.",
+              "Leads who speak operator and maintainer language—minimal drama on the ground.",
           },
           {
             title: "Operator and maintainer training",
             description:
-              "Course materials tuned to echelon—from crew-level checks to depot-style deep maintenance.",
+              "Materials tuned from crew checks to depot-level maintenance.",
           },
           {
             title: "Sustainment handoff",
             description:
-              "ILS data, recommended spares, and revision-controlled technical manuals delivered as promised.",
+              "ILS data, spares recommendations, and revision-controlled manuals as promised.",
           },
         ]}
       />
 
       <CTA
-        title="Tell us where the risk sits—in schedule, performance, or integration."
-        description="We will propose a work scope that addresses it directly, with measurable acceptance criteria."
+        title="Where is the risk—schedule, performance, or integration?"
+        description="We scope work with measurable acceptance criteria."
         primary={{ href: "/request-access", label: "Request access" }}
         secondary={{ href: "/products", label: "Browse products" }}
       />

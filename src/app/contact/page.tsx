@@ -13,32 +13,31 @@ export default function ContactPage() {
       <Hero
         eyebrow="Programs & partnerships"
         title="Direct lines for defense and enterprise customers."
-        description="Use official email domains where possible. For technical packages, controlled goods, or export-sensitive discussions, start with Request Access so disclosure matches your program status."
-        pullQuote="We route inquiries by discipline—structures, power, environmental, and field services—so you reach engineers, not a generic inbox."
+        description="Prefer official email domains. For technical packages or export-sensitive topics, start with Request Access so disclosure matches program status."
+        pullQuote="We route by discipline—structures, power, environmental, and field services."
         primaryCta={{ href: "/request-access", label: "Request access" }}
       />
 
       <section className="border-t border-zinc-800/90">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <div className="grid gap-12 lg:grid-cols-2">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
             <div>
-              <h2 className="font-display text-2xl font-semibold tracking-tight text-zinc-50">
+              <h2 className="font-display text-xl font-semibold tracking-tight text-zinc-50 sm:text-2xl">
                 Program office inquiries
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                For statements of work, RFI/RFP alignment, and technical workshops, contact our
-                defense programs desk. Include contract vehicle and security classification guide
-                in your introduction so we can staff the right discipline leads.
+                For SOWs, RFI/RFP alignment, and workshops, route through programs. Include contract
+                vehicle and security classification guide in your introduction.
               </p>
               <dl className="mt-8 space-y-4 text-sm">
                 <div>
                   <dt className="font-medium text-zinc-300">Programs routing</dt>
                   <dd className="mt-1 text-zinc-500">
-                    Official contact paths are issued after affiliation verification. Start with{" "}
+                    Issued after affiliation verification. Open a thread via{" "}
                     <Link href="/request-access" className="text-amber-600/90 hover:text-amber-500">
                       Request Access
-                    </Link>{" "}
-                    to open a controlled thread.
+                    </Link>
+                    .
                   </dd>
                 </div>
                 <div>
@@ -48,21 +47,19 @@ export default function ContactPage() {
               </dl>
             </div>
             <div>
-              <h2 className="font-display text-2xl font-semibold tracking-tight text-zinc-50">
+              <h2 className="font-display text-xl font-semibold tracking-tight text-zinc-50 sm:text-2xl">
                 Teaming & suppliers
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                We maintain selective supplier relationships to preserve quality and delivery
-                assurance. If you have a capability brief aligned to expeditionary infrastructure,
-                route it through the same programs channel with “Teaming” in the subject line.
+                Selective supplier relationships preserve quality and delivery assurance. Capability
+                briefs aligned to expeditionary infrastructure should note “Teaming” in the subject.
               </p>
-              <div className="mt-8 rounded-sm border border-zinc-800/90 bg-zinc-900/40 p-6">
+              <div className="mt-8 rounded-sm border border-zinc-800/90 bg-zinc-900/40 p-6 transition hover:border-zinc-700/90">
                 <p className="text-sm text-zinc-400">
                   Need structured vetting before sharing controlled information?{" "}
                   <Link href="/request-access" className="font-medium text-amber-600/90 hover:text-amber-500">
-                    Submit a Request Access form
+                    Request Access
                   </Link>
-                  .
                 </p>
               </div>
             </div>

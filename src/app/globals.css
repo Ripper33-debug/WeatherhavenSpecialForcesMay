@@ -19,3 +19,59 @@ body {
   background: rgb(180 83 9 / 0.35);
   color: rgb(250 250 250);
 }
+
+@keyframes wh-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wh-grid-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-24px, -12px, 0);
+  }
+}
+
+@keyframes wh-brief-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wh-fade-up {
+  animation: wh-fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.wh-fade-up-delayed {
+  animation: wh-fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+}
+
+.wh-grid-drift {
+  animation: wh-grid-drift 28s linear infinite alternate;
+}
+
+.wh-brief-in {
+  animation: wh-brief-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wh-fade-up,
+  .wh-fade-up-delayed,
+  .wh-grid-drift,
+  .wh-brief-in {
+    animation: none !important;
+  }
+}

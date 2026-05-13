@@ -14,22 +14,22 @@ export default function AiConfiguratorPage() {
     <>
       <Hero
         eyebrow="Advisory tooling"
-        title="Configuration assistance that respects engineering sign-off."
-        description="This demo shows how structured prompts and rules-based synthesis accelerate early workshops. Production use integrates validated load models, safety codes, and program constraints under formal configuration management."
-        pullQuote="AI is a force multiplier for documentation and trade-space exploration—not a substitute for structural, electrical, or environmental verification."
+        title="Configuration assistance with engineering sign-off."
+        description="Structured inputs and rules-based synthesis accelerate workshops. Production use ties to validated models, codes, and program configuration management."
+        pullQuote="AI multiplies documentation and trade-space exploration—it does not replace structural, electrical, or environmental verification."
         primaryCta={{ href: "/request-access", label: "Request enterprise briefing" }}
         secondaryCta={{ href: "/capabilities", label: "Modeling & CM" }}
       />
 
       <section className="border-b border-zinc-800/80">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
           <ConfiguratorDemo />
         </div>
       </section>
 
       <CTA
-        title="Bring your parameters. We will map them to controlled option sets."
-        description="AI assistance is a force multiplier for documentation and exploration—not a substitute for structural, electrical, and environmental verification."
+        title="Bring your parameters. We map them to controlled option sets."
+        description="Advisory tooling supports documentation and exploration under formal engineering authority."
         primary={{ href: "/request-access", label: "Schedule a walkthrough" }}
         secondary={{ href: "/contact", label: "Contact" }}
       />
