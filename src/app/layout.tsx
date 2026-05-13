@@ -17,7 +17,13 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-mono",
 });
 
+/** Vercel sets VERCEL_URL (no protocol). Optional NEXT_PUBLIC_SITE_URL for a custom production domain. */
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${company.shortName} | Defense & Expeditionary Infrastructure`,
     template: `%s | ${company.shortName}`,
