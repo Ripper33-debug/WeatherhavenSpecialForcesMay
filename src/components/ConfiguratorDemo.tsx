@@ -34,7 +34,7 @@ function configurationRef() {
     typeof crypto !== "undefined" && "randomUUID" in crypto
       ? crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase()
       : Math.random().toString(36).slice(2, 10).toUpperCase();
-  return `WH-CFG-${a}`;
+  return `WH-MSB-${a}`;
 }
 
 export function ConfiguratorDemo() {
@@ -82,12 +82,12 @@ export function ConfiguratorDemo() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className="font-display text-lg font-semibold tracking-tight text-zinc-50">
-              Guided solution builder
+              Mission Solution Builder
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-zinc-500">
-              Walk mission profile, theater environment, power baseline, and notional crew size. The
-              output is a mission-tailored advisory outline for workshops—not a product selector or
-              procurement record. Unclassified; engineering release still applies.
+              Start from mission narrative, environment, team size, and power baseline—then synthesize
+              a notional package. Outputs support solution workshops; they are unclassified and not
+              procurement records.
             </p>
           </div>
         </div>
@@ -128,7 +128,7 @@ export function ConfiguratorDemo() {
               aria-valuemax={80}
               aria-valuenow={crew}
             />
-            <p className="mt-2 text-xs text-zinc-600">Drives footprint class and conditioned area band.</p>
+            <p className="mt-2 text-xs text-zinc-600">Informs footprint class, logistics, and sustainment load.</p>
           </div>
         </div>
 
@@ -137,7 +137,7 @@ export function ConfiguratorDemo() {
           onClick={generate}
           className="mt-10 w-full rounded-sm bg-amber-500 py-3.5 text-sm font-semibold uppercase tracking-wide text-zinc-950 shadow-[0_0_0_1px_rgb(245_158_11/0.35)] transition duration-200 hover:bg-amber-400 active:scale-[0.99]"
         >
-          Generate mission advisory outline
+          Generate mission solution brief
         </button>
         {stale && generated && (
           <p className="mt-3 text-center text-xs text-amber-500/90">Inputs updated — generate again to refresh.</p>
@@ -146,14 +146,25 @@ export function ConfiguratorDemo() {
 
       <div className="lg:col-span-7">
         {!generated || !brief ? (
-          <div className="flex min-h-[320px] flex-col justify-center rounded-sm border border-zinc-800/80 bg-zinc-950/40 p-10 text-center lg:min-h-[420px]">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-zinc-600">
-              Mission advisory outline
-            </p>
-            <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-zinc-500">
-              Define parameters on the left, then generate a structured summary of a notional
-              mission package—shelter class, power and environment, and support considerations.
-            </p>
+          <div className="relative flex min-h-[320px] flex-col justify-center overflow-hidden rounded-sm border border-zinc-800/80 bg-zinc-950/50 p-10 text-center lg:min-h-[420px]">
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.05]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, rgb(161 161 170) 1px, transparent 1px), linear-gradient(to bottom, rgb(161 161 170) 1px, transparent 1px)",
+                backgroundSize: "20px 20px",
+              }}
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-900/30 to-black/60" />
+            <div className="relative">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
+                Mission solution brief
+              </p>
+              <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-zinc-400">
+                Define mission, theater, power, and force size—then generate a structured brief: mission
+                package, shelter approach, power baseline, environment, and sustainment notes.
+              </p>
+            </div>
           </div>
         ) : (
           <div
@@ -167,7 +178,7 @@ export function ConfiguratorDemo() {
                     Weatherhaven Resource Inc.
                   </p>
                   <h3 className="font-display mt-2 text-xl font-semibold tracking-tight text-zinc-50 sm:text-2xl">
-                    Mission advisory outline
+                    Mission solution brief
                   </h3>
                 </div>
                 <div className="text-right font-mono text-[11px] leading-relaxed text-zinc-500">
@@ -182,24 +193,35 @@ export function ConfiguratorDemo() {
               <OutputRow
                 k="01"
                 title="Recommended mission package"
-                body={<p className="text-sm leading-relaxed text-zinc-300">{brief.missionPackage}</p>}
+                body={
+                  <p className="text-sm leading-relaxed text-zinc-300">{brief.recommendedMissionPackage}</p>
+                }
               />
               <OutputRow
                 k="02"
-                title="Shelter class"
-                body={<p className="text-sm leading-relaxed text-zinc-300">{brief.shelterClass}</p>}
+                title="Shelter / system approach"
+                body={
+                  <p className="text-sm leading-relaxed text-zinc-300">{brief.shelterSystemApproach}</p>
+                }
               />
               <OutputRow
                 k="03"
-                title="Power & environment"
-                body={<p className="text-sm leading-relaxed text-zinc-300">{brief.powerEnvNotes}</p>}
+                title="Power baseline"
+                body={<p className="text-sm leading-relaxed text-zinc-300">{brief.powerBaseline}</p>}
               />
               <OutputRow
                 k="04"
-                title="Support considerations"
+                title="Environmental considerations"
+                body={
+                  <p className="text-sm leading-relaxed text-zinc-300">{brief.environmentalConsiderations}</p>
+                }
+              />
+              <OutputRow
+                k="05"
+                title="Sustainment & support notes"
                 body={
                   <ul className="list-none space-y-2.5 text-sm leading-relaxed text-zinc-300">
-                    {brief.supportConsiderations.map((line) => (
+                    {brief.sustainmentSupportNotes.map((line) => (
                       <li key={line} className="flex gap-3">
                         <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500/80" />
                         <span>{line}</span>
@@ -212,14 +234,14 @@ export function ConfiguratorDemo() {
 
             <div className="border-t border-zinc-800/80 bg-zinc-950/80 px-6 py-6 sm:flex sm:items-center sm:justify-between sm:px-8 sm:py-7">
               <p className="max-w-lg text-xs leading-relaxed text-zinc-500">
-                For program-specific layouts, validated loads, and controlled technical data, route
-                through official channels.
+                Next step: align this outline with engineering validation, program constraints, and
+                controlled disclosure for theater-specific detail.
               </p>
               <Link
                 href="/request-access"
                 className="mt-4 inline-flex shrink-0 items-center justify-center rounded-sm bg-amber-500 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-zinc-950 transition hover:bg-amber-400 sm:mt-0"
               >
-                Request program access
+                Request technical exchange
               </Link>
             </div>
           </div>

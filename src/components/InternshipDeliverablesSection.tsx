@@ -16,16 +16,16 @@ const items = [
   },
   {
     id: "ai-configurator",
-    title: "AI configuration workspace",
+    title: "Mission Solution Builder",
     badge: "Deliverable",
     summary:
-      "Interactive workspace that maps mission profile, environment, power baseline, and notional crew size into a structured advisory brief—illustrative only, not engineering sign-off.",
+      "Guided workspace that maps mission profile, environment, power baseline, and notional crew size into a structured mission solution brief—illustrative only, not engineering sign-off.",
     outcomes: [
       "Rules-based synthesis that mirrors workshop-ready documentation structure.",
       "Clear separation between advisory output and production configuration management.",
     ],
     href: "/ai-configurator",
-    cta: "Open solution builder",
+    cta: "Open Mission Solution Builder",
   },
   {
     id: "lead-flow",
@@ -51,7 +51,7 @@ const items = [
       "Solution-line cards and capability sections tuned for acquisition and operator readers.",
     ],
     href: "/products",
-    cta: "View solution outlines",
+    cta: "View configurable systems",
   },
   {
     id: "market-research",
@@ -86,7 +86,7 @@ export function InternshipDeliverablesSection() {
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400 sm:text-base">
                 This panel summarizes course and internship outcomes reflected in this repository:
-                public SOF website, AI configurator, lead flow, positioning, and unclassified market context.
+                public SOF website, Mission Solution Builder, lead flow, positioning, and unclassified market context.
                 All materials are suitable for academic submission and employer review—no classified or
                 export-controlled technical data.
               </p>

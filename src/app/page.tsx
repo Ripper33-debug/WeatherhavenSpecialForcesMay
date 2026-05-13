@@ -11,7 +11,7 @@ export default function HomePage() {
       <HomeHero
         eyebrow="Mission-engineered infrastructure"
         title="Tailored deployable infrastructure for special operations."
-        description="Weatherhaven builds configurable shelter and support systems for complex operating environments—shaped around personnel, climate, timeline, mobility, power, sustainment, and operational goals. Every footprint is engineered with discipline, not selected from a static catalog."
+        description="Weatherhaven starts with your mission narrative—environment, team size, timeline, logistics, power, sustainment, and operational goals—then configures deployable shelter and support systems for complex theaters. Every footprint is engineered with discipline, not selected from a static catalog."
         pullQuote="Built around the mission, not pulled from a shelf."
         primaryCta={{ href: "/request-access", label: "Request program access" }}
         secondaryCta={{ href: "/capabilities", label: "Capabilities" }}
@@ -57,15 +57,15 @@ export default function HomePage() {
       <section className="border-b border-zinc-800/90">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-500/95">
-            Configurable systems
+            Mission solution areas
           </p>
           <h2 className="font-display mt-4 max-w-3xl text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl lg:text-4xl">
-            Example mission packages—not fixed off-the-shelf products.
+            Representative mission packages—not fixed off-the-shelf products.
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
-            The outlines below are representative starting points we re-scope with your team. Final
-            footprints, MEP, and sustainment threads are configured to theater, lift, and operational
-            tempo—not reverse-engineered from a SKU list.
+            The blocks below are configurable starting points we reshape with your program office: final
+            shelter, MEP, logistics, and sustainment threads follow your mission inputs—not a product
+            grid.
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <ProductCard
@@ -90,7 +90,7 @@ export default function HomePage() {
               description="Structured parameters translate into workshop-ready packages so teams compare bounded options while engineering retains sign-off authority."
               tags={["Advisory", "Workshop"]}
               href="/ai-configurator"
-              linkLabel="Open solution builder"
+              linkLabel="Open Mission Solution Builder"
             />
           </div>
         </div>

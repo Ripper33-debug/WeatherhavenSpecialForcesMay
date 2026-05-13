@@ -17,7 +17,7 @@ function ProductVisualPanel({ icon }: { icon: ProductIconKey }) {
       <div className="absolute inset-0 bg-gradient-to-br from-zinc-800/40 via-zinc-950 to-black" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgb(146_64_14/0.12),transparent_55%)]" />
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        className="pointer-events-none absolute inset-0 opacity-[0.07]"
         style={{
           backgroundImage:
             "linear-gradient(to right, rgb(161 161 170) 1px, transparent 1px), linear-gradient(to bottom, rgb(161 161 170) 1px, transparent 1px)",
@@ -25,6 +25,10 @@ function ProductVisualPanel({ icon }: { icon: ProductIconKey }) {
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-zinc-800/10" />
+      <div className="pointer-events-none absolute left-1.5 top-1.5 h-4 w-4 border-l border-t border-amber-700/25" />
+      <div className="pointer-events-none absolute right-1.5 top-1.5 h-4 w-4 border-r border-t border-amber-700/25" />
+      <div className="pointer-events-none absolute bottom-1.5 left-1.5 h-4 w-4 border-b border-l border-amber-700/20" />
+      <div className="pointer-events-none absolute bottom-1.5 right-1.5 h-4 w-4 border-b border-r border-amber-700/20" />
       <div className="absolute bottom-2 left-2 right-2 top-2 flex items-center justify-center opacity-[0.35]">
         <ProductCardIcon name={icon} className="h-16 w-16 text-zinc-300" />
       </div>
@@ -38,7 +42,7 @@ export function ProductCard({
   description,
   tags = [],
   href,
-  linkLabel = "View solution outline",
+  linkLabel = "Map to mission inputs",
   icon = "default",
 }: ProductCardProps) {
   const inner = (
@@ -49,7 +53,7 @@ export function ProductCard({
         <div className="relative flex min-h-[112px] flex-col gap-4 px-6 pb-5 pt-6 sm:flex-row sm:items-stretch sm:justify-between">
           <div className="flex flex-1 flex-col justify-center">
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">
-              Solution line
+              Configurable block
             </span>
             <div className="mt-3 flex items-center gap-3">
               <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-sm border border-zinc-600/60 bg-black/40 shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]">

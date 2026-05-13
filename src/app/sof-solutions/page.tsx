@@ -19,7 +19,7 @@ export default function SofSolutionsPage() {
         description="Infrastructure that deploys fast, scales with the task force, and sustains under pressure—clear layouts, disciplined MEP, and documentation crews can execute."
         pullQuote="Signature and interoperability start with utilities and circulation—not slogans."
         primaryCta={{ href: "/request-access", label: "Request technical exchange" }}
-        secondaryCta={{ href: "/products", label: "Solution portfolio" }}
+        secondaryCta={{ href: "/products", label: "Configurable systems" }}
       />
 
       <CapabilitySection
@@ -75,11 +75,12 @@ export default function SofSolutionsPage() {
             Mission packages
           </p>
           <h2 className="font-display mt-4 text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl lg:text-4xl">
-            Example mission packages
+            Representative mission packages
           </h2>
           <p className="mt-4 max-w-2xl text-sm text-zinc-400 sm:text-base">
-            Illustrative bundles—every fielded layout is re-derived from unit, theater, lift, and
-            sustainment inputs. Request access for program-specific narratives.
+            Illustrative configurations—every fielded solution is derived from mission narrative,
+            unit, theater, lift, timeline, and sustainment inputs. Request access for program-specific
+            detail.
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <ProductCard
@@ -111,7 +112,7 @@ export default function SofSolutionsPage() {
         title="Start with a mission narrative—not a part number."
         description="Engineers translate CONOPS, environment, and sustainment constraints into bounded solution options with explicit tradeoffs."
         primary={{ href: "/request-access", label: "Request access" }}
-        secondary={{ href: "/ai-configurator", label: "Solution builder" }}
+        secondary={{ href: "/ai-configurator", label: "Mission Solution Builder" }}
       />
     </>
   );

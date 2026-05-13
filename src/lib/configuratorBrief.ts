@@ -29,7 +29,7 @@ const powerTitle: Record<Power, string> = {
   hybrid: "Hybrid microgrid",
 };
 
-/** Unclassified advisory synthesis for the configuration workspace. */
+/** Unclassified advisory synthesis for the mission solution builder. */
 export function buildConfiguratorBrief(i: BriefInputs) {
   const mission = missionTitle[i.mission];
   const environment = climateTitle[i.climate];
@@ -106,17 +106,19 @@ export function buildConfiguratorBrief(i: BriefInputs) {
     "Power and ECU selections require nameplate verification and site survey.",
   ];
 
-  const missionPackage = `${mission} for a ${environment} operating band, ${crew}-person crew baseline, and ${power.toLowerCase()} power posture. ${missionAlignment}`;
+  const recommendedMissionPackage = `${mission} for ${environment} operations: ${crew}-person baseline, ${power} power posture, and logistics tempo captured from the mission narrative—not a catalog selection. Configuration proceeds from CONOPS, theater constraints, and sustainment goals.`;
 
-  const shelterClass = `${shelterClassTitle}. ${footprintLabel}. ${notionalFloor}.`;
+  const shelterSystemApproach = `${shelterClassTitle}. ${footprintLabel}. ${notionalFloor}. Operational fit: ${missionAlignment}`;
 
-  const powerEnvNotes = `${envKit} ${pwrArch}`;
+  const powerBaseline = `Baseline: ${power}. ${pwrArch}`;
 
-  const supportConsiderations = [
+  const environmentalConsiderations = envKit;
+
+  const sustainmentSupportNotes = [
     logistics,
-    `Materiel emphasis: ${bomSample[0]}; staged ECU and distribution per theater band.`,
-    `${phases[1].t}: ${phases[1].d}`,
-    `${phases[2].t}: ${phases[2].d}`,
+    `Materiel staging: ${bomSample[0]}; ECU and distribution sized to environmental band.`,
+    `${phases[3].t}: ${phases[3].d} Documentation and training packages scale to maintenance echelon.`,
+    "Sustainment posture: spares recommendations track utilization assumptions and environmental exposure between resupply cycles.",
     risks[1],
   ];
 
@@ -127,11 +129,11 @@ export function buildConfiguratorBrief(i: BriefInputs) {
     crew,
     footprintLabel,
     notionalFloor,
-    missionPackage,
-    shelterClass,
-    powerEnvNotes,
-    supportConsiderations,
-    /** Legacy / extended fields if needed elsewhere */
+    recommendedMissionPackage,
+    shelterSystemApproach,
+    powerBaseline,
+    environmentalConsiderations,
+    sustainmentSupportNotes,
     envKit,
     pwrArch,
     missionAlignment,

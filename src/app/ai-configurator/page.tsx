@@ -4,18 +4,18 @@ import { ConfiguratorDemo } from "@/components/ConfiguratorDemo";
 import { CTA } from "@/components/CTA";
 
 export const metadata: Metadata = {
-  title: "AI Configurator",
+  title: "Mission Solution Builder",
   description:
-    "Guided solution builder for expeditionary shelter and camp infrastructure—translate mission parameters into unclassified advisory outlines.",
+    "Guided mission solution builder for expeditionary shelter and camp infrastructure—translate mission parameters into unclassified advisory briefs.",
 };
 
 export default function AiConfiguratorPage() {
   return (
     <>
       <Hero
-        eyebrow="Guided solution architecture"
-        title="Build a mission package—not a shopping cart."
-        description="Step through mission profile, operating environment, power baseline, and force size to produce a structured advisory outline. This workspace supports solution design conversations: what to emplace, how to power and condition it, and what sustainment assumptions to test—before anything is treated as a fixed product."
+        eyebrow="Mission Solution Builder"
+        title="Configure infrastructure from the mission narrative outward."
+        description="Walk mission profile, operating environment, power baseline, and force size to synthesize a notional package. This workspace supports how SOF teams buy solutions: start with objectives, logistics, timeline, and sustainment—then converge on shelter, MEP, and integration—not the reverse."
         pullQuote="Configurable shelter and support systems for complex operating environments."
         primaryCta={{ href: "/request-access", label: "Request enterprise briefing" }}
         secondaryCta={{ href: "/capabilities", label: "Modeling & CM" }}

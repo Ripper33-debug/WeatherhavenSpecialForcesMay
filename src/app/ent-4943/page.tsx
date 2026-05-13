@@ -5,7 +5,7 @@ import { Hero } from "@/components/Hero";
 export const metadata: Metadata = {
   title: "ENT 4943 · Internship deliverables",
   description:
-    "Summary of ENT 4943 and internship-aligned deliverables: SOF website, guided solution builder, lead intake, mission positioning, and unclassified defense market context.",
+    "Summary of ENT 4943 and internship-aligned deliverables: SOF website, Mission Solution Builder, lead intake, mission positioning, and unclassified defense market context.",
 };
 
 const panels = [
@@ -20,12 +20,12 @@ const panels = [
   },
   {
     id: "ai-configurator",
-    title: "2. Guided solution builder",
+    title: "2. Mission Solution Builder",
     body: [
-      "Mission profile, operating environment, power baseline, and notional crew size drive a structured advisory outline—not a product selector.",
+      "Mission profile, operating environment, power baseline, and notional crew size drive a structured mission solution brief—not a product selector.",
       "Shows how structured inputs accelerate solution workshops while preserving engineering authority and procurement disclaimers.",
     ],
-    link: { href: "/ai-configurator", label: "AI Configurator" },
+    link: { href: "/ai-configurator", label: "Mission Solution Builder" },
   },
   {
     id: "lead-flow",
@@ -43,7 +43,7 @@ const panels = [
       "Narratives emphasize mission-tailored deployable infrastructure—configurable shelter, integration, and sustainment—without program-specific performance claims.",
       "Cards and sections are designed for screenshot evidence in internship and course documentation.",
     ],
-    link: { href: "/products", label: "Solutions" },
+    link: { href: "/products", label: "Configurable systems" },
   },
   {
     id: "market-research",
@@ -62,7 +62,7 @@ export default function Ent4943Page() {
       <Hero
         eyebrow="ENT 4943 · Internship documentation"
         title="Deliverables aligned to course and internship outcomes."
-        description="This page is a screenshot-friendly index of the work embodied in this site: public SOF web experience, guided solution builder, lead intake, mission positioning, and unclassified market context."
+        description="This page is a screenshot-friendly index of the work embodied in this site: public SOF web experience, Mission Solution Builder, lead intake, mission positioning, and unclassified market context."
         pullQuote="Evidence for academic submission should be clear, professional, and free of controlled technical data."
         primaryCta={{ href: "/#ent-4943-deliverables", label: "Jump to home summary" }}
         secondaryCta={{ href: "/request-access", label: "Lead intake example" }}
