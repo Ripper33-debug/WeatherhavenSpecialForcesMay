@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { Barlow_Condensed, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -15,6 +16,12 @@ const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-mono",
+});
+
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-barlow",
 });
 
 /** Vercel sets VERCEL_URL (no protocol). Optional NEXT_PUBLIC_SITE_URL for a custom production domain. */
@@ -38,11 +45,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${plexSans.variable} ${plexMono.variable} h-full`}>
-      <body className="min-h-full flex flex-col bg-zinc-950 font-sans text-zinc-100 antialiased">
+    <html
+      lang="en"
+      className={`${plexSans.variable} ${plexMono.variable} ${barlowCondensed.variable} h-full`}
+    >
+      <body className="min-h-full flex flex-col font-sans text-zinc-100 antialiased">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

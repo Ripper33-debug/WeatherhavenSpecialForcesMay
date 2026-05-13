@@ -6,57 +6,84 @@ export type HeroProps = {
   eyebrow?: string;
   title: string;
   description: string;
+  /** Short mission-style line shown beside the hero on large screens (defense marketing pattern). */
+  pullQuote?: string;
   primaryCta?: Cta;
   secondaryCta?: Cta;
 };
 
-export function Hero({ eyebrow, title, description, primaryCta, secondaryCta }: HeroProps) {
+export function Hero({
+  eyebrow,
+  title,
+  description,
+  pullQuote,
+  primaryCta,
+  secondaryCta,
+}: HeroProps) {
   return (
-    <section className="relative overflow-hidden border-b border-zinc-800/80">
+    <section className="relative overflow-hidden border-b border-zinc-800/90 bg-zinc-950">
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.15]"
+        className="pointer-events-none absolute inset-0 opacity-[0.2]"
         style={{
-          backgroundImage: `linear-gradient(to right, rgb(39 39 42 / 0.5) 1px, transparent 1px),
-            linear-gradient(to bottom, rgb(39 39 42 / 0.5) 1px, transparent 1px)`,
-          backgroundSize: "48px 48px",
+          backgroundImage: `linear-gradient(to right, rgb(63 63 70 / 0.35) 1px, transparent 1px),
+            linear-gradient(to bottom, rgb(63 63 70 / 0.35) 1px, transparent 1px)`,
+          backgroundSize: "56px 56px",
         }}
       />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-950 via-transparent to-zinc-950/90" />
+      <div className="pointer-events-none absolute -right-32 top-1/2 h-[min(80vw,520px)] w-[min(80vw,520px)] -translate-y-1/2 rounded-full bg-amber-900/10 blur-3xl" />
+
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-        {eyebrow && (
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-600/90">
-            {eyebrow}
-          </p>
-        )}
-        <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight text-zinc-100 sm:text-4xl lg:text-5xl">
-          {title}
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400 sm:text-xl">
-          {description}
-        </p>
-        {(primaryCta || secondaryCta) && (
-          <div className="mt-10 flex flex-wrap gap-4">
-            {primaryCta && (
-              <Link
-                href={primaryCta.href}
-                className={
-                  primaryCta.variant === "secondary"
-                    ? "inline-flex items-center justify-center rounded-sm border border-zinc-600 px-5 py-2.5 text-sm font-medium text-zinc-200 transition hover:border-zinc-500 hover:bg-zinc-900/50"
-                    : "inline-flex items-center justify-center rounded-sm bg-amber-700 px-5 py-2.5 text-sm font-semibold text-zinc-950 transition hover:bg-amber-600"
-                }
-              >
-                {primaryCta.label}
-              </Link>
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-7">
+            {eyebrow && (
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.32em] text-amber-500/95">
+                {eyebrow}
+              </p>
             )}
-            {secondaryCta && (
-              <Link
-                href={secondaryCta.href}
-                className="inline-flex items-center justify-center rounded-sm border border-zinc-600 px-5 py-2.5 text-sm font-medium text-zinc-200 transition hover:border-zinc-500 hover:bg-zinc-900/50"
-              >
-                {secondaryCta.label}
-              </Link>
+            <h1 className="font-display mt-5 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight text-zinc-50 sm:text-5xl lg:text-6xl">
+              {title}
+            </h1>
+            <p className="mt-8 max-w-2xl border-l-2 border-amber-800/60 pl-5 text-base leading-relaxed text-zinc-400 sm:text-lg">
+              {description}
+            </p>
+            {(primaryCta || secondaryCta) && (
+              <div className="mt-10 flex flex-wrap gap-4">
+                {primaryCta && (
+                  <Link
+                    href={primaryCta.href}
+                    className={
+                      primaryCta.variant === "secondary"
+                        ? "inline-flex items-center justify-center rounded-sm border border-zinc-500 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-zinc-200 transition hover:border-zinc-400 hover:bg-zinc-900/60"
+                        : "inline-flex items-center justify-center rounded-sm bg-amber-600 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-zinc-950 transition hover:bg-amber-500"
+                    }
+                  >
+                    {primaryCta.label}
+                  </Link>
+                )}
+                {secondaryCta && (
+                  <Link
+                    href={secondaryCta.href}
+                    className="inline-flex items-center justify-center rounded-sm border border-zinc-600 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-zinc-200 transition hover:border-zinc-500 hover:bg-zinc-900/50"
+                  >
+                    {secondaryCta.label}
+                  </Link>
+                )}
+              </div>
             )}
           </div>
-        )}
+
+          {pullQuote && (
+            <aside className="flex flex-col justify-center border-t border-zinc-800 pt-10 font-mono text-xs uppercase leading-relaxed tracking-[0.2em] text-zinc-500 lg:col-span-5 lg:border-l lg:border-t-0 lg:border-zinc-800 lg:pl-10 lg:pt-0">
+              <span className="text-[10px] font-semibold tracking-[0.35em] text-amber-600/90">
+                Mission
+              </span>
+              <p className="mt-4 text-lg font-medium normal-case leading-snug tracking-tight text-zinc-300 sm:text-xl">
+                {pullQuote}
+              </p>
+            </aside>
+          )}
+        </div>
       </div>
     </section>
   );

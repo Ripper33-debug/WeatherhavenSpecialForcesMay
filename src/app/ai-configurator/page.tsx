@@ -15,7 +15,8 @@ export default function AiConfiguratorPage() {
       <Hero
         eyebrow="Advisory tooling"
         title="Configuration assistance that respects engineering sign-off."
-        description="This demo illustrates how structured prompts and rules-based synthesis accelerate early workshops. Production deployments integrate validated load models, safety codes, and program-specific constraints under formal configuration management."
+        description="This demo shows how structured prompts and rules-based synthesis accelerate early workshops. Production use integrates validated load models, safety codes, and program constraints under formal configuration management."
+        pullQuote="AI is a force multiplier for documentation and trade-space exploration—not a substitute for structural, electrical, or environmental verification."
         primaryCta={{ href: "/request-access", label: "Request enterprise briefing" }}
         secondaryCta={{ href: "/capabilities", label: "Modeling & CM" }}
       />

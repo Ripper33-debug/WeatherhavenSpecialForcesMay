@@ -13,15 +13,18 @@ export default function ContactPage() {
       <Hero
         eyebrow="Programs & partnerships"
         title="Direct lines for defense and enterprise customers."
-        description="Use official email domains where possible. For technical packages, controlled goods, or export-sensitive discussions, begin with a Request Access submission so we can align disclosure to your program status."
+        description="Use official email domains where possible. For technical packages, controlled goods, or export-sensitive discussions, start with Request Access so disclosure matches your program status."
+        pullQuote="We route inquiries by discipline—structures, power, environmental, and field services—so you reach engineers, not a generic inbox."
         primaryCta={{ href: "/request-access", label: "Request access" }}
       />
 
-      <section className="border-t border-zinc-800/80">
+      <section className="border-t border-zinc-800/90">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
-              <h2 className="text-xl font-semibold text-zinc-100">Program office inquiries</h2>
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-zinc-50">
+                Program office inquiries
+              </h2>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
                 For statements of work, RFI/RFP alignment, and technical workshops, contact our
                 defense programs desk. Include contract vehicle and security classification guide
@@ -45,13 +48,15 @@ export default function ContactPage() {
               </dl>
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-zinc-100">Teaming & suppliers</h2>
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-zinc-50">
+                Teaming & suppliers
+              </h2>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
                 We maintain selective supplier relationships to preserve quality and delivery
                 assurance. If you have a capability brief aligned to expeditionary infrastructure,
                 route it through the same programs channel with “Teaming” in the subject line.
               </p>
-              <div className="mt-8 rounded-lg border border-zinc-800 bg-zinc-900/30 p-6">
+              <div className="mt-8 rounded-sm border border-zinc-800/90 bg-zinc-900/40 p-6">
                 <p className="text-sm text-zinc-400">
                   Need structured vetting before sharing controlled information?{" "}
                   <Link href="/request-access" className="font-medium text-amber-600/90 hover:text-amber-500">

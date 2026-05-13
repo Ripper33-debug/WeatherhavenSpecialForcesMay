@@ -54,7 +54,8 @@ export default function ProductsPage() {
       <Hero
         eyebrow="Product families"
         title="Shelters and camp systems built for measured performance."
-        description="Our product lines emphasize structural clarity, maintainable subsystems, and honest performance data. Options are integrated—not bolted on as an afterthought."
+        description="Our lines emphasize structural clarity, maintainable subsystems, and performance data you can brief. Options are integrated—not bolted on after the fact."
+        pullQuote="Catalog depth means nothing if crews cannot emplace, power, and climate-control the footprint on day one."
         primaryCta={{ href: "/request-access", label: "Request datasheets" }}
         secondaryCta={{ href: "/capabilities", label: "Engineering depth" }}
       />

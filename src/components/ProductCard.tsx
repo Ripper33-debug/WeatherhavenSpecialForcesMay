@@ -22,17 +22,17 @@ export function ProductCard({
           {tags.map((t) => (
             <span
               key={t}
-              className="rounded-sm border border-zinc-700/80 bg-zinc-900/50 px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide text-zinc-400"
+              className="rounded-sm border border-zinc-700/90 bg-zinc-950/80 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-zinc-400"
             >
               {t}
             </span>
           ))}
         </div>
       )}
-      <h3 className="text-lg font-semibold text-zinc-100">{title}</h3>
+      <h3 className="font-display text-lg font-semibold tracking-tight text-zinc-50">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-zinc-400">{description}</p>
       {href && (
-        <span className="mt-4 inline-block text-sm font-medium text-amber-600/90 transition group-hover:text-amber-500">
+        <span className="mt-5 inline-block font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-500/95 transition group-hover:text-amber-400">
           {linkLabel} →
         </span>
       )}
@@ -40,7 +40,7 @@ export function ProductCard({
   );
 
   const className =
-    "group block rounded-lg border border-zinc-800 bg-zinc-900/30 p-6 transition hover:border-zinc-700 hover:bg-zinc-900/50";
+    "group relative block overflow-hidden rounded-sm border border-zinc-800/90 bg-zinc-900/40 p-6 pt-7 transition before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:bg-gradient-to-r before:from-amber-800/30 before:via-amber-600 before:to-amber-800/30 hover:border-zinc-600/90 hover:bg-zinc-900/65";
 
   if (href) {
     return (

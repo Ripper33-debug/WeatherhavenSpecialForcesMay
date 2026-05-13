@@ -11,9 +11,9 @@ function NavLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className={`text-sm font-medium tracking-wide transition-colors ${
+      className={`font-mono text-[11px] font-semibold uppercase tracking-[0.16em] transition-colors ${
         active
-          ? "text-zinc-100"
+          ? "text-amber-500/95"
           : "text-zinc-400 hover:text-zinc-200"
       }`}
     >
@@ -26,18 +26,19 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-zinc-800/90 bg-zinc-950/90 backdrop-blur-md">
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-amber-700/45 to-transparent" />
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="group flex shrink-0 flex-col">
-          <span className="text-sm font-semibold tracking-tight text-zinc-100 sm:text-base">
+          <span className="font-display text-base font-semibold tracking-tight text-zinc-50 sm:text-lg">
             {company.shortName}
           </span>
-          <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-500 group-hover:text-zinc-400">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-[0.28em] text-zinc-500 group-hover:text-zinc-400">
             Resource Inc.
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-7 md:flex">
           {navLinks.map((item) => (
             <NavLink key={item.href} href={item.href} label={item.label} />
           ))}
@@ -46,7 +47,7 @@ export function Navbar() {
         <div className="hidden items-center gap-4 md:flex">
           <Link
             href="/request-access"
-            className="rounded-sm border border-amber-700/60 bg-amber-950/30 px-4 py-2 text-sm font-medium text-amber-100 transition hover:border-amber-600/80 hover:bg-amber-950/50"
+            className="rounded-sm border border-amber-600/70 bg-amber-950/40 px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-100 transition hover:border-amber-500/90 hover:bg-amber-950/60"
           >
             Request Access
           </Link>
@@ -84,7 +85,7 @@ export function Navbar() {
             ))}
             <Link
               href="/request-access"
-              className="mt-2 rounded-sm border border-amber-700/60 bg-amber-950/30 px-4 py-2 text-center text-sm font-medium text-amber-100"
+              className="mt-2 rounded-sm border border-amber-600/70 bg-amber-950/40 px-4 py-2 text-center font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-100"
               onClick={() => setOpen(false)}
             >
               Request Access

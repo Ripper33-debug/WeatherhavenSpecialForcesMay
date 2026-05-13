@@ -8,12 +8,22 @@ export default function HomePage() {
   return (
     <>
       <Hero
-        eyebrow="Defense & expeditionary infrastructure"
-        title="Infrastructure that keeps pace with the mission."
-        description="Weatherhaven Resource Inc. engineers deployable shelter systems, mobile camps, and integrated support for U.S. Special Operations and allied defense programs. We combine field-proven hardware with disciplined program execution and configuration tools that respect classification boundaries."
+        eyebrow="Deployable infrastructure"
+        title="Shelter systems that keep pace with the mission."
+        description="Weatherhaven Resource Inc. engineers expeditionary shelters, mobile camps, and integrated environmental and power packages for U.S. Special Operations and allied defense programs. Field-proven hardware, disciplined program execution, and configuration tooling that respects classification boundaries."
+        pullQuote="Infrastructure is tempo: emplace faster, recover cleaner, and reconfigure without losing configuration control."
         primaryCta={{ href: "/request-access", label: "Request program access" }}
         secondaryCta={{ href: "/capabilities", label: "View capabilities" }}
       />
+
+      <section className="border-b border-zinc-800/90 bg-zinc-900/20">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+          <p className="text-center font-display text-xl font-medium leading-snug tracking-tight text-zinc-200 sm:text-2xl">
+            We protect readiness through shelter—command nodes, maintenance envelopes, medical and
+            berthing spaces—built for austere theaters and honest load cases.
+          </p>
+        </div>
+      </section>
 
       <StatsSection
         eyebrow="Field credibility"
@@ -42,17 +52,17 @@ export default function HomePage() {
         ]}
       />
 
-      <section className="border-b border-zinc-800/80">
+      <section className="border-b border-zinc-800/90">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600/90">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-500/95">
             Core offerings
           </p>
-          <h2 className="mt-3 max-w-2xl text-2xl font-semibold tracking-tight text-zinc-100 sm:text-3xl">
-            Mobile infrastructure engineered for austere environments.
+          <h2 className="font-display mt-4 max-w-3xl text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
+            Mobile camp infrastructure for measured performance in harsh environments.
           </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
-            From single-cell shelters to multi-domain camp layouts, we align layouts to
-            threat, climate, and logistics constraints—without theatrics.
+          <p className="mt-5 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
+            From single-cell shelters to multi-domain layouts, we align footprints to climate,
+            threat, and logistics constraints—without theatrics.
           </p>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             <ProductCard

@@ -15,8 +15,9 @@ export default function SofSolutionsPage() {
     <>
       <Hero
         eyebrow="U.S. & allied special operations"
-        title="Solutions aligned to SOF tempo and task organization."
-        description="Weatherhaven supports special operations forces with infrastructure that deploys fast, scales with the task force, and sustains under pressure. We focus on clear layouts, disciplined power and environmental design, and documentation that crews can execute without ambiguity."
+        title="Shelter and camp solutions aligned to SOF tempo."
+        description="Weatherhaven supports SOF with infrastructure that deploys fast, scales with the task force, and sustains under pressure—clear layouts, disciplined power and environmental design, and documentation crews can execute without ambiguity."
+        pullQuote="Low signature, rapid displacement, and coalition interoperability start with how utilities and circulation are engineered—not slogans."
         primaryCta={{ href: "/request-access", label: "Request technical exchange" }}
         secondaryCta={{ href: "/products", label: "Product families" }}
       />
@@ -68,12 +69,15 @@ export default function SofSolutionsPage() {
         ]}
       />
 
-      <section className="border-b border-zinc-800/80">
+      <section className="border-b border-zinc-800/90">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <h2 className="text-2xl font-semibold tracking-tight text-zinc-100 sm:text-3xl">
-            Representative mission packages
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-500/95">
+            Mission packages
+          </p>
+          <h2 className="font-display mt-4 text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
+            Representative shelter bundles
           </h2>
-          <p className="mt-3 max-w-2xl text-sm text-zinc-400 sm:text-base">
+          <p className="mt-4 max-w-2xl text-sm text-zinc-400 sm:text-base">
             Configurations vary by unit, theater, and lift. The cards below describe common
             bundles used in SOF-aligned studies and deployments.
           </p>

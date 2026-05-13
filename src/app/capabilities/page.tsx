@@ -15,8 +15,9 @@ export default function CapabilitiesPage() {
     <>
       <Hero
         eyebrow="End-to-end delivery"
-        title="Capabilities that span design authority through field acceptance."
-        description="Weatherhaven Resource Inc. maintains disciplined engineering processes, transparent configuration control, and field teams who understand defense operating rhythms."
+        title="Capabilities from design authority through field acceptance."
+        description="Disciplined engineering processes, transparent configuration control, and field teams who understand defense operating rhythms—from loads and MEP coordination to commissioning and training."
+        pullQuote="We deliver what contracting officers and maintainers need: traceable revisions, verified interfaces, and manuals tuned to echelon."
         primaryCta={{ href: "/request-access", label: "Request capability statement" }}
         secondaryCta={{ href: "/contact", label: "Speak with engineering" }}
       />

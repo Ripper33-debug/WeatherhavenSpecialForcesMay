@@ -14,7 +14,8 @@ export default function RequestAccessPage() {
       <Hero
         eyebrow="Controlled disclosure"
         title="Request access to technical exchanges and program materials."
-        description="Complete the form using official contact information. We will verify affiliation and route your request according to export and program rules. This channel is not authorized for classified content."
+        description="Complete the form using official contact information. We verify affiliation and route your request according to export and program rules. This channel is not for classified content."
+        pullQuote="Controlled technical exchanges protect both sides: clearances, export posture, and program alignment before drawings move."
         secondaryCta={{ href: "/contact", label: "General inquiries" }}
       />
 
