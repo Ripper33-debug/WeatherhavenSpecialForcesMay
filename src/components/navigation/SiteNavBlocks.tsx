@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { IconChevronDown, IconMenu2, IconX } from "@tabler/icons-react";
 import { company, navContactLink, navFlatLinks, navResourcesItems, navSolutionsItems } from "@/lib/site";
+import { NavSignOut } from "@/components/navigation/NavSignOut";
 
 function DesktopDropdown({
   label,
@@ -205,7 +206,8 @@ export function NavMobileOverlay({
         </Link>
       </nav>
 
-      <div className="shrink-0 border-t border-[rgba(255,255,255,0.1)] p-4">
+      <div className="flex shrink-0 flex-col gap-4 border-t border-[rgba(255,255,255,0.1)] p-4">
+        <NavSignOut className="self-center text-[14px]" onNavigate={close} />
         <NavRequestAccessCta className="w-full py-4 text-center" onNavigate={close} />
       </div>
     </div>

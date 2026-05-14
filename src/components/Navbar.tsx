@@ -8,6 +8,7 @@ import {
   NavMobileOverlay,
   NavRequestAccessCta,
 } from "@/components/navigation/SiteNavBlocks";
+import { NavSignOut } from "@/components/navigation/NavSignOut";
 import { company } from "@/lib/site";
 
 export function Navbar() {
@@ -51,8 +52,9 @@ export function Navbar() {
             <NavDesktopCenter />
           </div>
 
-          <div className="col-start-2 flex items-center justify-end gap-2 justify-self-end md:col-start-3">
-            <div className="hidden md:block">
+          <div className="col-start-2 flex items-center justify-end gap-4 justify-self-end md:col-start-3">
+            <div className="hidden items-center gap-4 md:flex">
+              <NavSignOut />
               <NavRequestAccessCta />
             </div>
             <NavHamburgerButton onClick={() => setOpen(true)} />
