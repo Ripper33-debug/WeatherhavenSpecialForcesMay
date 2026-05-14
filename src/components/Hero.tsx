@@ -12,6 +12,11 @@ export type HeroProps = {
   secondaryCta?: Cta;
 };
 
+const btnPrimary =
+  "inline-flex min-h-11 items-center justify-center border border-white bg-white px-6 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-zinc-100";
+const btnGhost =
+  "inline-flex min-h-11 items-center justify-center border border-white/25 bg-transparent px-6 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-100 transition hover:border-white/50 hover:bg-white/[0.04]";
+
 export function Hero({
   eyebrow,
   title,
@@ -21,38 +26,34 @@ export function Hero({
   secondaryCta,
 }: HeroProps) {
   return (
-    <section className="relative overflow-hidden border-b border-white/[0.06] bg-zinc-950">
+    <section className="relative overflow-hidden border-b border-white/[0.08] bg-black">
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
         style={{
-          backgroundImage: `linear-gradient(to right, rgb(82 82 91 / 0.45) 1px, transparent 1px),
-            linear-gradient(to bottom, rgb(82 82 91 / 0.45) 1px, transparent 1px)`,
-          backgroundSize: "56px 56px",
+          backgroundImage: `linear-gradient(to right, rgb(63 63 70 / 0.4) 1px, transparent 1px),
+            linear-gradient(to bottom, rgb(63 63 70 / 0.4) 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
         }}
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-950 via-transparent to-zinc-950/95" />
-      <div className="pointer-events-none absolute -right-32 top-1/2 h-[min(80vw,480px)] w-[min(80vw,480px)] -translate-y-1/2 rounded-full bg-amber-900/8 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-black" />
+      <div className="pointer-events-none absolute -right-1/4 top-0 h-[min(100%,900px)] w-[min(100%,900px)] rounded-full bg-blue-950/20 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-10 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+      <div className="relative mx-auto max-w-[1400px] px-4 py-16 sm:px-6 sm:py-20 lg:px-12 lg:py-24">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
             {eyebrow && (
-              <p className="text-[13px] font-medium tracking-tight text-amber-500/90">{eyebrow}</p>
+              <p className="wh-label max-w-2xl border-b border-white/10 pb-3 text-zinc-500">{eyebrow}</p>
             )}
-            <h1 className="font-display mt-3 max-w-4xl text-3xl font-semibold leading-[1.08] tracking-tight text-zinc-50 sm:text-4xl lg:text-5xl">
+            <h1 className="font-display mt-6 max-w-4xl text-[2.125rem] font-semibold leading-[0.98] tracking-[-0.02em] text-white sm:text-5xl lg:text-6xl xl:text-[3.5rem]">
               {title}
             </h1>
-            <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-zinc-400 sm:text-base">{description}</p>
+            <p className="mt-8 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">{description}</p>
             {(primaryCta || secondaryCta) && (
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                 {primaryCta && (
                   <Link
                     href={primaryCta.href}
-                    className={
-                      primaryCta.variant === "secondary"
-                        ? "inline-flex min-h-10 items-center justify-center rounded-full border border-white/[0.1] px-5 py-2.5 text-[13px] font-semibold text-zinc-200 transition hover:border-white/[0.16] hover:bg-white/[0.04]"
-                        : "inline-flex min-h-10 items-center justify-center rounded-full bg-zinc-100 px-5 py-2.5 text-[13px] font-semibold text-zinc-950 transition hover:bg-white"
-                    }
+                    className={primaryCta.variant === "secondary" ? btnGhost : btnPrimary}
                   >
                     {primaryCta.label}
                   </Link>
@@ -60,7 +61,7 @@ export function Hero({
                 {secondaryCta && (
                   <Link
                     href={secondaryCta.href}
-                    className="inline-flex min-h-10 items-center justify-center rounded-full border border-zinc-600/80 bg-white/[0.02] px-5 py-2.5 text-[13px] font-semibold text-zinc-200 transition hover:border-zinc-500 hover:bg-white/[0.05]"
+                    className={secondaryCta.variant === "primary" ? btnPrimary : btnGhost}
                   >
                     {secondaryCta.label}
                   </Link>
@@ -70,9 +71,9 @@ export function Hero({
           </div>
 
           {pullQuote && (
-            <aside className="flex flex-col justify-center border-t border-white/[0.06] pt-8 text-[12px] leading-relaxed text-zinc-500 lg:col-span-5 lg:border-l lg:border-t-0 lg:border-white/[0.06] lg:pl-10 lg:pt-0">
-              <span className="text-[11px] font-medium text-zinc-600">Mission</span>
-              <p className="mt-3 text-lg font-medium leading-snug tracking-tight text-zinc-300 sm:text-xl">
+            <aside className="flex flex-col justify-center border-t border-white/[0.08] pt-10 lg:col-span-5 lg:border-l lg:border-t-0 lg:border-white/[0.08] lg:pl-12 lg:pt-0">
+              <span className="wh-label text-zinc-600">Mission</span>
+              <p className="font-display mt-5 text-2xl font-medium leading-snug tracking-tight text-zinc-200 sm:text-3xl">
                 {pullQuote}
               </p>
             </aside>

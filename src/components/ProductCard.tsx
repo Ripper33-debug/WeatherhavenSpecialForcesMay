@@ -15,7 +15,7 @@ function ProductVisualPanel({ icon }: { icon: ProductIconKey }) {
   return (
     <div className="relative h-[92px] w-full shrink-0 overflow-hidden rounded-xl border border-white/[0.06] bg-zinc-950 sm:h-[100px] sm:w-[44%] sm:max-w-[160px]">
       <div className="absolute inset-0 bg-gradient-to-br from-zinc-800/30 via-zinc-950 to-black" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgb(146_64_14/0.1),transparent_55%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgb(30_58_138/0.15),transparent_55%)]" />
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
         style={{
@@ -46,10 +46,10 @@ export function ProductCard({
         <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/60 via-zinc-950 to-black" />
         <div className="relative flex min-h-[100px] flex-col gap-4 sm:flex-row sm:items-stretch sm:justify-between">
           <div className="flex flex-1 flex-col justify-center">
-            <span className="text-[11px] font-medium text-zinc-500">Configuration building block</span>
+            <span className="wh-label text-zinc-600">Configuration building block</span>
             <div className="mt-2.5 flex items-center gap-3">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-black/30">
-                <ProductCardIcon name={icon} className="h-6 w-6 text-amber-500/90" />
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.1] bg-black/40">
+                <ProductCardIcon name={icon} className="h-6 w-6 text-zinc-200" />
               </span>
             </div>
           </div>
@@ -68,10 +68,10 @@ export function ProductCard({
           ))}
         </div>
       )}
-      <h3 className="font-display text-lg font-semibold tracking-tight text-zinc-50">{title}</h3>
+      <h3 className="font-display text-lg font-semibold tracking-tight text-white">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-zinc-400">{description}</p>
       {href && (
-        <span className="mt-4 inline-block text-[13px] font-semibold text-amber-500/90 transition group-hover:text-amber-400">
+        <span className="mt-4 inline-block text-[12px] font-semibold uppercase tracking-wider text-zinc-300 transition group-hover:text-white">
           {linkLabel} →
         </span>
       )}

@@ -16,9 +16,9 @@ export default function HomePage() {
         secondaryCta={{ href: "/capabilities", label: "Capabilities" }}
       />
 
-      <section className="border-b border-white/[0.06] bg-zinc-950/40">
-        <div className="mx-auto max-w-7xl px-4 py-9 sm:px-6 lg:px-10">
-          <p className="text-center font-display text-[17px] font-medium leading-snug tracking-tight text-zinc-300 sm:text-lg">
+      <section className="border-b border-white/[0.08] bg-zinc-950/20">
+        <div className="mx-auto max-w-[1400px] px-4 py-12 sm:px-6 lg:px-12">
+          <p className="text-center font-display text-lg font-medium leading-snug tracking-tight text-zinc-300 sm:text-xl">
             Weatherhaven starts with mission profile, environment, personnel, mobility, power, timeline, and sustainment—then
             composes shelter, ECU, power, flooring, and layout as configurable building blocks for command, maintenance,
             medical, and berthing—without cookie-cutter assumptions.
@@ -53,13 +53,13 @@ export default function HomePage() {
         ]}
       />
 
-      <section className="border-b border-white/[0.06]">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-18">
-          <p className="text-[13px] font-medium text-amber-500/90">Mission solution areas</p>
-          <h2 className="font-display mt-2 max-w-3xl text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl lg:text-4xl">
+      <section className="border-b border-white/[0.08] bg-black">
+        <div className="mx-auto max-w-[1400px] px-4 py-16 sm:px-6 sm:py-20 lg:px-12">
+          <p className="wh-label text-zinc-600">Mission solution areas</p>
+          <h2 className="font-display mt-6 max-w-4xl text-3xl font-semibold leading-[1.05] tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl">
             Representative packages—not fixed SKUs.
           </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-[15px]">
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
             Starting points we reshape with your program: final shelter, MEP, logistics, and sustainment follow your
             inputs—not a fixed catalog stack.
           </p>

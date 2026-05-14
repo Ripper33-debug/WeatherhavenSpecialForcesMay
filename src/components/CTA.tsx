@@ -7,31 +7,30 @@ export type CTAProps = {
   secondary?: { href: string; label: string };
 };
 
+const btnPrimary =
+  "inline-flex min-h-11 items-center justify-center border border-white bg-white px-6 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-zinc-100";
+const btnGhost =
+  "inline-flex min-h-11 items-center justify-center border border-white/25 bg-transparent px-6 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-100 transition hover:border-white/50 hover:bg-white/[0.04]";
+
 export function CTA({ title, description, primary, secondary }: CTAProps) {
   return (
-    <section className="border-t border-white/[0.06]">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-10">
-        <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-900/40 px-6 py-10 sm:px-10 lg:px-12 lg:py-12">
-          <div className="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-amber-600/50 to-transparent" />
-          <div className="relative pl-6 sm:pl-8">
-            <h2 className="font-display max-w-xl text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl">
+    <section className="border-t border-white/[0.08] bg-black">
+      <div className="mx-auto max-w-[1400px] px-4 py-16 sm:px-6 sm:py-20 lg:px-12">
+        <div className="relative overflow-hidden border border-white/[0.1] bg-zinc-950/50 px-6 py-12 sm:px-10 lg:px-14 lg:py-14">
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-950/10 via-transparent to-transparent" />
+          <div className="relative max-w-3xl">
+            <h2 className="font-display text-3xl font-semibold leading-[1.05] tracking-[-0.02em] text-white sm:text-4xl">
               {title}
             </h2>
             {description && (
-              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-zinc-400">{description}</p>
+              <p className="mt-5 text-base leading-relaxed text-zinc-400 sm:text-lg">{description}</p>
             )}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
-              <Link
-                href={primary.href}
-                className="inline-flex min-h-10 items-center justify-center rounded-full bg-zinc-100 px-5 py-2.5 text-[13px] font-semibold text-zinc-950 transition hover:bg-white"
-              >
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+              <Link href={primary.href} className={btnPrimary}>
                 {primary.label}
               </Link>
               {secondary && (
-                <Link
-                  href={secondary.href}
-                  className="inline-flex min-h-10 items-center justify-center rounded-full border border-white/[0.1] px-5 py-2.5 text-[13px] font-semibold text-zinc-200 transition hover:border-white/[0.16] hover:bg-white/[0.04]"
-                >
+                <Link href={secondary.href} className={btnGhost}>
                   {secondary.label}
                 </Link>
               )}

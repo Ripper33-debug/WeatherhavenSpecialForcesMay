@@ -11,8 +11,8 @@ function NavLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className={`text-[11px] font-medium tracking-tight transition-colors xl:text-[12px] ${
-        active ? "text-zinc-50" : "text-zinc-500 hover:text-zinc-200"
+      className={`wh-label transition-colors ${
+        active ? "text-zinc-100" : "text-zinc-500 hover:text-zinc-200"
       }`}
     >
       {label}
@@ -24,16 +24,18 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-[3.75rem] sm:px-6 lg:px-10">
+    <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-black/80 backdrop-blur-2xl">
+      <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-12">
         <Link href="/" className="group flex shrink-0 items-baseline gap-2">
-          <span className="font-display text-[1.0625rem] font-semibold tracking-tight text-zinc-50 sm:text-lg">
+          <span className="font-display text-lg font-semibold tracking-tight text-white sm:text-xl">
             {company.shortName}
           </span>
-          <span className="hidden text-[11px] font-normal text-zinc-600 sm:inline">Resource Inc.</span>
+          <span className="hidden font-mono text-[10px] font-normal tracking-[0.16em] text-zinc-600 sm:inline">
+            RESOURCE INC.
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-4 text-[11px] font-medium xl:gap-5 xl:text-[12px] 2xl:gap-6 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
           {navLinks.map((item) => (
             <NavLink key={item.href} href={item.href} label={item.label} />
           ))}
@@ -42,7 +44,7 @@ export function Navbar() {
         <div className="hidden items-center lg:flex">
           <Link
             href="/request-access"
-            className="rounded-full bg-zinc-100 px-4 py-2 text-[12px] font-semibold text-zinc-950 transition hover:bg-white"
+            className="wh-cta inline-flex items-center justify-center border border-white bg-white px-5 py-2.5 text-black transition hover:bg-zinc-100"
           >
             Request access
           </Link>
@@ -62,13 +64,13 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="max-h-[min(70vh,520px)] overflow-y-auto border-t border-white/[0.06] bg-zinc-950/95 px-4 py-5 backdrop-blur-xl lg:hidden">
-          <nav className="flex flex-col gap-0.5">
+        <div className="max-h-[min(75vh,560px)] overflow-y-auto border-t border-white/[0.08] bg-black px-4 py-6 backdrop-blur-xl lg:hidden">
+          <nav className="flex flex-col gap-1">
             {navLinks.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-md px-3 py-3 text-[15px] text-zinc-200 transition hover:bg-white/[0.04]"
+                className="wh-label block rounded-md px-3 py-3.5 text-left text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
@@ -76,7 +78,7 @@ export function Navbar() {
             ))}
             <Link
               href="/request-access"
-              className="mt-3 rounded-full bg-zinc-100 px-4 py-3 text-center text-[13px] font-semibold text-zinc-950"
+              className="wh-cta mt-4 border border-white bg-white py-3.5 text-center text-black transition hover:bg-zinc-100"
               onClick={() => setOpen(false)}
             >
               Request access

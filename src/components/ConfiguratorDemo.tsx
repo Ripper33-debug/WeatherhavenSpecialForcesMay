@@ -78,15 +78,13 @@ export function ConfiguratorDemo() {
 
   return (
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-      <div className="rounded-2xl border border-white/[0.08] bg-gradient-to-b from-zinc-900/40 to-zinc-950 p-6 sm:p-8 lg:col-span-5">
+      <div className="rounded-2xl border border-white/[0.1] bg-zinc-950/40 p-6 sm:p-8 lg:col-span-5">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="font-display text-lg font-semibold tracking-tight text-zinc-50">
+            <p className="wh-label text-zinc-600">Advisory workspace</p>
+            <h3 className="font-display mt-3 text-lg font-semibold tracking-tight text-white">
               Mission Solution Builder
             </h3>
-            <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-zinc-600">
-              Configuration advisory demo
-            </p>
             <p className="mt-3 text-sm leading-relaxed text-zinc-500">
               Start from mission profile, environment, team size, and power baseline—then synthesize a notional advisory
               brief. Outputs support solution workshops; they are unclassified and not procurement records.
@@ -125,7 +123,7 @@ export function ConfiguratorDemo() {
               step={4}
               value={crew}
               onChange={(e) => setCrew(Number(e.target.value))}
-              className="mt-3 w-full accent-amber-600"
+              className="mt-3 w-full accent-zinc-400"
               aria-valuemin={8}
               aria-valuemax={80}
               aria-valuenow={crew}
@@ -137,12 +135,12 @@ export function ConfiguratorDemo() {
         <button
           type="button"
           onClick={generate}
-          className="mt-10 w-full rounded-full bg-zinc-100 py-3.5 text-sm font-semibold text-zinc-950 transition hover:bg-white active:scale-[0.99]"
+          className="wh-cta mt-10 w-full border border-white bg-white py-3.5 text-black transition hover:bg-zinc-100 active:scale-[0.99]"
         >
           Generate configuration advisory brief
         </button>
         {stale && generated && (
-          <p className="mt-3 text-center text-xs text-amber-500/90">Inputs updated — generate again to refresh.</p>
+          <p className="mt-3 text-center text-xs text-zinc-500">Inputs updated — generate again to refresh.</p>
         )}
       </div>
 
@@ -159,7 +157,7 @@ export function ConfiguratorDemo() {
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-900/30 to-black/60" />
             <div className="relative">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">Configuration advisory brief</p>
+              <p className="wh-label text-zinc-600">Configuration advisory brief</p>
               <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-zinc-400">
                 Define mission, theater, power, and force size—then generate a structured brief: advisory summary,
                 recommended starting point, mission package, shelter and system integration, layout and flooring, building
@@ -175,17 +173,17 @@ export function ConfiguratorDemo() {
             <div className="border-b border-white/[0.08] bg-black/40 px-6 py-5 sm:px-8">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
-                    Weatherhaven Resource Inc.
-                  </p>
-                  <h3 className="font-display mt-2 text-xl font-semibold tracking-tight text-zinc-50 sm:text-2xl">
+                  <p className="wh-label text-zinc-600">Weatherhaven Resource Inc.</p>
+                  <h3 className="font-display mt-3 text-xl font-semibold tracking-tight text-white sm:text-2xl">
                     Configuration advisory brief
                   </h3>
                 </div>
                 <div className="text-right text-[11px] leading-relaxed text-zinc-500">
                   <p className="font-mono text-zinc-400">{briefId}</p>
                   <p className="mt-1 font-mono">{stamp}</p>
-                  <p className="mt-2 font-medium text-amber-600/90">Unclassified · advisory only</p>
+                  <p className="mt-2 font-mono text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+                    Unclassified · advisory only
+                  </p>
                 </div>
               </div>
             </div>
@@ -223,7 +221,7 @@ export function ConfiguratorDemo() {
                   <ul className="list-none space-y-2 text-sm leading-relaxed text-zinc-300">
                     {brief.configurationBuildingBlocks.map((line) => (
                       <li key={line} className="flex gap-3">
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500/80" />
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white/50" />
                         <span>{line}</span>
                       </li>
                     ))}
@@ -247,7 +245,7 @@ export function ConfiguratorDemo() {
                   <ul className="list-none space-y-2.5 text-sm leading-relaxed text-zinc-300">
                     {brief.sustainmentSupportNotes.map((line) => (
                       <li key={line} className="flex gap-3">
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500/80" />
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white/50" />
                         <span>{line}</span>
                       </li>
                     ))}
@@ -260,7 +258,7 @@ export function ConfiguratorDemo() {
               <p className="max-w-xl text-sm leading-relaxed text-zinc-400">{brief.nextStepCta}</p>
               <Link
                 href="/request-access"
-                className="mt-4 inline-flex shrink-0 items-center justify-center rounded-full bg-zinc-100 px-5 py-2.5 text-sm font-semibold text-zinc-950 transition hover:bg-white sm:mt-0"
+                className="wh-cta mt-4 inline-flex shrink-0 items-center justify-center border border-white bg-white px-5 py-2.5 text-black transition hover:bg-zinc-100 sm:mt-0"
               >
                 Request technical exchange
               </Link>
@@ -285,7 +283,7 @@ function OutputRow({
     <div className="grid gap-4 py-6 sm:grid-cols-[4rem_1fr] sm:gap-8 sm:py-7">
       <p className="text-[11px] font-semibold tabular-nums text-zinc-600">{k}</p>
       <div>
-        <h4 className="font-display text-base font-semibold tracking-tight text-zinc-100">{title}</h4>
+        <h4 className="font-display text-base font-semibold tracking-tight text-white">{title}</h4>
         <div className="mt-3">{body}</div>
       </div>
     </div>
@@ -305,7 +303,7 @@ function OptionGroup<T extends string>({
 }) {
   return (
     <div>
-      <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</p>
+      <p className="wh-label text-zinc-600">{label}</p>
       <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
         {options.map((opt) => {
           const active = value === opt.value;
@@ -316,11 +314,11 @@ function OptionGroup<T extends string>({
               onClick={() => onChange(opt.value)}
               className={`rounded-xl border px-3 py-3 text-left transition duration-200 sm:min-h-[88px] ${
                 active
-                  ? "border-amber-500/50 bg-amber-950/20 shadow-[inset_0_0_0_1px_rgb(245_158_11/0.12)]"
-                  : "border-white/[0.08] bg-zinc-950/50 hover:border-white/[0.14] hover:bg-zinc-900/50"
+                  ? "border-white bg-white/[0.06] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.2)]"
+                  : "border-white/[0.08] bg-black/40 hover:border-white/[0.18] hover:bg-white/[0.04]"
               }`}
             >
-              <span className={`block text-sm font-semibold ${active ? "text-zinc-50" : "text-zinc-200"}`}>
+              <span className={`block text-sm font-semibold ${active ? "text-white" : "text-zinc-200"}`}>
                 {opt.title}
               </span>
               <span className="mt-1 block text-xs leading-snug text-zinc-500">{opt.hint}</span>
