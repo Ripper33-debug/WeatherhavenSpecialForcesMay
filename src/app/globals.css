@@ -6,15 +6,11 @@
   --font-display: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Cinematic near-black canvas (defense / autonomy editorial baseline) */
+/* Site canvas — Shield / SOF dark baseline (#080a0c) */
 body {
   font-family: var(--font-sans);
-  background-color: rgb(0 0 0);
-  background-image:
-    radial-gradient(ellipse 120% 80% at 50% -20%, rgb(30 58 138 / 0.12), transparent 55%),
-    radial-gradient(ellipse 80% 50% at 100% 0%, rgb(24 24 27 / 0.5), transparent 45%),
-    linear-gradient(to bottom, rgb(9 9 11), rgb(0 0 0));
-  background-attachment: fixed;
+  background-color: #080a0c;
+  background-image: none;
 }
 
 ::selection {
@@ -29,7 +25,7 @@ body {
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgb(161 161 170);
+  color: #c8a96e;
 }
 
 /* Mono CTA (nav / hero — slightly larger than .wh-label) */

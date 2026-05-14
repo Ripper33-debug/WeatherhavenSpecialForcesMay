@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HeroTopoCanvas } from "@/components/HeroTopoCanvas";
 import {
   IconBolt,
   IconBed,
@@ -134,23 +135,7 @@ export default function SofSolutionsPage() {
     <main className="bg-[#080a0c] pt-16 text-white lg:pt-[4.25rem]">
       {/* SECTION 1 — HERO */}
       <section className="relative flex min-h-dvh flex-col">
-        <div className="absolute inset-0">
-          <Image
-            src="/sof/hero.svg"
-            alt=""
-            fill
-            className="object-cover object-center brightness-[0.7]"
-            priority
-            sizes="100vw"
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(8,10,12,0.3) 0%, rgba(8,10,12,0.75) 100%)",
-            }}
-          />
-        </div>
+        <HeroTopoCanvas />
 
         <div className="relative z-10 flex flex-1 flex-col justify-center px-6 py-20 lg:pl-20 lg:pr-12">
           <div className="max-w-[680px]">
@@ -179,17 +164,24 @@ export default function SofSolutionsPage() {
         </div>
 
         <div
-          className="relative z-10 hidden min-[480px]:block border-t border-[rgba(255,255,255,0.1)]"
+          className="relative z-20 hidden min-[480px]:flex min-[480px]:border-t min-[480px]:border-[rgba(255,255,255,0.1)]"
           style={{ backgroundColor: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)" }}
         >
-          <div className="grid grid-cols-2 gap-px bg-[rgba(255,255,255,0.15)] lg:grid-cols-4">
-            {heroStats.map((s) => (
-              <div key={s.label} className="bg-black/80 px-4 py-6 text-center lg:px-8">
-                <p className="font-display text-[28px] font-medium tracking-[-0.02em] text-white">{s.num}</p>
-                <p className="mt-1 text-xs text-[#8a9099]">{s.label}</p>
-              </div>
-            ))}
-          </div>
+          {heroStats.map((s, i) => (
+            <div
+              key={`${s.num}-${s.label}`}
+              className={`flex min-w-0 flex-1 flex-col items-center justify-center px-3 py-6 text-center sm:px-5 lg:px-8 ${
+                i > 0 ? "border-l border-[rgba(255,255,255,0.15)]" : ""
+              }`}
+            >
+              <p className="font-display text-[clamp(1.125rem,2.5vw,1.75rem)] font-medium leading-tight tracking-[-0.02em] text-white">
+                {s.num}
+              </p>
+              <p className="mt-1 text-[10px] uppercase tracking-[0.14em] text-[#8a9099] sm:text-xs sm:normal-case sm:tracking-normal">
+                {s.label}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 

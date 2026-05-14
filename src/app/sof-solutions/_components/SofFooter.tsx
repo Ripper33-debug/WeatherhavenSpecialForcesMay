@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { company, navLinks } from "@/lib/site";
+import { company, navFooterLeafLinks } from "@/lib/site";
 
 export function SofFooter() {
   return (
@@ -9,7 +9,7 @@ export function SofFooter() {
           {company.shortName}
         </Link>
         <nav className="flex flex-wrap gap-x-8 gap-y-3">
-          {navLinks.map((l) => (
+          {navFooterLeafLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}

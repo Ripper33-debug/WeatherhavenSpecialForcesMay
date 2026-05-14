@@ -14,16 +14,15 @@ const btnGhost =
 
 export function CTA({ title, description, primary, secondary }: CTAProps) {
   return (
-    <section className="border-t border-white/[0.08] bg-black">
+    <section className="border-t border-white/[0.08] bg-[#080a0c]">
       <div className="mx-auto max-w-[1400px] px-4 py-16 sm:px-6 sm:py-20 lg:px-12">
-        <div className="relative overflow-hidden border border-white/[0.1] bg-zinc-950/50 px-6 py-12 sm:px-10 lg:px-14 lg:py-14">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-950/10 via-transparent to-transparent" />
+        <div className="relative overflow-hidden border border-white/[0.1] bg-black/30 px-6 py-12 sm:px-10 lg:px-14 lg:py-14">
           <div className="relative max-w-3xl">
             <h2 className="font-display text-3xl font-semibold leading-[1.05] tracking-[-0.02em] text-white sm:text-4xl">
               {title}
             </h2>
             {description && (
-              <p className="mt-5 text-base leading-relaxed text-zinc-400 sm:text-lg">{description}</p>
+              <p className="mt-5 text-base leading-relaxed text-[#8a9099] sm:text-lg">{description}</p>
             )}
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <Link href={primary.href} className={btnPrimary}>
