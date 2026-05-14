@@ -3,7 +3,7 @@ import { company, footerColumns } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.08] bg-black">
+    <footer data-global-footer className="border-t border-white/[0.08] bg-black">
       <div className="mx-auto max-w-[1400px] px-4 py-14 sm:px-6 lg:px-12">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">

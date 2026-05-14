@@ -96,3 +96,13 @@ body {
     animation: none !important;
   }
 }
+
+/* Immersive SOF page: hide global chrome, smooth scroll */
+html:has(.sof-solutions-root) {
+  scroll-behavior: smooth;
+}
+
+body:has(.sof-solutions-root) [data-global-nav],
+body:has(.sof-solutions-root) [data-global-footer] {
+  display: none !important;
+}
