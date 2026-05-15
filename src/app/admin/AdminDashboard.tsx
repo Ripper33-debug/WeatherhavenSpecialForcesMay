@@ -5,7 +5,15 @@ import { adminAddUser, adminDeleteUser, adminListUsers, type AdminUserRow } from
 import type { AdminAnalyticsPayload, UserAnalyticsRow } from "@/lib/admin-analytics";
 import { AdminStatBox } from "./components/AdminStatBox";
 import { EngagementBar } from "./components/EngagementBar";
+import { SiteClickSummary } from "./components/SiteClickSummary";
 import { UserExpandedDetail } from "./components/UserExpandedDetail";
+
+const EMPTY_CLICK_SUMMARY = {
+  mostClickedElement: "—",
+  mostClickedPage: "—",
+  totalClicksThisSession: 0,
+  totalClicksAllTime: 0,
+} as const;
 
 function formatDateTime(iso: string | null | undefined) {
   if (!iso) return "—";
@@ -20,7 +28,7 @@ export function AdminDashboard({ analytics, initialAuthUsers }: { analytics: Adm
   const [banner, setBanner] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [pending, setPending] = useState(false);
   const analyticsById = useMemo(() => { const map = new Map<string, UserAnalyticsRow>(); analytics.users.forEach((u) => map.set(u.id, u)); return map; }, [analytics.users]);
-  const tableRows = useMemo(() => users.map((auth) => { const row = analyticsById.get(auth.id); return { id: auth.id, email: auth.email ?? row?.email ?? "—", createdAt: auth.created_at || row?.createdAt || "", lastLogin: auth.last_sign_in_at ?? row?.lastLogin ?? null, totalSessions: row?.totalSessions ?? 0, totalPageViews: row?.totalPageViews ?? 0, engagementScore: row?.engagementScore ?? 0, detail: row?.detail ?? { sessions: [], topPages: [], events: [] } } as UserAnalyticsRow; }), [users, analyticsById]);
+  const tableRows = useMemo(() => users.map((auth) => { const row = analyticsById.get(auth.id); return { id: auth.id, email: auth.email ?? row?.email ?? "—", createdAt: auth.created_at || row?.createdAt || "", lastLogin: auth.last_sign_in_at ?? row?.lastLogin ?? null, totalSessions: row?.totalSessions ?? 0, totalPageViews: row?.totalPageViews ?? 0, engagementScore: row?.engagementScore ?? 0, detail: row?.detail ?? { sessions: [], topPages: [], events: [], clicks: [], clickSummary: { ...EMPTY_CLICK_SUMMARY } } } as UserAnalyticsRow; }), [users, analyticsById]);
   async function handleAdd(e: React.FormEvent) { e.preventDefault(); setBanner(null); setPending(true); const res = await adminAddUser(email.trim(), password); setPending(false); if (res.ok) { setBanner({ type: "success", text: "User added successfully." }); setEmail(""); setPassword(""); setUsers(await adminListUsers()); } else { setBanner({ type: "error", text: "Failed to add user." }); } }
   async function handleRemove(userId: string) { setBanner(null); const res = await adminDeleteUser(userId); if (res.ok) { setUsers((prev) => prev.filter((u) => u.id !== userId)); if (expandedId === userId) setExpandedId(null); setBanner({ type: "success", text: "User removed." }); } else { setBanner({ type: "error", text: "Failed to remove user." }); } }
   return (
@@ -33,6 +41,7 @@ export function AdminDashboard({ analytics, initialAuthUsers }: { analytics: Adm
         <AdminStatBox label="Total page views" value={analytics.summary.totalPageViews} />
         <AdminStatBox label="Total events" value={analytics.summary.totalEvents} />
       </div>
+      <SiteClickSummary items={analytics.topClickedElements} />
       <div className="mt-16">
         <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-[#c8a96e]">User analytics</p>
         <div className="mt-6 overflow-x-auto border border-[rgba(255,255,255,0.08)]">

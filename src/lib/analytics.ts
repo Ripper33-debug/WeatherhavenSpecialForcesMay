@@ -5,6 +5,7 @@ let sessionStartTime = Date.now();
 let currentPage = "";
 let pageStartTime = Date.now();
 let lastPageViewId: string | null = null;
+let clickTrackerTeardown: (() => void) | null = null;
 
 async function updateLastPageTime() {
   if (!lastPageViewId) return;
@@ -49,6 +50,79 @@ export async function endSession() {
   sessionId = null;
   lastPageViewId = null;
   currentPage = "";
+  teardownClickTracking();
+}
+
+function teardownClickTracking() {
+  if (clickTrackerTeardown) {
+    clickTrackerTeardown();
+    clickTrackerTeardown = null;
+  }
+}
+
+export async function initClickTracking() {
+  teardownClickTracking();
+
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user || !sessionId) return;
+
+  const handler = (e: MouseEvent) => {
+    void (async () => {
+      if (!sessionId) return;
+
+      const {
+        data: { user: currentUser },
+      } = await supabase.auth.getUser();
+      if (!currentUser) return;
+
+      const target = e.target as HTMLElement;
+      if (!target) return;
+
+      const clickable =
+        (target.closest("a, button, [role='button'], input, select, textarea, label") as HTMLElement | null) ??
+        target;
+
+      const elementText = (
+        clickable.textContent ||
+        clickable.getAttribute("aria-label") ||
+        clickable.getAttribute("placeholder") ||
+        ""
+      )
+        .trim()
+        .slice(0, 100);
+
+      const hrefAttr = clickable.getAttribute("href");
+      const href =
+        hrefAttr ??
+        (clickable instanceof HTMLAnchorElement && clickable.href ? clickable.href : null);
+
+      const className =
+        typeof clickable.className === "string"
+          ? clickable.className
+          : (clickable.getAttribute("class") ?? "");
+
+      await supabase.from("click_events").insert({
+        user_id: currentUser.id,
+        email: currentUser.email,
+        session_id: sessionId,
+        page: window.location.pathname,
+        element_type: clickable.tagName.toLowerCase(),
+        element_text: elementText || "(no text)",
+        element_id: clickable.id || null,
+        element_class: className.slice(0, 100) || null,
+        href: href || null,
+        x_position: Math.round(e.clientX),
+        y_position: Math.round(e.clientY),
+        clicked_at: new Date().toISOString(),
+      });
+    })();
+  };
+
+  document.addEventListener("click", handler, true);
+  clickTrackerTeardown = () => document.removeEventListener("click", handler, true);
 }
 
 export async function trackPageView(page: string, pageTitle: string) {

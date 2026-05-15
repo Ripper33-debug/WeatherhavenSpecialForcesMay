@@ -1,6 +1,6 @@
 "use client";
 
-import { endSession, startSession, trackEvent, trackPageView } from "@/lib/analytics";
+import { endSession, initClickTracking, startSession, trackEvent, trackPageView } from "@/lib/analytics";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
@@ -83,7 +83,7 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (sessionStarted.current) return;
     sessionStarted.current = true;
-    void startSession();
+    void startSession().then(() => initClickTracking());
 
     const onUnload = () => {
       void endSession();
@@ -101,6 +101,7 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     VIEWED_SECTIONS.clear();
     const cleanupSections = observeAnalyticsSections();
+    void initClickTracking();
     return cleanupSections;
   }, [pathname]);
 
