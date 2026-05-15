@@ -218,7 +218,7 @@ export default function SofSolutionsPage() {
       </section>
 
       {/* SECTION 3 — CAPABILITIES */}
-      <section className="sof-section bg-[#080a0c]">
+      <section className="sof-section bg-[#080a0c]" data-analytics-section="capabilities">
         <p className="sof-label">CAPABILITIES</p>
         <h2 className="font-display mt-6 max-w-4xl text-[32px] font-medium tracking-[-0.02em] text-white lg:text-[40px]">
           Built for the full mission spectrum.
@@ -273,7 +273,7 @@ export default function SofSolutionsPage() {
       </section>
 
       {/* SECTION 5 — CREDIBILITY */}
-      <section className="sof-section bg-[#080a0c]">
+      <section className="sof-section bg-[#080a0c]" data-analytics-section="credibility">
         <p className="sof-label">PROVEN IN THE FIELD</p>
         <h2 className="font-display mt-6 max-w-4xl text-[32px] font-medium tracking-[-0.02em] text-white lg:text-[40px]">
           Decades of expeditionary delivery.

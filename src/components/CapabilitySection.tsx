@@ -21,7 +21,11 @@ export function CapabilitySection({
   reversed,
 }: CapabilitySectionProps) {
   return (
-    <section id={id} className="border-b border-white/[0.08] bg-[#080a0c] last:border-b-0">
+    <section
+      id={id}
+      data-analytics-section="capabilities"
+      className="border-b border-white/[0.08] bg-[#080a0c] last:border-b-0"
+    >
       <div className="mx-auto max-w-[1400px] px-4 py-16 sm:px-6 sm:py-20 lg:px-12 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div className={reversed ? "lg:order-2" : undefined}>

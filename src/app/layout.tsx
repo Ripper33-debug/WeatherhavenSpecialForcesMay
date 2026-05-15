@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Barlow_Condensed, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
+import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { company } from "@/lib/site";
@@ -50,9 +51,11 @@ export default function RootLayout({
       className={`${plexSans.variable} ${plexMono.variable} ${barlowCondensed.variable} h-full`}
     >
       <body className="min-h-full flex flex-col font-sans text-zinc-100 antialiased">
-        <Navbar adminEmail={process.env.ADMIN_EMAIL ?? ""} />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AnalyticsProvider>
+          <Navbar adminEmail={process.env.ADMIN_EMAIL ?? ""} />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AnalyticsProvider>
         <Analytics />
       </body>
     </html>
