@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { isAdminEmail } from "@/lib/auth-admin";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
@@ -16,8 +17,7 @@ async function assertAdmin(): Promise<boolean> {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const adminEmail = process.env.ADMIN_EMAIL;
-  return Boolean(user?.email && adminEmail && user.email === adminEmail);
+  return isAdminEmail(user?.email);
 }
 
 export async function adminListUsers(): Promise<AdminUserRow[]> {

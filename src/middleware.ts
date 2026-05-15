@@ -1,6 +1,21 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+function safeRedirectPath(path: string | null): string {
+  if (!path || !path.startsWith("/") || path.startsWith("//")) return "/";
+  return path;
+}
+
+function resolvePostLoginPath(redirectTo: string | null, userEmail: string | undefined): string {
+  const safe = safeRedirectPath(redirectTo);
+  if (safe !== "/") return safe;
+  const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  if (adminEmail && userEmail?.trim().toLowerCase() === adminEmail) {
+    return "/admin";
+  }
+  return safe;
+}
+
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
@@ -36,6 +51,12 @@ export async function middleware(request: NextRequest) {
     const redirectUrl = new URL("/login", request.url);
     redirectUrl.searchParams.set("redirectTo", request.nextUrl.pathname);
     return NextResponse.redirect(redirectUrl);
+  }
+
+  if (request.nextUrl.pathname.startsWith("/login") && user) {
+    const redirectTo = request.nextUrl.searchParams.get("redirectTo");
+    const target = resolvePostLoginPath(redirectTo, user.email);
+    return NextResponse.redirect(new URL(target, request.url));
   }
 
   return supabaseResponse;
