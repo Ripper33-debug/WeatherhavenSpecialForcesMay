@@ -7,6 +7,14 @@ import Link from "next/link";
 import { HeroTopoCanvas } from "@/components/HeroTopoCanvas";
 import { company } from "@/lib/site";
 
+function getRedirectTo(search: string): string {
+  const redirectTo = new URLSearchParams(search).get("redirectTo") || "/";
+  if (!redirectTo.startsWith("/") || redirectTo.startsWith("//")) {
+    return "/";
+  }
+  return redirectTo;
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -18,7 +26,7 @@ export default function LoginPage() {
     const supabase = createClient();
     void supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        router.replace("/");
+        router.replace(getRedirectTo(window.location.search));
       }
     });
   }, [router]);
@@ -48,8 +56,9 @@ export default function LoginPage() {
         return;
       }
 
-      // Full navigation so middleware sees the new session cookies reliably
-      window.location.href = "/";
+      const redirectTo = getRedirectTo(window.location.search);
+      router.push(redirectTo);
+      router.refresh();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Something went wrong. Try again.";
       console.error("Login error:", err);

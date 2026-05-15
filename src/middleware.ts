@@ -33,7 +33,9 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.includes(".");
 
   if (!isPublic && !user) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    const redirectUrl = new URL("/login", request.url);
+    redirectUrl.searchParams.set("redirectTo", request.nextUrl.pathname);
+    return NextResponse.redirect(redirectUrl);
   }
 
   return supabaseResponse;
