@@ -8,10 +8,11 @@ import {
   NavMobileOverlay,
   NavRequestAccessCta,
 } from "@/components/navigation/SiteNavBlocks";
+import { NavAdminLink } from "@/components/navigation/NavAdminLink";
 import { NavSignOut } from "@/components/navigation/NavSignOut";
 import { company } from "@/lib/site";
 
-export function SofNav() {
+export function SofNav({ adminEmail = "" }: { adminEmail?: string }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -48,6 +49,7 @@ export function SofNav() {
 
           <div className="col-start-2 flex items-center justify-end gap-4 justify-self-end md:col-start-3">
             <div className="hidden items-center gap-4 md:flex">
+              <NavAdminLink adminEmail={adminEmail} />
               <NavSignOut />
               <NavRequestAccessCta />
             </div>
@@ -56,7 +58,7 @@ export function SofNav() {
         </div>
       </header>
 
-      <NavMobileOverlay open={open} onClose={() => setOpen(false)} showWordmark />
+      <NavMobileOverlay open={open} onClose={() => setOpen(false)} showWordmark adminEmail={adminEmail} />
     </>
   );
 }

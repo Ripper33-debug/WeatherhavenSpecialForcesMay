@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function SofSolutionsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="sof-solutions-root">
-      <SofNav />
+      <SofNav adminEmail={process.env.ADMIN_EMAIL ?? ""} />
       {children}
       <SofFooter />
     </div>

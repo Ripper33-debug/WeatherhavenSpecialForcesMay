@@ -50,7 +50,7 @@ export default function RootLayout({
       className={`${plexSans.variable} ${plexMono.variable} ${barlowCondensed.variable} h-full`}
     >
       <body className="min-h-full flex flex-col font-sans text-zinc-100 antialiased">
-        <Navbar />
+        <Navbar adminEmail={process.env.ADMIN_EMAIL ?? ""} />
         <main className="flex-1">{children}</main>
         <Footer />
         <Analytics />

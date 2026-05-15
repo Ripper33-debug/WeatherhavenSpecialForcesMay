@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { IconChevronDown, IconMenu2, IconX } from "@tabler/icons-react";
 import { company, navContactLink, navFlatLinks, navResourcesItems, navSolutionsItems } from "@/lib/site";
+import { NavAdminLink } from "@/components/navigation/NavAdminLink";
 import { NavSignOut } from "@/components/navigation/NavSignOut";
 
 function DesktopDropdown({
@@ -82,10 +83,12 @@ export function NavMobileOverlay({
   open,
   onClose,
   showWordmark = true,
+  adminEmail = "",
 }: {
   open: boolean;
   onClose: () => void;
   showWordmark?: boolean;
+  adminEmail?: string;
 }) {
   const [solOpen, setSolOpen] = useState(false);
   const [resOpen, setResOpen] = useState(false);
@@ -207,6 +210,7 @@ export function NavMobileOverlay({
       </nav>
 
       <div className="flex shrink-0 flex-col gap-4 border-t border-[rgba(255,255,255,0.1)] p-4">
+        <NavAdminLink adminEmail={adminEmail} mobile onNavigate={close} />
         <NavSignOut className="self-center text-[14px]" onNavigate={close} />
         <NavRequestAccessCta className="w-full py-4 text-center" onNavigate={close} />
       </div>
