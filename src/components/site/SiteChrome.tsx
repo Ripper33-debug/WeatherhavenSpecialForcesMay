@@ -12,7 +12,7 @@ export function SiteChrome({
   footer: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const bare = pathname === "/request-access";
+  const bare = pathname === "/request-access" || pathname === "/login";
 
   if (bare) {
     return <>{children}</>;
