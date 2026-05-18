@@ -1,6 +1,6 @@
 "use client";
 
-import { IconCheck } from "@tabler/icons-react";
+import Link from "next/link";
 import { useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 
@@ -22,6 +22,7 @@ const submitBtnClass =
 export function RequestAccessForm() {
   const [form, setForm] = useState(initial);
   const [submitted, setSubmitted] = useState(false);
+  const [submittedName, setSubmittedName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -64,6 +65,7 @@ export function RequestAccessForm() {
         console.error("Notify failed:", err);
       }
       void trackEvent("submit", "Request Access form submitted");
+      setSubmittedName(form.name.trim());
       setSubmitted(true);
     } catch {
       setError("Network error. Confirm connectivity and retry.");
@@ -73,12 +75,26 @@ export function RequestAccessForm() {
   }
 
   if (submitted) {
+    const firstName = submittedName.split(/\s+/)[0] || "there";
     return (
       <div className="flex flex-col items-center justify-center px-6 py-16 text-center sm:px-8 sm:py-20">
-        <IconCheck className="text-[#c8a96e]" size={28} stroke={2} aria-hidden />
-        <p className="mt-6 max-w-lg text-base leading-relaxed text-white">
-          Request received. A Weatherhaven engineer will contact you within 48 hours.
+        <p className="wh-label text-[#c8a96e]">Request received</p>
+        <h2 className="font-display mt-6 max-w-lg text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+          Thank you for your interest, {firstName}.
+        </h2>
+        <p className="mt-6 max-w-lg text-base leading-relaxed text-[#8a9099]">
+          A member of our SOF solutions team will review your submission and contact you within 48 hours. Check your
+          email for a confirmation of your request.
         </p>
+        <p className="mt-4 max-w-lg text-sm text-[#8a9099]">
+          Technical exchanges are matched to clearance and program status prior to disclosure.
+        </p>
+        <Link
+          href="/login"
+          className="mt-10 inline-flex min-h-11 items-center justify-center border border-white bg-white px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-black no-underline transition hover:bg-[rgba(255,255,255,0.85)]"
+        >
+          Return to login
+        </Link>
       </div>
     );
   }

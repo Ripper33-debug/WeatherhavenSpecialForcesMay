@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { HeroTopoCanvas } from "@/components/HeroTopoCanvas";
 import { company } from "@/lib/site";
 
@@ -161,7 +162,15 @@ export function LoginForm({ adminEmail }: { adminEmail: string }) {
             {submitting ? "AUTHENTICATING..." : "ACCESS SITE"}
           </button>
         </form>
-        <p className="mt-10 text-center text-sm text-[#8a9099]">Access restricted to authorized personnel.</p>
+        <div className="mt-8 border-t border-[rgba(255,255,255,0.08)] pt-8">
+          <p className="text-center text-[13px] text-[#8a9099]">
+            Don&apos;t have access?{" "}
+            <Link href="/request-access" className="text-[#c8a96e] no-underline hover:opacity-80">
+              Request Access →
+            </Link>
+          </p>
+        </div>
+        <p className="mt-8 text-center text-sm text-[#8a9099]">Access restricted to authorized personnel.</p>
       </div>
     </main>
   );

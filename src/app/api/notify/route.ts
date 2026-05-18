@@ -38,7 +38,9 @@ export async function POST(request: Request) {
     const safeProgram = escapeHtml(program?.trim() || "Not provided");
     const safeRequirements = escapeHtml(requirements?.trim() || "Not provided");
 
-    await getResend().emails.send({
+    const resend = getResend();
+
+    await resend.emails.send({
       from: "Weatherhaven Platform <onboarding@resend.dev>",
       to: "barry.castelli33@gmail.com",
       subject: `New Request Access Submission — ${organization.trim()}`,
@@ -73,6 +75,38 @@ export async function POST(request: Request) {
             </tr>
           </table>
           <p style="color:#8a9099;font-size:10px;margin-top:40px;letter-spacing:0.1em;">SUBMITTED VIA WEATHERHAVENUSA.COM · ${new Date().toISOString()}</p>
+        </div>
+      `,
+    });
+
+    await resend.emails.send({
+      from: "Weatherhaven Platform <onboarding@resend.dev>",
+      to: email.trim(),
+      subject: "Thank you for your interest in Weatherhaven",
+      html: `
+        <div style="background:#080a0c;color:#ffffff;padding:40px;font-family:monospace;max-width:600px;">
+          <p style="color:#c8a96e;letter-spacing:0.2em;font-size:11px;margin:0;">WEATHERHAVEN RESOURCE INC.</p>
+          <h1 style="color:#ffffff;font-size:22px;margin:8px 0;">Request Received</h1>
+          <p style="color:#8a9099;font-size:14px;margin:24px 0 16px;">Thank you for your interest in Weatherhaven deployable shelter and infrastructure systems, ${safeName}.</p>
+          <p style="color:#8a9099;font-size:14px;margin:0 0 16px;">We have received your request and a member of our SOF solutions team will review your submission and contact you within 48 hours to verify affiliation and discuss program alignment.</p>
+          <p style="color:#8a9099;font-size:14px;margin:0 0 32px;">Technical exchanges are matched to clearance and program status prior to disclosure.</p>
+          <div style="border:1px solid rgba(255,255,255,0.08);padding:24px;margin:24px 0;">
+            <p style="color:#8a9099;font-size:11px;letter-spacing:0.15em;margin:0 0 16px;">YOUR SUBMISSION</p>
+            <p style="margin:0 0 8px;font-size:13px;">
+              <span style="color:#8a9099;">Name: </span>
+              <span style="color:#ffffff;">${safeName}</span>
+            </p>
+            <p style="margin:0 0 8px;font-size:13px;">
+              <span style="color:#8a9099;">Organization: </span>
+              <span style="color:#ffffff;">${safeOrg}</span>
+            </p>
+            <p style="margin:0;font-size:13px;">
+              <span style="color:#8a9099;">Role: </span>
+              <span style="color:#ffffff;">${safeRole}</span>
+            </p>
+          </div>
+          <p style="color:#8a9099;font-size:13px;margin:0;">If you have questions contact us directly at <a href="mailto:defense@weatherhaven.com" style="color:#c8a96e;">defense@weatherhaven.com</a></p>
+          <p style="color:#8a9099;font-size:10px;margin-top:40px;letter-spacing:0.1em;">WEATHERHAVEN RESOURCE INC. · WEATHERHAVENUSA.COM</p>
         </div>
       `,
     });
