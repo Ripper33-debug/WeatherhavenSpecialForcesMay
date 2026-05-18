@@ -1,27 +1,31 @@
 export const MISSION_PROFILE_STORAGE_KEY = "wh-mission-profile";
 
-export type EnvironmentId = "arctic" | "desert" | "jungle" | "maritime";
-export type MissionTypeId = "c2" | "medical" | "maintenance" | "basecamp";
-export type MobilityId = "air" | "ground" | "sea" | "sling";
-export type TimelineId = "immediate" | "near" | "por" | "concept";
+export type EnvironmentId = "arctic" | "arid" | "jungle" | "maritime" | "highalt" | "temperate";
+export type MissionTypeId = "c2" | "medical" | "maintenance" | "basecamp" | "scif" | "logistics";
+export type ForceSizeId = "small" | "platoon" | "company" | "battalion";
+export type MobilityId = "c130" | "sling" | "ground" | "iso" | "lapes" | "multimodal";
 
 export type MissionProfileSelections = {
   environment: EnvironmentId;
   environmentLabel: string;
   missionType: MissionTypeId;
   missionTypeLabel: string;
+  forceSize: ForceSizeId;
+  forceSizeLabel: string;
   mobility: MobilityId;
   mobilityLabel: string;
-  timeline: TimelineId;
-  timelineLabel: string;
   recommendedTitle: string;
+  recommendedDescription: string;
+  estimatedSetupTime: string;
+  transportConfirmation: string;
   completedAt: string;
 };
 
 export type ConfiguratorStepOption = {
   id: string;
   label: string;
-  icon: string;
+  emoji: string;
+  hint: string;
 };
 
 export type ConfiguratorStep = {
@@ -35,76 +39,322 @@ export const CONFIGURATOR_STEPS: ConfiguratorStep[] = [
   {
     step: 1,
     label: "OPERATIONAL ENVIRONMENT",
-    headline: "Where will this system deploy?",
+    headline: "Where will this system operate?",
     options: [
-      { id: "arctic", label: "Arctic / Cold Weather", icon: "snowflake" },
-      { id: "desert", label: "Desert / Arid", icon: "sun" },
-      { id: "jungle", label: "Jungle / Tropical", icon: "tree" },
-      { id: "maritime", label: "Maritime / Coastal", icon: "anchor" },
+      {
+        id: "arctic",
+        emoji: "🏔",
+        label: "Arctic / Subarctic",
+        hint: "Permafrost, extreme cold, -40°F operations",
+      },
+      {
+        id: "arid",
+        emoji: "🏜",
+        label: "Arid / Desert",
+        hint: "High heat, sand, dust, UV exposure",
+      },
+      {
+        id: "jungle",
+        emoji: "🌴",
+        label: "Jungle / Tropical",
+        hint: "High humidity, rain, vegetation clearance",
+      },
+      {
+        id: "maritime",
+        emoji: "🌊",
+        label: "Maritime / Littoral",
+        hint: "Salt air, ship deck, amphibious ops",
+      },
+      {
+        id: "highalt",
+        emoji: "🏔",
+        label: "High Altitude",
+        hint: "Above 10,000ft, thin air, cold temps",
+      },
+      {
+        id: "temperate",
+        emoji: "🌍",
+        label: "Temperate / European",
+        hint: "Standard NATO environment",
+      },
     ],
   },
   {
     step: 2,
-    label: "MISSION TYPE",
-    headline: "What is the primary mission function?",
+    label: "MISSION FUNCTION",
+    headline: "What is the primary operational requirement?",
     options: [
-      { id: "c2", label: "Command & Control", icon: "layout" },
-      { id: "medical", label: "Medical Support", icon: "stethoscope" },
-      { id: "maintenance", label: "Maintenance & Aviation", icon: "tool" },
-      { id: "basecamp", label: "Expeditionary Base Camp", icon: "camp" },
+      {
+        id: "c2",
+        emoji: "📡",
+        label: "Command & Control",
+        hint: "TOC, JOC, or JSOC planning environment",
+      },
+      {
+        id: "medical",
+        emoji: "🏥",
+        label: "Medical / CASEVAC",
+        hint: "Role 1/2 treatment, surgical, triage",
+      },
+      {
+        id: "maintenance",
+        emoji: "🔧",
+        label: "Maintenance & MX",
+        hint: "Aviation, vehicle, or weapons maintenance",
+      },
+      {
+        id: "basecamp",
+        emoji: "🏕",
+        label: "Expeditionary Base",
+        hint: "FOB or patrol base life support",
+      },
+      {
+        id: "scif",
+        emoji: "🔒",
+        label: "SCIF / Sensitive",
+        hint: "Classified operations, emissions control",
+      },
+      {
+        id: "logistics",
+        emoji: "📦",
+        label: "Logistics Hub",
+        hint: "Supply chain, staging, distribution",
+      },
     ],
   },
   {
     step: 3,
-    label: "MOBILITY REQUIREMENT",
-    headline: "How will the system move?",
+    label: "FORCE PROFILE",
+    headline: "What is the scale and urgency of this requirement?",
     options: [
-      { id: "air", label: "Air Transportable (C-130 / CH-47)", icon: "plane" },
-      { id: "ground", label: "Ground Vehicle", icon: "truck" },
-      { id: "sea", label: "Sea Container", icon: "ship" },
-      { id: "sling", label: "Helicopter Sling Load", icon: "helicopter" },
+      {
+        id: "small",
+        emoji: "⚡",
+        label: "Small Team / Rapid",
+        hint: "4-12 personnel, deploy in under 72 hours",
+      },
+      {
+        id: "platoon",
+        emoji: "🔵",
+        label: "Platoon Level",
+        hint: "20-40 personnel, 7-14 day setup window",
+      },
+      {
+        id: "company",
+        emoji: "🟡",
+        label: "Company Level",
+        hint: "80-150 personnel, deliberate planning cycle",
+      },
+      {
+        id: "battalion",
+        emoji: "🔴",
+        label: "Battalion / Task Force",
+        hint: "200+ personnel, full camp infrastructure",
+      },
     ],
   },
   {
     step: 4,
-    label: "DEPLOYMENT TIMELINE",
-    headline: "When does this need to be fielded?",
+    label: "MOBILITY REQUIREMENT",
+    headline: "How does this system need to move?",
     options: [
-      { id: "immediate", label: "Immediate (0-6 months)", icon: "bolt" },
-      { id: "near", label: "Near Term (6-12 months)", icon: "calendar" },
-      { id: "por", label: "Program of Record (12+ months)", icon: "file" },
-      { id: "concept", label: "Concept Exploration", icon: "compass" },
+      {
+        id: "c130",
+        emoji: "✈️",
+        label: "C-130 / Air Transportable",
+        hint: "Fits within C-130J pallet configuration",
+      },
+      {
+        id: "sling",
+        emoji: "🚁",
+        label: "Helicopter Sling Load",
+        hint: "CH-47 or UH-60 lift, remote insertion",
+      },
+      {
+        id: "ground",
+        emoji: "🚛",
+        label: "Ground Vehicle / LMTV",
+        hint: "Road or off-road vehicle transport",
+      },
+      {
+        id: "iso",
+        emoji: "🚢",
+        label: "ISO Container",
+        hint: "20ft or 40ft sea container deployment",
+      },
+      {
+        id: "lapes",
+        emoji: "🪂",
+        label: "LAPES / Airdrop",
+        hint: "Low altitude parachute extraction",
+      },
+      {
+        id: "multimodal",
+        emoji: "🔄",
+        label: "Multi-Modal",
+        hint: "Combination of transport methods",
+      },
     ],
   },
 ];
 
-const envShort: Record<EnvironmentId, string> = {
-  arctic: "Arctic",
-  desert: "Desert",
-  jungle: "Jungle",
-  maritime: "Maritime",
+const envName: Record<EnvironmentId, string> = {
+  arctic: "COLD WEATHER",
+  arid: "ARID ENVIRONMENT",
+  jungle: "JUNGLE",
+  maritime: "MARITIME",
+  highalt: "HIGH ALTITUDE",
+  temperate: "TEMPERATE",
 };
 
-const missionShort: Record<MissionTypeId, string> = {
-  c2: "C2",
-  medical: "Medical",
-  maintenance: "Aviation MX",
-  basecamp: "Base Camp",
+const forcePackage: Record<ForceSizeId, string> = {
+  small: "RAPID DEPLOY PACKAGE",
+  platoon: "PLATOON PACKAGE",
+  company: "COMPANY PACKAGE",
+  battalion: "TASK FORCE PACKAGE",
 };
 
-const timelinePackage: Record<TimelineId, string> = {
-  immediate: "Rapid Deploy Package",
-  near: "Near-Term Fielding Package",
-  por: "Program of Record Configuration",
-  concept: "Concept Exploration Brief",
+const setupTimeByForce: Record<ForceSizeId, string> = {
+  small: "Under 72 hours (trained crew, nominal conditions)",
+  platoon: "7–14 days (phased emplacement)",
+  company: "3–6 weeks (deliberate planning cycle)",
+  battalion: "6–12 weeks (multi-phase camp build)",
 };
 
+const transportConfirm: Record<MobilityId, string> = {
+  c130: "Confirmed: C-130J palletized load plan — modules sized for tactical airlift",
+  sling: "Confirmed: CH-47 / UH-60 sling-load compatible — piece weights within lift envelope",
+  ground: "Confirmed: Ground vehicle / LMTV transport — convoy-staged modules",
+  iso: "Confirmed: ISO container deployment — 20ft / 40ft sea movement",
+  lapes: "Confirmed: LAPES / airdrop configuration — low-altitude extraction profile",
+  multimodal: "Confirmed: Multi-modal transport plan — staged air, ground, and sea legs",
+};
+
+function defaultDescription(
+  env: EnvironmentId,
+  mission: MissionTypeId,
+  force: ForceSizeId,
+  mobility: MobilityId,
+): string {
+  const envHints: Record<EnvironmentId, string> = {
+    arctic: "ECU rated for extreme cold, insulated envelope, snow-load hardware.",
+    arid: "Dust mitigation, solar shading, expanded ECU sensible-load headroom.",
+    jungle: "Dehumidification assist, elevated flooring, corrosion-aware hardware.",
+    maritime: "Salt-air hardware, drip loops, shore-power cutover sequencing.",
+    highalt: "Split ECU zoning, anchoring for ridge-line winds, thin-air derating.",
+    temperate: "Standard NATO environmental band, balanced power and ECU sizing.",
+  };
+  const missionHints: Record<MissionTypeId, string> = {
+    c2: "Planning walls, comms alcoves, blackout-capable layout discipline.",
+    medical: "Patient flow separation, utility chases, clinical load power branches.",
+    maintenance: "High-bay clearance, tool-control zones, separated fuel circulation.",
+    basecamp: "Berthing, life support, and utility spine integrated to tempo.",
+    scif: "Emissions control, RF discipline, access-controlled circulation.",
+    logistics: "Staging bays, pallet discipline, sustainment power distribution.",
+  };
+  return `${envHints[env]} ${missionHints[mission]} Sized for ${CONFIGURATOR_STEPS[2]!.options.find((o) => o.id === force)?.hint ?? "selected force profile"}. ${transportConfirm[mobility]}`;
+}
+
+export type ConfigurationResult = {
+  title: string;
+  description: string;
+  estimatedSetupTime: string;
+  transportConfirmation: string;
+};
+
+export function buildConfigurationResult(
+  environment: EnvironmentId,
+  missionType: MissionTypeId,
+  forceSize: ForceSizeId,
+  mobility: MobilityId,
+): ConfigurationResult {
+  if (missionType === "scif") {
+    return {
+      title: "SENSITIVE COMPARTMENTED FACILITY — EXPEDITIONARY",
+      description:
+        "Emissions-controlled environment with RF shielding, access control, and TEMPEST-compliant layout options.",
+      estimatedSetupTime: setupTimeByForce[forceSize],
+      transportConfirmation: transportConfirm[mobility],
+    };
+  }
+
+  if (environment === "arctic" && missionType === "c2" && forceSize === "small" && mobility === "c130") {
+    return {
+      title: "COLD WEATHER TOC — RAPID DEPLOY",
+      description:
+        "Compact command post optimized for Arctic insertion via C-130. ECU rated to -40°F, blackout capability, 72-hour setup.",
+      estimatedSetupTime: setupTimeByForce.small,
+      transportConfirmation: transportConfirm.c130,
+    };
+  }
+
+  if (environment === "arid" && missionType === "medical" && forceSize === "platoon" && mobility === "ground") {
+    return {
+      title: "ARID ENVIRONMENT ROLE 2 — MOBILE SURGICAL",
+      description:
+        "Mobile medical shelter for desert operations. Climate-controlled treatment bay, triage staging, vehicle-mounted transport.",
+      estimatedSetupTime: setupTimeByForce.platoon,
+      transportConfirmation: transportConfirm.ground,
+    };
+  }
+
+  const envLabel = envName[environment];
+  const missionLabel =
+    missionType === "c2"
+      ? "C2"
+      : missionType === "medical"
+        ? "MEDICAL"
+        : missionType === "maintenance"
+          ? "MX"
+          : missionType === "basecamp"
+            ? "BASE CAMP"
+            : missionType === "logistics"
+              ? "LOGISTICS"
+              : missionName[missionType];
+
+  return {
+    title: `${envLabel} ${missionLabel} — ${forcePackage[forceSize]}`,
+    description: defaultDescription(environment, missionType, forceSize, mobility),
+    estimatedSetupTime: setupTimeByForce[forceSize],
+    transportConfirmation: transportConfirm[mobility],
+  };
+}
+
+export function buildMissionProfile(
+  environment: EnvironmentId,
+  environmentLabel: string,
+  missionType: MissionTypeId,
+  missionTypeLabel: string,
+  forceSize: ForceSizeId,
+  forceSizeLabel: string,
+  mobility: MobilityId,
+  mobilityLabel: string,
+): MissionProfileSelections {
+  const config = buildConfigurationResult(environment, missionType, forceSize, mobility);
+  return {
+    environment,
+    environmentLabel,
+    missionType,
+    missionTypeLabel,
+    forceSize,
+    forceSizeLabel,
+    mobility,
+    mobilityLabel,
+    recommendedTitle: config.title,
+    recommendedDescription: config.description,
+    estimatedSetupTime: config.estimatedSetupTime,
+    transportConfirmation: config.transportConfirmation,
+    completedAt: new Date().toISOString(),
+  };
+}
+
+/** @deprecated Use buildConfigurationResult */
 export function buildRecommendedTitle(
   environment: EnvironmentId,
   missionType: MissionTypeId,
-  timeline: TimelineId,
+  forceSize: ForceSizeId,
 ): string {
-  return `${envShort[environment]} ${missionShort[missionType]} — ${timelinePackage[timeline]}`;
+  return buildConfigurationResult(environment, missionType, forceSize, "c130").title;
 }
 
 export function saveMissionProfile(profile: MissionProfileSelections): void {
@@ -121,7 +371,14 @@ export function loadMissionProfile(): MissionProfileSelections | null {
   try {
     const raw = localStorage.getItem(MISSION_PROFILE_STORAGE_KEY);
     if (!raw) return null;
-    return JSON.parse(raw) as MissionProfileSelections;
+    const parsed = JSON.parse(raw) as MissionProfileSelections & {
+      timeline?: string;
+      timelineLabel?: string;
+    };
+    if (parsed.timeline && !parsed.forceSize) {
+      return null;
+    }
+    return parsed;
   } catch {
     return null;
   }
@@ -140,25 +397,29 @@ export function clearMissionProfile(): void {
 export function mapProfileToBuilderInputs(profile: MissionProfileSelections) {
   const climateMap: Record<EnvironmentId, "cold" | "hot" | "maritime" | "mountain"> = {
     arctic: "cold",
-    desert: "hot",
+    arid: "hot",
     jungle: "mountain",
     maritime: "maritime",
+    highalt: "cold",
+    temperate: "mountain",
   };
   const missionMap: Record<MissionTypeId, "hq" | "medical" | "fad" | "training"> = {
     c2: "hq",
     medical: "medical",
     maintenance: "fad",
     basecamp: "training",
+    scif: "hq",
+    logistics: "fad",
   };
-  const crewMap: Record<TimelineId, number> = {
-    immediate: 16,
-    near: 24,
-    por: 36,
-    concept: 12,
+  const crewMap: Record<ForceSizeId, number> = {
+    small: 12,
+    platoon: 32,
+    company: 120,
+    battalion: 200,
   };
   return {
     climate: climateMap[profile.environment],
     mission: missionMap[profile.missionType],
-    crew: crewMap[profile.timeline],
+    crew: crewMap[profile.forceSize],
   };
 }

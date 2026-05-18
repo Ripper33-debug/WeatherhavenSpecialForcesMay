@@ -2,35 +2,17 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import {
-  IconAnchor,
-  IconBolt,
-  IconCalendar,
-  IconCampfire,
-  IconCompass,
-  IconFileText,
-  IconHelicopter,
-  IconLayoutDashboard,
-  IconPlane,
-  IconShip,
-  IconSnowflake,
-  IconStethoscope,
-  IconSun,
-  IconTool,
-  IconTree,
-  IconTruck,
-  IconX,
-} from "@tabler/icons-react";
+import { IconCheck, IconX } from "@tabler/icons-react";
 import { trackEvent } from "@/lib/analytics";
 import {
-  buildRecommendedTitle,
   CONFIGURATOR_STEPS,
+  buildMissionProfile,
   saveMissionProfile,
   type EnvironmentId,
+  type ForceSizeId,
   type MissionProfileSelections,
   type MissionTypeId,
   type MobilityId,
-  type TimelineId,
 } from "@/lib/missionConfigurator";
 
 type Props = {
@@ -41,28 +23,9 @@ type Props = {
 type StepAnswers = Partial<{
   environment: { id: EnvironmentId; label: string };
   missionType: { id: MissionTypeId; label: string };
+  forceSize: { id: ForceSizeId; label: string };
   mobility: { id: MobilityId; label: string };
-  timeline: { id: TimelineId; label: string };
 }>;
-
-const iconMap: Record<string, React.ComponentType<{ size?: number; stroke?: number; className?: string }>> = {
-  snowflake: IconSnowflake,
-  sun: IconSun,
-  tree: IconTree,
-  anchor: IconAnchor,
-  layout: IconLayoutDashboard,
-  stethoscope: IconStethoscope,
-  tool: IconTool,
-  camp: IconCampfire,
-  plane: IconPlane,
-  truck: IconTruck,
-  ship: IconShip,
-  helicopter: IconHelicopter,
-  bolt: IconBolt,
-  calendar: IconCalendar,
-  file: IconFileText,
-  compass: IconCompass,
-};
 
 const btnPrimary =
   "inline-flex min-h-11 items-center justify-center border border-white bg-white px-6 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-zinc-100";
@@ -124,30 +87,27 @@ export function MissionConfigurator({ open, onClose }: Props) {
     } else if (stepNum === 2) {
       advance(3, { missionType: { id: optionId as MissionTypeId, label } }, `Configurator Step 2 — ${label}`);
     } else if (stepNum === 3) {
-      advance(4, { mobility: { id: optionId as MobilityId, label } }, `Configurator Step 3 — ${label}`);
-    } else if (stepNum === 4 && answers.environment && answers.missionType && answers.mobility) {
+      advance(4, { forceSize: { id: optionId as ForceSizeId, label } }, `Configurator Step 3 — ${label}`);
+    } else if (
+      stepNum === 4 &&
+      answers.environment &&
+      answers.missionType &&
+      answers.forceSize
+    ) {
       void trackEvent("click", `Configurator Step 4 — ${label}`);
-      const timelineId = optionId as TimelineId;
-      const recommendedTitle = buildRecommendedTitle(
+      const profile = buildMissionProfile(
         answers.environment.id,
+        answers.environment.label,
         answers.missionType.id,
-        timelineId,
+        answers.missionType.label,
+        answers.forceSize.id,
+        answers.forceSize.label,
+        optionId as MobilityId,
+        label,
       );
-      const profile: MissionProfileSelections = {
-        environment: answers.environment.id,
-        environmentLabel: answers.environment.label,
-        missionType: answers.missionType.id,
-        missionTypeLabel: answers.missionType.label,
-        mobility: answers.mobility.id,
-        mobilityLabel: answers.mobility.label,
-        timeline: timelineId,
-        timelineLabel: label,
-        recommendedTitle,
-        completedAt: new Date().toISOString(),
-      };
       saveMissionProfile(profile);
       setResult(profile);
-      void trackEvent("click", `Configurator completed — ${recommendedTitle}`);
+      void trackEvent("click", `Configurator completed — ${profile.recommendedTitle}`);
       setStep(5);
     }
   };
@@ -195,22 +155,38 @@ export function MissionConfigurator({ open, onClose }: Props) {
             <h2 className="font-display mt-6 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
               Your Mission Profile
             </h2>
-            <p className="font-display mt-4 text-xl text-[#c8a96e]">{result.recommendedTitle}</p>
-            <div className="mt-10 border border-white/10 bg-black/40 p-6 sm:p-8">
-              <dl className="space-y-4 text-sm">
-                {[
-                  ["Environment", result.environmentLabel],
-                  ["Mission", result.missionTypeLabel],
-                  ["Mobility", result.mobilityLabel],
-                  ["Timeline", result.timelineLabel],
-                ].map(([k, v]) => (
-                  <div key={k} className="flex justify-between gap-4 border-b border-white/[0.06] pb-4 last:border-0 last:pb-0">
-                    <dt className="text-[#8a9099]">{k}</dt>
-                    <dd className="text-right font-medium text-white">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+            <p className="font-display mt-4 text-lg font-medium leading-snug text-[#c8a96e] sm:text-xl">
+              {result.recommendedTitle}
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-[#8a9099] sm:text-base">
+              {result.recommendedDescription}
+            </p>
+
+            <ul className="mt-10 space-y-3 border border-white/10 bg-black/40 p-6 sm:p-8">
+              {[
+                result.environmentLabel,
+                result.missionTypeLabel,
+                result.forceSizeLabel,
+                result.mobilityLabel,
+              ].map((label) => (
+                <li key={label} className="flex items-start gap-3 text-sm">
+                  <IconCheck className="mt-0.5 shrink-0 text-[#c8a96e]" size={18} stroke={2} aria-hidden />
+                  <span className="text-white">{label}</span>
+                </li>
+              ))}
+            </ul>
+
+            <dl className="mt-8 space-y-4 border-t border-white/[0.08] pt-8 text-sm">
+              <div>
+                <dt className="wh-label text-[#8a9099]">Estimated setup time</dt>
+                <dd className="mt-2 text-white">{result.estimatedSetupTime}</dd>
+              </div>
+              <div>
+                <dt className="wh-label text-[#8a9099]">Transport</dt>
+                <dd className="mt-2 leading-relaxed text-[#8a9099]">{result.transportConfirmation}</dd>
+              </div>
+            </dl>
+
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Link
                 href="/request-access"
@@ -225,6 +201,9 @@ export function MissionConfigurator({ open, onClose }: Props) {
                 Start Over
               </button>
             </div>
+            <p className="mt-6 text-center text-xs leading-relaxed text-[#8a9099] sm:text-left">
+              A Weatherhaven engineer will contact you within 48 hours to discuss your specific requirements.
+            </p>
           </div>
         ) : currentStep ? (
           <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center">
@@ -233,20 +212,24 @@ export function MissionConfigurator({ open, onClose }: Props) {
               {currentStep.headline}
             </h2>
             <div className="mt-10 grid gap-3 sm:grid-cols-2">
-              {currentStep.options.map((opt) => {
-                const Icon = iconMap[opt.icon] ?? IconBolt;
-                return (
-                  <button
-                    key={opt.id}
-                    type="button"
-                    onClick={() => handleSelect(currentStep.step, opt.id, opt.label)}
-                    className="group relative flex items-start gap-4 border border-white/10 bg-black/30 p-5 text-left transition-[border-color,background-color] duration-200 hover:border-[rgba(200,169,110,0.5)] hover:bg-[rgba(200,169,110,0.05)]"
-                  >
-                    <Icon className="mt-0.5 shrink-0 text-[#c8a96e]" size={22} stroke={1.25} />
-                    <span className="text-sm font-medium leading-snug text-white sm:text-base">{opt.label}</span>
-                  </button>
-                );
-              })}
+              {currentStep.options.map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => handleSelect(currentStep.step, opt.id, opt.label)}
+                  className="group relative flex items-start gap-4 border border-white/10 bg-black/30 p-5 text-left transition-[border-color,background-color] duration-200 hover:border-[rgba(200,169,110,0.5)] hover:bg-[rgba(200,169,110,0.05)]"
+                >
+                  <span className="mt-0.5 shrink-0 text-xl leading-none" aria-hidden>
+                    {opt.emoji}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-sm font-medium leading-snug text-white sm:text-base">
+                      {opt.label}
+                    </span>
+                    <span className="mt-1.5 block text-xs leading-relaxed text-[#8a9099]">{opt.hint}</span>
+                  </span>
+                </button>
+              ))}
             </div>
           </div>
         ) : null}
