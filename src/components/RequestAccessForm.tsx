@@ -47,19 +47,22 @@ export function RequestAccessForm() {
         setError(data.error ?? "Submission failed. Please verify required fields.");
         return;
       }
-      await fetch("/api/notify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          organization: form.organization,
-          email: form.email,
-          role: form.role,
-          program: form.program,
-          requirements: form.message,
-          source: "Request Access",
-        }),
-      });
+      try {
+        await fetch("/api/notify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: form.name,
+            organization: form.organization,
+            email: form.email,
+            role: form.role,
+            program: form.program,
+            requirements: form.message,
+          }),
+        });
+      } catch (err) {
+        console.error("Notify failed:", err);
+      }
       void trackEvent("submit", "Request Access form submitted");
       setSubmitted(true);
     } catch {

@@ -45,6 +45,14 @@ export function AdminDashboard({
     <div className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:px-12">
       <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-[#c8a96e]">Analytics &amp; users</p>
       <h1 className="font-display mt-4 text-3xl font-semibold tracking-tight text-white">Admin dashboard</h1>
+
+      <div className="mt-10 border-b border-[rgba(255,255,255,0.08)] pb-12">
+        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-[#c8a96e]">
+          Pending access requests
+        </p>
+        <AccessRequestsTable requests={accessRequests} />
+      </div>
+
       <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <AdminStatBox label="Total users" value={analytics.summary.totalUsers} />
         <AdminStatBox label="Active today" value={analytics.summary.activeToday} />
@@ -52,12 +60,6 @@ export function AdminDashboard({
         <AdminStatBox label="Total events" value={analytics.summary.totalEvents} />
       </div>
       <SiteClickSummary items={analytics.topClickedElements} />
-      <div className="mt-16 border-t border-[rgba(255,255,255,0.08)] pt-16">
-        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-[#c8a96e]">
-          Pending access requests
-        </p>
-        <AccessRequestsTable requests={accessRequests} />
-      </div>
       <div className="mt-16">
         <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-[#c8a96e]">User analytics</p>
         <div className="mt-6 overflow-x-auto border border-[rgba(255,255,255,0.08)]">

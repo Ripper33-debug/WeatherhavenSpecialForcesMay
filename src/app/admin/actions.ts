@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { isAdminEmail } from "@/lib/auth-admin";
 import { updateAccessRequestStatus } from "@/lib/accessRequests";
-import { generateTempPassword, sendWelcomeEmail } from "@/lib/email";
+import { generateTempPassword } from "@/lib/email";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
@@ -93,12 +93,6 @@ export async function adminApproveAccessRequest(
   if (!statusResult.ok) {
     return { ok: false, error: statusResult.error };
   }
-
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
-
-  await sendWelcomeEmail({ to: trimmedEmail, password, siteUrl });
 
   revalidatePath("/admin");
   return { ok: true, password };

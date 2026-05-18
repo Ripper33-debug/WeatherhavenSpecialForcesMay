@@ -18,3 +18,6 @@ create policy "Admin can read all requests"
 
 create policy "Anyone can insert requests"
   on access_requests for insert with check (true);
+
+create policy "Admin can update requests"
+  on access_requests for update using (true);
