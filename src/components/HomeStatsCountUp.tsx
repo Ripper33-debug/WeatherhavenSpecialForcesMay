@@ -9,7 +9,13 @@ export function parseCredibilityValue(value: string): { target: number; suffix: 
   return { target: Number(m[1]), suffix: m[2] ?? "" };
 }
 
-export function HomeStatsCountUp({ stats }: { stats: Stat[] }) {
+export function HomeStatsCountUp({
+  stats,
+  flickerIndex = null,
+}: {
+  stats: Stat[];
+  flickerIndex?: number | null;
+}) {
   const parsed = stats.map((s) => parseCredibilityValue(s.value));
   const targets = parsed.map((p) => p.target);
   const { rootRef, displayValues } = useCountUpFromZero(targets, 2000);
@@ -22,7 +28,9 @@ export function HomeStatsCountUp({ stats }: { stats: Stat[] }) {
       {stats.map((s, i) => (
         <div
           key={s.label}
-          className={`lg:px-8 ${i === 0 ? "lg:pl-0" : ""} ${i === stats.length - 1 ? "lg:pr-0" : ""}`}
+          className={`lg:px-8 ${i === 0 ? "lg:pl-0" : ""} ${i === stats.length - 1 ? "lg:pr-0" : ""} ${
+            flickerIndex === i ? "wh-stat-flicker" : ""
+          }`}
         >
           <p className="font-display text-4xl font-semibold tabular-nums tracking-tight text-white sm:text-[2.5rem]">
             <span>{displayValues[i] ?? 0}</span>

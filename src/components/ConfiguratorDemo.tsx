@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { loadMissionProfile, mapProfileToBuilderInputs } from "@/lib/missionConfigurator";
 import {
   buildConfiguratorBrief,
   type Climate,
@@ -43,6 +44,15 @@ export function ConfiguratorDemo() {
   const [power, setPower] = useState<Power>("tactical");
   const [crew, setCrew] = useState(24);
   const [generated, setGenerated] = useState(false);
+
+  useEffect(() => {
+    const profile = loadMissionProfile();
+    if (!profile) return;
+    const mapped = mapProfileToBuilderInputs(profile);
+    setMission(mapped.mission);
+    setClimate(mapped.climate);
+    setCrew(mapped.crew);
+  }, []);
   const [briefId, setBriefId] = useState<string | null>(null);
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
   const [inputSnapshot, setInputSnapshot] = useState<{

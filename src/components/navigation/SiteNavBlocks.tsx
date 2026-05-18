@@ -10,15 +10,27 @@ import { NavSignOut } from "@/components/navigation/NavSignOut";
 function DesktopDropdown({
   label,
   items,
+  showPulseDot,
+  pulseTooltip,
 }: {
   label: string;
   items: readonly { href: string; label: string; description: string }[];
+  showPulseDot?: boolean;
+  pulseTooltip?: string;
 }) {
   return (
-    <div className="group relative flex items-center">
+    <div className="group relative flex items-center gap-2">
       <span className="cursor-default whitespace-nowrap text-[14px] font-normal text-white transition-opacity duration-150 ease-out hover:opacity-70">
         {label}
       </span>
+      {showPulseDot && (
+        <span className="relative flex items-center">
+          <span className="wh-solutions-dot" aria-hidden />
+          <span className="pointer-events-none absolute left-1/2 top-full z-[130] mt-2 hidden -translate-x-1/2 whitespace-nowrap border border-white/10 bg-[#0d0f12] px-3 py-1.5 font-mono text-[10px] tracking-[0.1em] text-[#8a9099] group-hover:block">
+            {pulseTooltip}
+          </span>
+        </span>
+      )}
       <div className="pointer-events-none invisible absolute left-1/2 top-full z-[120] min-w-[280px] -translate-x-1/2 pt-2 opacity-0 transition-[opacity,visibility] duration-150 ease-out group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100">
         <div role="menu" className="border border-[rgba(255,255,255,0.08)] bg-[#0d0f12] py-2 shadow-none">
           {items.map((item) => (
@@ -40,7 +52,12 @@ function DesktopDropdown({
 export function NavDesktopCenter({ className = "" }: { className?: string }) {
   return (
     <nav className={`flex flex-wrap items-center justify-center gap-x-8 gap-y-2 ${className}`}>
-      <DesktopDropdown label="Solutions" items={navSolutionsItems} />
+      <DesktopDropdown
+        label="Solutions"
+        items={navSolutionsItems}
+        showPulseDot
+        pulseTooltip="New SOF configurations available"
+      />
       {navFlatLinks.map((item) => (
         <Link
           key={item.href}
@@ -134,7 +151,10 @@ export function NavMobileOverlay({
             onClick={() => setSolOpen((v) => !v)}
             aria-expanded={solOpen}
           >
-            Solutions
+            <span className="inline-flex items-center gap-2">
+              Solutions
+              <span className="wh-solutions-dot shrink-0" aria-hidden title="New SOF configurations available" />
+            </span>
             <IconChevronDown
               size={22}
               stroke={1.5}

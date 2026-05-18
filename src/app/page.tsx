@@ -1,20 +1,14 @@
-import { HomeHero } from "@/components/HomeHero";
-import { ProductCard } from "@/components/ProductCard";
-import { CapabilitySection } from "@/components/CapabilitySection";
-import { StatsSection } from "@/components/StatsSection";
-import { CTA } from "@/components/CTA";
+import { HomeHeroInteractive } from "@/components/home/HomeHeroInteractive";
+import { HomeCapabilityTiles } from "@/components/home/HomeCapabilityTiles";
+import { HomeUseCaseCards } from "@/components/home/HomeUseCaseCards";
+import { HomeStatsSection } from "@/components/home/HomeStatsSection";
+import { HomeProcessSection } from "@/components/home/HomeProcessSection";
+import { HomeCTASection } from "@/components/home/HomeCTASection";
 
 export default function HomePage() {
   return (
     <>
-      <HomeHero
-        eyebrow="Mission-engineered infrastructure"
-        title="Deployable infrastructure shaped around your mission."
-        description="Weatherhaven starts with your mission profile, environment, personnel, mobility, power, timeline, and sustainment—then composes deployable shelter, ECU, power, flooring, and layout engineering as configurable building blocks, not cookie-cutter products."
-        pullQuote="Built around the mission, not pulled from a shelf."
-        primaryCta={{ href: "/request-access", label: "Request access" }}
-        secondaryCta={{ href: "/capabilities", label: "Capabilities" }}
-      />
+      <HomeHeroInteractive />
 
       <section className="border-b border-white/[0.08] bg-[#080a0c]">
         <div className="mx-auto max-w-[1400px] px-4 py-12 sm:px-6 lg:px-12">
@@ -26,100 +20,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <StatsSection
-        eyebrow="Credibility"
-        title="Decades of expeditionary delivery."
-        stats={[
-          {
-            value: "45+",
-            label: "Years",
-            detail: "Expeditionary shelter and deployable camp heritage.",
-          },
-          {
-            value: "52+",
-            label: "Patents",
-            detail: "Modular shelter, integration, and environmental control.",
-          },
-          {
-            value: "39",
-            label: "Militaries served",
-            detail: "Allied defense programs with disciplined disclosure.",
-          },
-          {
-            value: "96+",
-            label: "Countries deployed",
-            detail: "Field presence across climates and logistics realities.",
-          },
-        ]}
-      />
-
-      <section className="border-b border-white/[0.08] bg-[#080a0c]">
-        <div className="mx-auto max-w-[1400px] px-4 py-16 sm:px-6 sm:py-20 lg:px-12">
-          <p className="wh-label">Mission solution areas</p>
-          <h2 className="font-display mt-6 max-w-4xl text-3xl font-semibold leading-[1.05] tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl">
-            Representative packages—not fixed SKUs.
-          </h2>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#8a9099] sm:text-lg">
-            Starting points we reshape with your program: final shelter, MEP, logistics, and sustainment follow your
-            inputs—not a fixed catalog stack.
-          </p>
-          <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <ProductCard
-              icon="shelter"
-              title="Deployable shelter architecture"
-              description="Soft-wall and rigid envelopes for command, maintenance, berthing, and sensitive workflows—utilities and circulation from mission parameters."
-              tags={["SOF", "Expeditionary"]}
-              href="/configurable-solutions"
-              linkLabel="Explore configurable solutions"
-            />
-            <ProductCard
-              icon="camp"
-              title="Integrated camp infrastructure"
-              description="Power, environmental control, flooring, and interconnects staged for air, sea, or ground movement—sequenced to timeline and sustainment."
-              tags={["Logistics", "Integration"]}
-              href="/configurable-solutions"
-              linkLabel="Explore configurable solutions"
-            />
-            <ProductCard
-              icon="ai"
-              title="Advisory configuration workflow"
-              description="Structured inputs become workshop-ready packages so teams compare bounded options while engineering keeps sign-off."
-              tags={["Advisory", "Workshop"]}
-              href="/mission-solution-builder"
-              linkLabel="Open Mission Solution Builder"
-            />
-          </div>
-        </div>
-      </section>
-
-      <CapabilitySection
-        eyebrow="How we work"
-        title="Mission threads drive layout—not a fixed catalog."
-        subtitle="We embed with program offices and operators early to lock footprint, signature, throughput, and sustainment before metal moves."
-        items={[
-          {
-            title: "Operational analysis",
-            description:
-              "CONOPS become spatial requirements, circulation, and environmental envelopes that survive first-day reality.",
-          },
-          {
-            title: "Configuration discipline",
-            description:
-              "Options stay inside validated subsystems—transparent trade space, not cookie-cutter bundles.",
-          },
-          {
-            title: "Field integration",
-            description: "Commissioning, training, and documentation tuned to maintenance echelons and CDRL expectations.",
-          },
-        ]}
-      />
-
-      <CTA
-        title="Engage our SOF solutions team."
-        description="Share your deployment profile for a controlled technical exchange matched to clearance and program status."
-        primary={{ href: "/request-access", label: "Request access" }}
-        secondary={{ href: "/contact", label: "Contact programs" }}
-      />
+      <HomeCapabilityTiles />
+      <HomeUseCaseCards />
+      <HomeStatsSection />
+      <HomeProcessSection />
+      <HomeCTASection />
     </>
   );
 }
