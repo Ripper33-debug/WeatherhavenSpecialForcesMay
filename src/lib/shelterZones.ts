@@ -1,10 +1,4 @@
-export type ShelterZoneId =
-  | "structure"
-  | "roof"
-  | "ecu"
-  | "power"
-  | "entrance"
-  | "interior";
+export type ShelterZoneId = "walls" | "roof" | "ecu" | "power" | "entrance" | "interior";
 
 export type ShelterZone = {
   id: ShelterZoneId;
@@ -18,14 +12,14 @@ export type ShelterZone = {
 
 export const SHELTER_ZONES: ShelterZone[] = [
   {
-    id: "structure",
-    groupId: "zone-structure",
-    name: "MODULAR FRAME",
-    tooltipSpec: "Soft-wall modular frame — 20×32 ft configurable",
-    title: "Modular Frame Structure",
+    id: "walls",
+    groupId: "zone-walls",
+    name: "WALL STRUCTURE",
+    tooltipSpec: "Modular soft-wall panels — 8ft configurable height",
+    title: "Modular Wall Structure",
     bullets: [
       "Aluminum arch frame with tensioned fabric envelope",
-      "20×32 ft base module — combinable to multi-bay campuses",
+      "8 ft configurable wall height — combinable multi-bay spans",
       "Anchoring kits for soil, concrete, and dispersed sites",
       "Compatible with rigid vestibule and utility spine interfaces",
     ],
@@ -34,11 +28,11 @@ export const SHELTER_ZONES: ShelterZone[] = [
   {
     id: "roof",
     groupId: "zone-roof",
-    name: "ROOF PANEL",
-    tooltipSpec: "Insulated roof membrane — snow and solar load rated",
+    name: "ROOF SYSTEM",
+    tooltipSpec: "Tensioned fabric — rated -40°F to 120°F",
     title: "Roof Panel System",
     bullets: [
-      "Multi-layer insulated membrane with vapor barrier",
+      "Tensioned fabric membrane rated -40°F to 120°F",
       "Snow-load hardware sets for high-latitude deployments",
       "Solar shading packages for hot / arid theaters",
       "Integrated cable egress paths for ECU and lighting",
@@ -48,11 +42,11 @@ export const SHELTER_ZONES: ShelterZone[] = [
   {
     id: "ecu",
     groupId: "zone-ecu",
-    name: "ENVIRONMENTAL CONTROL",
-    tooltipSpec: "Split ECU package — Arctic to desert bands",
+    name: "ECU UNIT",
+    tooltipSpec: "Environmental control — 5-ton capacity, dual-mode",
     title: "Environmental Control Unit",
     bullets: [
-      "Split or paired ECU concepts sized to envelope sensible/latent loads",
+      "5-ton capacity dual-mode ECU package",
       "Winterization and dust-mitigation kits per theater",
       "Redundant zoning for ridge-line or maritime humidity swings",
       "Quiet-hours profiles coordinated with power shed lists",
@@ -62,11 +56,11 @@ export const SHELTER_ZONES: ShelterZone[] = [
   {
     id: "power",
     groupId: "zone-power",
-    name: "POWER DISTRIBUTION",
-    tooltipSpec: "PDU staging — tactical gen-set to hybrid microgrid",
+    name: "POWER SYSTEM",
+    tooltipSpec: "Integrated PDU — 60kW, shore or gen power",
     title: "Power Distribution",
     bullets: [
-      "Main PDU with branch panels and surge isolation",
+      "Integrated PDU — 60 kW shore or gen-set power",
       "Tactical gen-set, hybrid storage, or shore interconnect postures",
       "Cable derating schedules for heat and dust exposure",
       "Lighting branches for maintenance and tactical lux bands",
@@ -76,11 +70,11 @@ export const SHELTER_ZONES: ShelterZone[] = [
   {
     id: "entrance",
     groupId: "zone-entrance",
-    name: "ENTRY POINTS",
-    tooltipSpec: "Vestibule airlocks — contamination and thermal control",
+    name: "ENTRY VESTIBULE",
+    tooltipSpec: "Airlock configuration — positive pressure capable",
     title: "Entry & Vestibule",
     bullets: [
-      "Double-door vestibule airlocks for environmental separation",
+      "Airlock configuration — positive pressure capable",
       "Dust and decontamination paths at high-traffic entries",
       "Blackout-compatible door hardware where programs require",
       "Visitor and equipment circulation lanes from CONOPS",
@@ -91,10 +85,10 @@ export const SHELTER_ZONES: ShelterZone[] = [
     id: "interior",
     groupId: "zone-interior",
     name: "INTERIOR LAYOUT",
-    tooltipSpec: "Subfloor grid — cable egress and circulation engineering",
+    tooltipSpec: "Mission-configurable floor plan — 800 sq ft",
     title: "Interior Layout",
     bullets: [
-      "Leveling subfloor with disciplined cable paths",
+      "Mission-configurable floor plan — 800 sq ft baseline",
       "Berthing, maintenance, and sensitive workflow separation",
       "Flooring packages matched to site class and traffic lanes",
       "Layout engineering from mission threads—not catalog rows",
@@ -102,3 +96,7 @@ export const SHELTER_ZONES: ShelterZone[] = [
     learnMoreHref: "/mission-solution-builder",
   },
 ];
+
+export function getShelterZone(id: ShelterZoneId): ShelterZone {
+  return SHELTER_ZONES.find((z) => z.id === id)!;
+}

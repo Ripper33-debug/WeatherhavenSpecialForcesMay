@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HeroTopoCanvas } from "@/components/HeroTopoCanvas";
 import { MissionConfigurator } from "@/components/home/MissionConfigurator";
-import { InteractiveShelterVisual } from "@/components/home/InteractiveShelterVisual";
+import { Shelter3DVisual, type ShelterViewMode } from "@/components/home/Shelter3DVisual";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const btnPrimary =
@@ -12,9 +12,16 @@ const btnPrimary =
 const btnGhost =
   "inline-flex min-h-11 items-center justify-center border border-white/25 bg-transparent px-6 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:border-white/50 hover:bg-white/[0.04]";
 
+const VIEW_TABS: { id: ShelterViewMode; label: string }[] = [
+  { id: "shelter", label: "Shelter stack" },
+  { id: "power", label: "Power & environmental" },
+  { id: "field", label: "Field integration" },
+];
+
 export function HomeHeroInteractive() {
   const [configOpen, setConfigOpen] = useState(false);
   const [lastUpdated, setLastUpdated] = useState("");
+  const [activeView, setActiveView] = useState<ShelterViewMode>("shelter");
   const { ref: heroRef, rootClass } = useScrollReveal({ immediate: true });
 
   useEffect(() => {
@@ -82,26 +89,25 @@ export function HomeHeroInteractive() {
                     <span className="wh-label text-[#8a9099]">Interactive</span>
                   </div>
 
-                  <div className="relative aspect-[16/11] w-full min-h-[220px] bg-black lg:aspect-[16/10] lg:min-h-[320px] xl:min-h-[380px]">
-                    <div
-                      className="pointer-events-none absolute inset-0 opacity-[0.03]"
-                      style={{
-                        backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.6) 1px, transparent 1px),
-                          linear-gradient(to bottom, rgba(255,255,255,0.6) 1px, transparent 1px)`,
-                        backgroundSize: "32px 32px",
-                      }}
-                      aria-hidden
-                    />
-                    <div className="absolute inset-x-0 bottom-0 h-2/5 bg-[rgba(8,10,12,0.85)]" aria-hidden />
-                    <div className="absolute inset-x-8 bottom-12 top-10 flex items-end justify-center sm:inset-x-12 lg:bottom-16">
-                      <InteractiveShelterVisual className="w-full max-w-[min(100%,420px)] text-[#8a9099] lg:max-w-[460px]" />
-                    </div>
+                  <div className="relative aspect-[16/11] w-full min-h-[220px] bg-[#080a0c] lg:aspect-[16/10] lg:min-h-[320px] xl:min-h-[380px]">
+                    <Shelter3DVisual activeView={activeView} className="absolute inset-0" />
                   </div>
 
-                  <div className="relative flex flex-wrap gap-x-10 gap-y-2 border-t border-white/[0.08] bg-black/60 px-5 py-4 sm:px-6">
-                    <span className="wh-label text-[#8a9099]">Shelter stack</span>
-                    <span className="wh-label text-[#8a9099]">Power &amp; environmental</span>
-                    <span className="wh-label text-[#8a9099]">Field integration</span>
+                  <div className="relative flex flex-wrap gap-x-8 gap-y-2 border-t border-white/[0.08] bg-black/60 px-5 py-4 sm:gap-x-10 sm:px-6">
+                    {VIEW_TABS.map((tab) => (
+                      <button
+                        key={tab.id}
+                        type="button"
+                        onClick={() => setActiveView(tab.id)}
+                        className={`wh-label pb-1 transition-colors ${
+                          activeView === tab.id
+                            ? "border-b border-[#c8a96e] text-[#c8a96e]"
+                            : "border-b border-transparent text-[#8a9099] hover:text-white"
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>

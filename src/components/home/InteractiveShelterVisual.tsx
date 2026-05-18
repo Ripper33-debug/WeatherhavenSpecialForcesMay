@@ -96,7 +96,7 @@ export function InteractiveShelterVisual({ className }: { className?: string }) 
             d="M72 198 V118 L220 48 L368 118 V198"
             stroke="currentColor"
             strokeWidth="0.9"
-            fill={zoneFill("structure") ?? "url(#hwall)"}
+            fill={zoneFill("walls") ?? "url(#hwall)"}
             className="transition-[fill] duration-200"
           />
         </g>
