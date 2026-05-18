@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { isAdminEmail } from "@/lib/auth-admin";
 import { updateAccessRequestStatus } from "@/lib/accessRequests";
+import { updateContactLeadStatus } from "@/lib/contactLeads";
 import { generateTempPassword } from "@/lib/email";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -105,6 +106,21 @@ export async function adminDenyAccessRequest(
     return { ok: false, error: "Unauthorized" };
   }
   const result = await updateAccessRequestStatus(requestId, "denied");
+  if (!result.ok) {
+    return { ok: false, error: result.error };
+  }
+  revalidatePath("/admin");
+  return { ok: true };
+}
+
+export async function adminUpdateContactLeadStatus(
+  leadId: string,
+  status: string,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  if (!(await assertAdmin())) {
+    return { ok: false, error: "Unauthorized" };
+  }
+  const result = await updateContactLeadStatus(leadId, status);
   if (!result.ok) {
     return { ok: false, error: result.error };
   }

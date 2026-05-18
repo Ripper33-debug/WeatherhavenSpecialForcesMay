@@ -8,7 +8,9 @@ import { EngagementBar } from "./components/EngagementBar";
 import { SiteClickSummary } from "./components/SiteClickSummary";
 import { UserExpandedDetail } from "./components/UserExpandedDetail";
 import { AccessRequestsTable } from "./components/AccessRequestsTable";
+import { ContactLeadsTable } from "./components/ContactLeadsTable";
 import type { AccessRequestRow } from "@/lib/accessRequests";
+import type { ContactLeadRow } from "@/lib/contactLeads";
 
 const EMPTY_CLICK_SUMMARY = {
   mostClickedElement: "—",
@@ -26,10 +28,12 @@ export function AdminDashboard({
   analytics,
   initialAuthUsers,
   accessRequests,
+  contactLeads,
 }: {
   analytics: AdminAnalyticsPayload;
   initialAuthUsers: AdminUserRow[];
   accessRequests: AccessRequestRow[];
+  contactLeads: ContactLeadRow[];
 }) {
   const [users, setUsers] = useState(initialAuthUsers);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -51,6 +55,13 @@ export function AdminDashboard({
           Pending access requests
         </p>
         <AccessRequestsTable requests={accessRequests} />
+      </div>
+
+      <div className="mt-10 border-b border-[rgba(255,255,255,0.08)] pb-12">
+        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-[#c8a96e]">
+          Engineering leads
+        </p>
+        <ContactLeadsTable leads={contactLeads} />
       </div>
 
       <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">

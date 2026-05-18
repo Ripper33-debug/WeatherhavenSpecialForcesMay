@@ -7,6 +7,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductCompareProvider } from "@/contexts/ProductCompareContext";
 import { SiteEnhancements } from "@/components/site/SiteEnhancements";
+import { SiteChrome } from "@/components/site/SiteChrome";
 import { company } from "@/lib/site";
 
 const plexSans = IBM_Plex_Sans({
@@ -62,9 +63,12 @@ export default function RootLayout({
         <AnalyticsProvider>
           <ProductCompareProvider>
             <SiteEnhancements>
-              <Navbar adminEmail={process.env.ADMIN_EMAIL ?? ""} />
-              <main className="flex-1">{children}</main>
-              <Footer />
+              <SiteChrome
+                nav={<Navbar adminEmail={process.env.ADMIN_EMAIL ?? ""} />}
+                footer={<Footer />}
+              >
+                <main className="flex-1">{children}</main>
+              </SiteChrome>
             </SiteEnhancements>
           </ProductCompareProvider>
         </AnalyticsProvider>

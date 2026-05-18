@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconChevronDown, IconMenu2, IconX } from "@tabler/icons-react";
+import { createClient } from "@/lib/supabase/client";
 import { company, navContactLink, navFlatLinks, navResourcesItems, navSolutionsItems } from "@/lib/site";
 import { NavAdminLink } from "@/components/navigation/NavAdminLink";
 import { NavSignOut } from "@/components/navigation/NavSignOut";
@@ -89,13 +90,31 @@ export function NavRequestAccessCta({
   className?: string;
   onNavigate?: () => void;
 }) {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const supabase = createClient();
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      setLoggedIn(!!session?.user);
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setLoggedIn(!!session?.user);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const href = loggedIn ? "/contact" : "/request-access";
+  const label = loggedIn ? "Contact Team" : "Request Access";
+
   return (
     <Link
-      href="/request-access"
+      href={href}
       onClick={onNavigate}
       className={`inline-flex items-center justify-center border border-white bg-transparent px-5 py-2.5 text-[14px] font-medium text-white no-underline transition-opacity duration-150 ease-out hover:opacity-70 ${className}`}
     >
-      Request Access
+      {label}
     </Link>
   );
 }

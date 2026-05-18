@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { isAdminEmail } from "@/lib/auth-admin";
 import { fetchAdminAnalytics } from "@/lib/admin-analytics";
 import { listAccessRequests } from "@/lib/accessRequests";
+import { listContactLeads } from "@/lib/contactLeads";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { AdminDashboard } from "./AdminDashboard";
@@ -17,10 +18,11 @@ export default async function AdminPage() {
     redirect("/");
   }
 
-  const [analytics, authList, accessRequests] = await Promise.all([
+  const [analytics, authList, accessRequests, contactLeads] = await Promise.all([
     fetchAdminAnalytics(),
     createAdminClient().auth.admin.listUsers({ perPage: 1000 }),
     listAccessRequests(),
+    listContactLeads(),
   ]);
 
   const initialUsers: AdminUserRow[] = (authList.data?.users ?? []).map((u) => ({
@@ -32,7 +34,12 @@ export default async function AdminPage() {
 
   return (
     <main className="min-h-dvh bg-[#080a0c] pt-16 text-white lg:pt-[4.25rem]">
-      <AdminDashboard analytics={analytics} initialAuthUsers={initialUsers} accessRequests={accessRequests} />
+      <AdminDashboard
+        analytics={analytics}
+        initialAuthUsers={initialUsers}
+        accessRequests={accessRequests}
+        contactLeads={contactLeads}
+      />
     </main>
   );
 }
