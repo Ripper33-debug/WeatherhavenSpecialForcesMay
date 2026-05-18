@@ -7,6 +7,7 @@ const LINE = "rgba(200, 169, 110, 0.12)";
 const LINE_INDEX = "rgba(200, 169, 110, 0.22)";
 const GRID = "rgba(200, 169, 110, 0.04)";
 
+/** Closed contour with terrain-like irregularity (Fourier wobble + ellipse + rotation). */
 function strokeOrganicContour(
   ctx: CanvasRenderingContext2D,
   cx: number,
@@ -14,26 +15,69 @@ function strokeOrganicContour(
   baseR: number,
   t: number,
   seed: number,
+  rxScale: number,
+  ryScale: number,
+  rotation: number,
 ) {
-  const steps = 96;
-  const wobbleAmp = 0.055 * baseR;
+  const steps = 128;
+  const a1 = 0.1 * baseR;
+  const a2 = 0.065 * baseR;
+  const a3 = 0.042 * baseR;
+  const a4 = 0.028 * baseR;
+  const a5 = 0.018 * baseR;
+
+  const cosR = Math.cos(rotation);
+  const sinR = Math.sin(rotation);
+
   ctx.beginPath();
   for (let i = 0; i <= steps; i++) {
     const theta = (i / steps) * Math.PI * 2;
-    const w =
-      wobbleAmp *
-      (0.45 * Math.sin(theta * 3 + t * 0.5 + seed) +
-        0.35 * Math.cos(theta * 5 - t * 0.42 + seed * 1.7) +
-        0.2 * Math.sin(theta * 7 + t * 0.38 + seed * 2.3));
-    const r = baseR + w;
-    const x = cx + r * Math.cos(theta);
-    const y = cy + r * Math.sin(theta);
+    const wobble =
+      a1 * Math.sin(theta * 2 + seed * 1.1 + t * 0.22) +
+      a2 * Math.cos(theta * 3 - seed * 1.8 + t * 0.31) +
+      a3 * Math.sin(theta * 5 + seed * 2.6 - t * 0.27) +
+      a4 * Math.cos(theta * 7 - seed * 0.9 + t * 0.19) +
+      a5 * Math.sin(theta * 11 + seed * 4.2 + t * 0.14) +
+      a3 * 0.55 * Math.cos(theta * 13 - seed * 3.1 - t * 0.24);
+
+    const r = Math.max(baseR * 0.35, baseR + wobble);
+    const lx = r * rxScale * Math.cos(theta);
+    const ly = r * ryScale * Math.sin(theta);
+    const x = cx + lx * cosR - ly * sinR;
+    const y = cy + lx * sinR + ly * cosR;
+
     if (i === 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
   }
   ctx.closePath();
   ctx.stroke();
 }
+
+type ElevationPeak = {
+  /** Normalized position 0–1 */
+  nx: number;
+  ny: number;
+  /** Relative size of this hill's contour stack */
+  scale: number;
+  /** Rings on desktop (scaled down on mobile) */
+  rings: number;
+  seed: number;
+  /** Horizontal stretch */
+  rx: number;
+  ry: number;
+  /** Radians — tilts the hill axis */
+  rotation: number;
+  /** Per-peak drift of nested centers (terrain asymmetry) */
+  centerDrift: number;
+};
+
+const PEAKS: ElevationPeak[] = [
+  { nx: 0.36, ny: 0.4, scale: 1, rings: 7, seed: 1.15, rx: 1.18, ry: 0.88, rotation: 0.22, centerDrift: 0.028 },
+  { nx: 0.68, ny: 0.34, scale: 0.88, rings: 6, seed: 4.6, rx: 0.94, ry: 1.12, rotation: -0.35, centerDrift: 0.032 },
+  { nx: 0.58, ny: 0.68, scale: 0.72, rings: 5, seed: 2.85, rx: 1.08, ry: 0.78, rotation: 0.48, centerDrift: 0.024 },
+  { nx: 0.22, ny: 0.62, scale: 0.58, rings: 4, seed: 6.2, rx: 1.22, ry: 0.92, rotation: -0.12, centerDrift: 0.02 },
+  { nx: 0.82, ny: 0.58, scale: 0.48, rings: 3, seed: 8.4, rx: 0.86, ry: 1.06, rotation: 0.62, centerDrift: 0.018 },
+];
 
 export function HeroTopoCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -49,6 +93,7 @@ export function HeroTopoCanvas() {
 
     let raf = 0;
     let t0 = performance.now();
+    let globalRingIndex = 0;
 
     const getReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const getMobile = () => window.matchMedia("(max-width: 767px)").matches;
@@ -78,28 +123,56 @@ export function HeroTopoCanvas() {
       const t = (now - t0) * 0.001;
       const reduced = getReducedMotion();
       const mobile = getMobile();
-      const cx = w * 0.52;
-      const cy = h * 0.48;
-      const scale = Math.min(w, h) * 0.48;
+      const baseScale = Math.min(w, h);
 
       ctx.fillStyle = BG;
       ctx.fillRect(0, 0, w, h);
 
-      const numRings = mobile ? 8 : 17;
-      const rMin = scale * 0.14;
-      const rMax = scale * 0.94;
+      globalRingIndex = 0;
 
-      for (let k = 0; k < numRings; k++) {
-        const u = numRings > 1 ? k / (numRings - 1) : 0.5;
-        const breathe = reduced ? 0 : 0.045 * Math.sin(t * 0.28 + k * 0.52 + u * 3.1);
-        const pulse = reduced ? 0 : 0.055 * Math.sin(t * (0.33 + (k % 5) * 0.11) + k * 0.73);
-        const baseR = Math.min(rMax, Math.max(rMin * 0.85, rMin + (rMax - rMin) * (u + breathe + pulse)));
-        const indexContour = k % 4 === 0;
-        ctx.strokeStyle = indexContour ? LINE_INDEX : LINE;
-        ctx.lineWidth = indexContour ? 1.25 : 1;
-        const phase = reduced ? 0 : t * 0.15;
-        strokeOrganicContour(ctx, cx, cy, baseR, phase, k * 1.31);
-        ctx.stroke();
+      for (const peak of PEAKS) {
+        const ringCount = mobile ? Math.max(2, Math.ceil(peak.rings * 0.45)) : peak.rings;
+        const peakCx = peak.nx * w;
+        const peakCy = peak.ny * h;
+        const hillScale = baseScale * 0.42 * peak.scale;
+        const rMin = hillScale * 0.12;
+        const rMax = hillScale * 0.95;
+
+        for (let k = 0; k < ringCount; k++) {
+          const u = ringCount > 1 ? k / (ringCount - 1) : 0.5;
+          const breathe = reduced ? 0 : 0.03 * Math.sin(t * 0.26 + peak.seed + k * 0.61);
+          const baseR = rMin + (rMax - rMin) * (u + breathe);
+
+          // Nested contours drift up-slope — centers shift per ring like real topo
+          const driftAngle = peak.rotation + peak.seed * 0.3;
+          const driftMag = peak.centerDrift * baseScale * (0.35 + u * 0.65);
+          const jitter = reduced
+            ? 0
+            : 0.012 * baseScale * Math.sin(t * 0.18 + peak.seed + k * 1.07);
+          const cx =
+            peakCx +
+            Math.cos(driftAngle) * driftMag * u +
+            Math.sin(peak.seed + k * 0.9) * jitter;
+          const cy =
+            peakCy +
+            Math.sin(driftAngle) * driftMag * u +
+            Math.cos(peak.seed * 1.3 + k * 0.7) * jitter;
+
+          const indexContour = globalRingIndex % 5 === 0;
+          ctx.strokeStyle = indexContour ? LINE_INDEX : LINE;
+          ctx.lineWidth = indexContour ? 1.25 : 1;
+
+          const phase = reduced ? 0 : t * 0.12;
+          const ringSeed = peak.seed + k * 1.47 + globalRingIndex * 0.31;
+
+          // Slight per-ring ellipse/rotation variation
+          const rxVar = peak.rx * (1 + 0.04 * Math.sin(ringSeed * 2.1));
+          const ryVar = peak.ry * (1 + 0.04 * Math.cos(ringSeed * 1.7));
+          const rotVar = peak.rotation + (reduced ? 0 : 0.06 * Math.sin(t * 0.2 + ringSeed));
+
+          strokeOrganicContour(ctx, cx, cy, baseR, phase, ringSeed, rxVar, ryVar, rotVar);
+          globalRingIndex++;
+        }
       }
 
       if (!mobile) {
@@ -138,12 +211,8 @@ export function HeroTopoCanvas() {
 
     const loop = (now: number) => {
       if (!visible) return;
-      if (getReducedMotion()) {
-        draw(now);
-        return;
-      }
       draw(now);
-      raf = requestAnimationFrame(loop);
+      if (!getReducedMotion()) raf = requestAnimationFrame(loop);
     };
 
     const startLoop = () => {
