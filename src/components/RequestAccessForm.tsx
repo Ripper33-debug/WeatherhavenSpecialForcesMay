@@ -1,6 +1,8 @@
 "use client";
 
+import { IconCheck } from "@tabler/icons-react";
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 const initial = {
   name: "",
@@ -11,12 +13,15 @@ const initial = {
   message: "",
 };
 
+const inputClass =
+  "mt-1.5 w-full border border-[rgba(255,255,255,0.12)] bg-[#0d0f12] px-3 py-2.5 text-sm text-white outline-none placeholder:text-[#8a9099] transition-colors focus:border-[rgba(255,255,255,0.35)]";
+
+const submitBtnClass =
+  "inline-flex min-h-11 w-full items-center justify-center border-0 bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-[rgba(255,255,255,0.85)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-12";
+
 export function RequestAccessForm() {
   const [form, setForm] = useState(initial);
   const [submitted, setSubmitted] = useState(false);
-  const [reference, setReference] = useState<string | null>(null);
-  const [leadStatus, setLeadStatus] = useState<string | null>(null);
-  const [webhookDelivered, setWebhookDelivered] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,20 +41,13 @@ export function RequestAccessForm() {
       });
       const data = (await res.json()) as {
         ok?: boolean;
-        reference?: string;
-        leadStatus?: string;
         error?: string;
-        webhookDelivered?: boolean;
       };
       if (!res.ok || !data.ok) {
         setError(data.error ?? "Submission failed. Please verify required fields.");
         return;
       }
-      setReference(data.reference ?? null);
-      setLeadStatus(typeof data.leadStatus === "string" ? data.leadStatus : "New");
-      setWebhookDelivered(
-        typeof data.webhookDelivered === "boolean" ? data.webhookDelivered : null,
-      );
+      void trackEvent("submit", "Request Access form submitted");
       setSubmitted(true);
     } catch {
       setError("Network error. Confirm connectivity and retry.");
@@ -60,72 +58,42 @@ export function RequestAccessForm() {
 
   if (submitted) {
     return (
-      <div className="relative overflow-hidden rounded-sm border border-zinc-800/90 bg-zinc-950/80 p-8 shadow-[0_24px_80px_-40px_rgb(0_0_0/0.9)] sm:p-10">
-        <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-amber-700/80 via-amber-600 to-amber-800/80" />
-        <div className="relative pl-5 sm:pl-6">
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-emerald-500/95">
-            Transmission complete
-          </p>
-          <h3 className="font-display mt-3 text-2xl font-semibold tracking-tight text-zinc-50">
-            Request logged
-          </h3>
-          {reference && (
-            <p className="mt-4 inline-flex flex-wrap items-center gap-2 rounded-sm border border-zinc-800/90 bg-zinc-900/50 px-3 py-2 font-mono text-sm text-zinc-200">
-              <span className="text-[11px] uppercase tracking-wider text-zinc-500">Reference</span>
-              <span className="font-semibold text-amber-500/95">{reference}</span>
-            </p>
-          )}
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-zinc-300">
-            <span className="font-semibold text-zinc-200">Lead register status:</span>{" "}
-            {leadStatus ?? "New"}. Program teams advance entries through Vetting → Contacted → Qualified → Follow-up
-            Required as appropriate. Nothing classified or export-controlled is stored on this public surface.
-          </p>
-          {webhookDelivered !== null && (
-            <p className="mt-3 font-mono text-[11px] text-zinc-500">
-              Webhook forward: {webhookDelivered ? "delivered" : "not confirmed — check integration logs"}
-            </p>
-          )}
-          <p className="mt-6 max-w-xl text-sm leading-relaxed text-zinc-400">
-            Programs will verify affiliation and respond through official channels. Do not transmit
-            classified or export-controlled technical data by email or this form.
-          </p>
-        </div>
+      <div className="flex flex-col items-center justify-center px-6 py-16 text-center sm:px-8 sm:py-20">
+        <IconCheck className="text-[#c8a96e]" size={28} stroke={2} aria-hidden />
+        <p className="mt-6 max-w-lg text-base leading-relaxed text-white">
+          Request received. A Weatherhaven engineer will contact you within 48 hours to verify affiliation and
+          program alignment.
+        </p>
       </div>
     );
   }
 
-  const inputClass =
-    "mt-1.5 w-full rounded-sm border border-zinc-700/90 bg-zinc-950/80 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 outline-none ring-amber-700/0 transition duration-200 focus:border-amber-700/50 focus:ring-2 focus:ring-amber-700/20";
-
   return (
-    <div className="relative overflow-hidden rounded-sm border border-zinc-800/90 bg-gradient-to-br from-zinc-950 via-zinc-950 to-zinc-900/40 shadow-[0_24px_80px_-48px_rgb(0_0_0/0.85)]">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-700/35 to-transparent" />
-      <div className="border-b border-zinc-800/80 bg-zinc-950/60 px-6 py-5 sm:px-8 sm:py-6">
+    <div className="relative overflow-hidden border border-white/[0.08] bg-[#0d0f12]">
+      <div className="border-b border-white/[0.08] px-6 py-5 sm:px-8 sm:py-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
-              Weatherhaven Resource Inc.
-            </p>
-            <h2 className="font-display mt-2 text-xl font-semibold tracking-tight text-zinc-50 sm:text-2xl">
+            <p className="wh-label text-[#8a9099]">Weatherhaven Resource Inc.</p>
+            <h2 className="font-display mt-2 text-xl font-semibold tracking-tight text-white sm:text-2xl">
               Request access & lead capture
             </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-500">
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#8a9099]">
               Official contact information only. Submissions are saved to the SOF lead register with pipeline status for
               program follow-up. Controlled disclosures and technical exchanges route here—not general marketing.
             </p>
           </div>
-          <dl className="grid shrink-0 gap-1 rounded-sm border border-zinc-800/80 bg-zinc-900/40 px-4 py-3 font-mono text-[10px] uppercase tracking-wider text-zinc-500 sm:text-left">
+          <dl className="grid shrink-0 gap-1 border border-white/[0.08] bg-[#080a0c] px-4 py-3 font-mono text-[10px] uppercase tracking-wider text-[#8a9099] sm:text-left">
             <div className="flex justify-between gap-6 sm:flex-col sm:gap-1">
               <dt>Form</dt>
-              <dd className="text-zinc-300">WH-PR-01</dd>
+              <dd className="text-white">WH-PR-01</dd>
             </div>
             <div className="flex justify-between gap-6 sm:flex-col sm:gap-1">
               <dt>Revision</dt>
-              <dd className="text-zinc-300">A</dd>
+              <dd className="text-white">A</dd>
             </div>
             <div className="flex justify-between gap-6 sm:flex-col sm:gap-1">
               <dt>Medium</dt>
-              <dd className="text-zinc-300">HTTPS</dd>
+              <dd className="text-white">HTTPS</dd>
             </div>
           </dl>
         </div>
@@ -134,7 +102,7 @@ export function RequestAccessForm() {
       <form onSubmit={handleSubmit} className="space-y-6 px-6 py-8 sm:px-8 sm:py-10">
         {error && (
           <div
-            className="rounded-sm border border-red-900/50 bg-red-950/30 px-4 py-3 text-sm text-red-200"
+            className="border border-red-900/50 bg-red-950/30 px-4 py-3 text-sm text-red-200"
             role="alert"
           >
             {error}
@@ -142,7 +110,7 @@ export function RequestAccessForm() {
         )}
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label htmlFor="ra-name" className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+            <label htmlFor="ra-name" className="text-xs font-medium uppercase tracking-wide text-[#8a9099]">
               Full name
             </label>
             <input
@@ -155,7 +123,7 @@ export function RequestAccessForm() {
             />
           </div>
           <div>
-            <label htmlFor="ra-org" className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+            <label htmlFor="ra-org" className="text-xs font-medium uppercase tracking-wide text-[#8a9099]">
               Organization
             </label>
             <input
@@ -170,7 +138,7 @@ export function RequestAccessForm() {
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label htmlFor="ra-email" className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+            <label htmlFor="ra-email" className="text-xs font-medium uppercase tracking-wide text-[#8a9099]">
               Official email
             </label>
             <input
@@ -184,7 +152,7 @@ export function RequestAccessForm() {
             />
           </div>
           <div>
-            <label htmlFor="ra-role" className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+            <label htmlFor="ra-role" className="text-xs font-medium uppercase tracking-wide text-[#8a9099]">
               Role / title
             </label>
             <input
@@ -197,7 +165,7 @@ export function RequestAccessForm() {
           </div>
         </div>
         <div>
-          <label htmlFor="ra-program" className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+          <label htmlFor="ra-program" className="text-xs font-medium uppercase tracking-wide text-[#8a9099]">
             Program or unit (optional)
           </label>
           <input
@@ -208,30 +176,25 @@ export function RequestAccessForm() {
           />
         </div>
         <div>
-          <label htmlFor="ra-message" className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+          <label htmlFor="ra-message" className="text-xs font-medium uppercase tracking-wide text-[#8a9099]">
             Requirements summary
           </label>
           <textarea
             id="ra-message"
             rows={4}
-            className={`${inputClass} resize-y min-h-[108px]`}
+            className={`${inputClass} min-h-[108px] resize-y`}
             value={form.message}
             onChange={(e) => update("message", e.target.value)}
             title="Theater, timeline, footprint, and integration constraints (unclassified)."
           />
         </div>
-        <div className="rounded-sm border border-zinc-800/80 bg-zinc-950/50 p-4">
-          <p className="text-[11px] leading-relaxed text-zinc-500">
-            By submitting, you confirm this request contains no classified material. Export-controlled
-            discussions require program alignment; a representative may request additional vetting
-            before technical data is shared.
+        <div className="border border-white/[0.08] bg-[#080a0c] p-4">
+          <p className="text-[11px] leading-relaxed text-[#8a9099]">
+            By submitting, you confirm this request contains no classified material. Export-controlled discussions
+            require program alignment; a representative may request additional vetting before technical data is shared.
           </p>
         </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-sm bg-amber-600 py-3 text-sm font-semibold uppercase tracking-wide text-zinc-950 transition hover:bg-amber-500 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-12"
-        >
+        <button type="submit" disabled={loading} className={submitBtnClass}>
           {loading ? "Submitting…" : "Submit request"}
         </button>
       </form>

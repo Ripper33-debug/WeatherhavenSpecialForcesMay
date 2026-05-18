@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HeroTopoCanvas } from "@/components/HeroTopoCanvas";
 
 type Cta = { href: string; label: string; variant?: "primary" | "secondary" };
 
@@ -10,6 +11,10 @@ export type HeroProps = {
   pullQuote?: string;
   primaryCta?: Cta;
   secondaryCta?: Cta;
+  /** Animated contour background (homepage-style). */
+  topo?: boolean;
+  /** Reduced top padding (80px) below site nav. */
+  compactTop?: boolean;
 };
 
 const btnPrimary =
@@ -24,21 +29,34 @@ export function Hero({
   pullQuote,
   primaryCta,
   secondaryCta,
+  topo = false,
+  compactTop = false,
 }: HeroProps) {
   return (
-    <section className="relative overflow-hidden border-b border-white/[0.08] bg-black">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.035]"
-        style={{
-          backgroundImage: `linear-gradient(to right, rgb(63 63 70 / 0.4) 1px, transparent 1px),
+    <section
+      className={`relative overflow-hidden border-b border-white/[0.08] ${topo ? "bg-[#080a0c]" : "bg-black"}`}
+    >
+      {topo && <HeroTopoCanvas />}
+      {!topo && (
+        <>
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.035]"
+            style={{
+              backgroundImage: `linear-gradient(to right, rgb(63 63 70 / 0.4) 1px, transparent 1px),
             linear-gradient(to bottom, rgb(63 63 70 / 0.4) 1px, transparent 1px)`,
-          backgroundSize: "64px 64px",
-        }}
-      />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-black" />
-      <div className="pointer-events-none absolute -right-1/4 top-0 h-[min(100%,900px)] w-[min(100%,900px)] rounded-full bg-blue-950/20 blur-3xl" />
+              backgroundSize: "64px 64px",
+            }}
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-black" />
+          <div className="pointer-events-none absolute -right-1/4 top-0 h-[min(100%,900px)] w-[min(100%,900px)] rounded-full bg-blue-950/20 blur-3xl" />
+        </>
+      )}
 
-      <div className="relative mx-auto max-w-[1400px] px-4 py-16 sm:px-6 sm:py-20 lg:px-12 lg:py-24">
+      <div
+        className={`relative z-10 mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12 ${
+          compactTop ? "pt-20 pb-14 sm:pb-16 lg:pb-20" : "py-16 sm:py-20 lg:py-24"
+        }`}
+      >
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
             {eyebrow && (
