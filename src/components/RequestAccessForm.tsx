@@ -47,6 +47,19 @@ export function RequestAccessForm() {
         setError(data.error ?? "Submission failed. Please verify required fields.");
         return;
       }
+      await fetch("/api/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          organization: form.organization,
+          email: form.email,
+          role: form.role,
+          program: form.program,
+          requirements: form.message,
+          source: "Request Access",
+        }),
+      });
       void trackEvent("submit", "Request Access form submitted");
       setSubmitted(true);
     } catch {
@@ -61,8 +74,7 @@ export function RequestAccessForm() {
       <div className="flex flex-col items-center justify-center px-6 py-16 text-center sm:px-8 sm:py-20">
         <IconCheck className="text-[#c8a96e]" size={28} stroke={2} aria-hidden />
         <p className="mt-6 max-w-lg text-base leading-relaxed text-white">
-          Request received. A Weatherhaven engineer will contact you within 48 hours to verify affiliation and
-          program alignment.
+          Request received. A Weatherhaven engineer will contact you within 48 hours.
         </p>
       </div>
     );

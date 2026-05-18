@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HeroTopoCanvas } from "@/components/HeroTopoCanvas";
 import { MissionConfigurator } from "@/components/home/MissionConfigurator";
-import { Shelter3DVisual, type ShelterViewMode } from "@/components/home/Shelter3DVisual";
+import { ShelterVisualPanel } from "@/components/home/ShelterVisualPanel";
+import type { ShelterViewMode } from "@/components/home/Shelter3DVisual";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const btnPrimary =
@@ -90,7 +91,7 @@ export function HomeHeroInteractive() {
                   </div>
 
                   <div className="relative aspect-[16/11] w-full min-h-[220px] bg-[#080a0c] lg:aspect-[16/10] lg:min-h-[320px] xl:min-h-[380px]">
-                    <Shelter3DVisual activeView={activeView} className="absolute inset-0" />
+                    <ShelterVisualPanel activeView={activeView} className="absolute inset-0" />
                   </div>
 
                   <div className="relative flex flex-wrap gap-x-8 gap-y-2 border-t border-white/[0.08] bg-black/60 px-5 py-4 sm:gap-x-10 sm:px-6">

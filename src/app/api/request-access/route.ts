@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { insertAccessRequest } from "@/lib/accessRequests";
 import { addLead } from "@/lib/leadsStore";
 
 type Body = {
@@ -49,6 +50,20 @@ export async function POST(req: Request) {
 
   addLead(payload);
 
+  const dbResult = await insertAccessRequest({
+    full_name: payload.name,
+    organization: payload.organization,
+    email: payload.email,
+    role: payload.role,
+    program: payload.program,
+    requirements: payload.message,
+    status: "pending",
+  });
+
+  if (!dbResult.ok) {
+    console.warn("Supabase access_requests insert failed:", dbResult.error);
+  }
+
   let webhookDelivered = false;
   const webhookUrl = process.env.REQUEST_ACCESS_WEBHOOK_URL;
   if (webhookUrl) {
@@ -73,6 +88,7 @@ export async function POST(req: Request) {
     reference,
     leadStatus: "New" as const,
     webhookDelivered: webhookUrl ? webhookDelivered : undefined,
-    message: "Request recorded. A programs representative will respond through official channels.",
+    savedToDb: dbResult.ok,
+    message: "Request recorded. A Weatherhaven engineer will contact you within 48 hours.",
   });
 }

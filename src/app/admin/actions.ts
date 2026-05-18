@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { isAdminEmail } from "@/lib/auth-admin";
+import { updateAccessRequestStatus } from "@/lib/accessRequests";
+import { generateTempPassword, sendWelcomeEmail } from "@/lib/email";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
@@ -58,6 +60,59 @@ export async function adminDeleteUser(userId: string): Promise<{ ok: true } | { 
   const { error } = await admin.auth.admin.deleteUser(userId);
   if (error) {
     return { ok: false, error: error.message };
+  }
+  revalidatePath("/admin");
+  return { ok: true };
+}
+
+export async function adminApproveAccessRequest(
+  requestId: string,
+  email: string,
+): Promise<{ ok: true; password: string } | { ok: false; error: string }> {
+  if (!(await assertAdmin())) {
+    return { ok: false, error: "Unauthorized" };
+  }
+  const trimmedEmail = email.trim();
+  if (!trimmedEmail) {
+    return { ok: false, error: "Email required" };
+  }
+
+  const password = generateTempPassword();
+  const admin = createAdminClient();
+  const { error: createError } = await admin.auth.admin.createUser({
+    email: trimmedEmail,
+    password,
+    email_confirm: true,
+  });
+
+  if (createError) {
+    return { ok: false, error: createError.message };
+  }
+
+  const statusResult = await updateAccessRequestStatus(requestId, "approved");
+  if (!statusResult.ok) {
+    return { ok: false, error: statusResult.error };
+  }
+
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
+  await sendWelcomeEmail({ to: trimmedEmail, password, siteUrl });
+
+  revalidatePath("/admin");
+  return { ok: true, password };
+}
+
+export async function adminDenyAccessRequest(
+  requestId: string,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  if (!(await assertAdmin())) {
+    return { ok: false, error: "Unauthorized" };
+  }
+  const result = await updateAccessRequestStatus(requestId, "denied");
+  if (!result.ok) {
+    return { ok: false, error: result.error };
   }
   revalidatePath("/admin");
   return { ok: true };

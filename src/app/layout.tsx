@@ -34,6 +34,12 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+  },
   title: {
     default: `${company.shortName} | Defense & Expeditionary Infrastructure`,
     template: `%s | ${company.shortName}`,

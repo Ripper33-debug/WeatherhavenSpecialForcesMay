@@ -2,7 +2,6 @@
 
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { HeroTopoCanvas } from "@/components/HeroTopoCanvas";
 import { company } from "@/lib/site";
 
@@ -32,6 +31,12 @@ export function LoginForm({ adminEmail }: { adminEmail: string }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [cardVisible, setCardVisible] = useState(false);
+
+  useEffect(() => {
+    requestAnimationFrame(() => setCardVisible(true));
+  }, []);
 
   useEffect(() => {
     const supabase = createClient();
@@ -68,6 +73,7 @@ export function LoginForm({ adminEmail }: { adminEmail: string }) {
 
       if (signError) {
         console.error("Login error:", signError.message);
+        setFailedAttempts((n) => n + 1);
         setError(signError.message);
         return;
       }
@@ -85,22 +91,30 @@ export function LoginForm({ adminEmail }: { adminEmail: string }) {
   }
 
   return (
-    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-[#080a0c] px-4 py-16">
+    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-[#080a0c] px-6 py-16">
       <HeroTopoCanvas />
-      <div className="relative z-10 w-full max-w-[420px] border border-[rgba(255,255,255,0.08)] bg-[#080a0c]/90 p-12 backdrop-blur-sm">
-        <Link
-          href="/"
-          className="block text-center font-display text-xl font-semibold tracking-tight text-white no-underline"
-        >
+      <div
+        className={`relative z-10 w-full max-w-[420px] border border-[rgba(255,255,255,0.08)] bg-[#080a0c]/90 p-6 backdrop-blur-sm transition-all duration-500 ease-out sm:p-12 ${
+          cardVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+        }`}
+      >
+        <p className="text-center font-display text-xl font-semibold tracking-tight text-white">
           {company.shortName}
-        </Link>
+        </p>
         <p
           className="mt-8 text-center font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-[#c8a96e]"
           style={{ letterSpacing: "0.2em" }}
         >
           AUTHORIZED ACCESS ONLY
         </p>
-        <form className="mt-10 space-y-4" noValidate onSubmit={handleSubmit}>
+        <div className="mt-6 flex items-center justify-center gap-2 border border-[rgba(255,255,255,0.06)] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.15em] text-[#8a9099]">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping bg-emerald-500/40" />
+            <span className="relative inline-flex h-2 w-2 bg-emerald-500" />
+          </span>
+          Secure connection · AES-256 · HTTPS
+        </div>
+        <form className="mt-8 space-y-4" noValidate onSubmit={handleSubmit}>
           <div>
             <label htmlFor="login-email" className="sr-only">
               Email
@@ -134,6 +148,11 @@ export function LoginForm({ adminEmail }: { adminEmail: string }) {
             />
           </div>
           {error && <p className="text-sm text-red-500">{error}</p>}
+          {failedAttempts >= 3 && (
+            <p className="text-sm text-red-500">
+              Multiple failed attempts detected. Contact your administrator.
+            </p>
+          )}
           <button
             type="submit"
             disabled={submitting}

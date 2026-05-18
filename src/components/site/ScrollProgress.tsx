@@ -1,9 +1,15 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function ScrollProgress() {
+  const pathname = usePathname();
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setProgress(0);
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => {

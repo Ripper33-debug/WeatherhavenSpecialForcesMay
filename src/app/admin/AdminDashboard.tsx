@@ -7,6 +7,8 @@ import { AdminStatBox } from "./components/AdminStatBox";
 import { EngagementBar } from "./components/EngagementBar";
 import { SiteClickSummary } from "./components/SiteClickSummary";
 import { UserExpandedDetail } from "./components/UserExpandedDetail";
+import { AccessRequestsTable } from "./components/AccessRequestsTable";
+import type { AccessRequestRow } from "@/lib/accessRequests";
 
 const EMPTY_CLICK_SUMMARY = {
   mostClickedElement: "—",
@@ -20,7 +22,15 @@ function formatDateTime(iso: string | null | undefined) {
   try { return new Date(iso).toLocaleString(); } catch { return String(iso); }
 }
 
-export function AdminDashboard({ analytics, initialAuthUsers }: { analytics: AdminAnalyticsPayload; initialAuthUsers: AdminUserRow[] }) {
+export function AdminDashboard({
+  analytics,
+  initialAuthUsers,
+  accessRequests,
+}: {
+  analytics: AdminAnalyticsPayload;
+  initialAuthUsers: AdminUserRow[];
+  accessRequests: AccessRequestRow[];
+}) {
   const [users, setUsers] = useState(initialAuthUsers);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [email, setEmail] = useState("");
@@ -42,6 +52,12 @@ export function AdminDashboard({ analytics, initialAuthUsers }: { analytics: Adm
         <AdminStatBox label="Total events" value={analytics.summary.totalEvents} />
       </div>
       <SiteClickSummary items={analytics.topClickedElements} />
+      <div className="mt-16 border-t border-[rgba(255,255,255,0.08)] pt-16">
+        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-[#c8a96e]">
+          Pending access requests
+        </p>
+        <AccessRequestsTable requests={accessRequests} />
+      </div>
       <div className="mt-16">
         <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-[#c8a96e]">User analytics</p>
         <div className="mt-6 overflow-x-auto border border-[rgba(255,255,255,0.08)]">
