@@ -310,7 +310,7 @@ export function buildConfigurationResult(
             ? "BASE CAMP"
             : missionType === "logistics"
               ? "LOGISTICS"
-              : missionName[missionType];
+              : "MISSION";
 
   return {
     title: `${envLabel} ${missionLabel} — ${forcePackage[forceSize]}`,
