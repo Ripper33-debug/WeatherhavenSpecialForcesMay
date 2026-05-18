@@ -5,6 +5,8 @@ import "./globals.css";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ProductCompareProvider } from "@/contexts/ProductCompareContext";
+import { SiteEnhancements } from "@/components/site/SiteEnhancements";
 import { company } from "@/lib/site";
 
 const plexSans = IBM_Plex_Sans({
@@ -52,9 +54,13 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans text-zinc-100 antialiased">
         <AnalyticsProvider>
-          <Navbar adminEmail={process.env.ADMIN_EMAIL ?? ""} />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <ProductCompareProvider>
+            <SiteEnhancements>
+              <Navbar adminEmail={process.env.ADMIN_EMAIL ?? ""} />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </SiteEnhancements>
+          </ProductCompareProvider>
         </AnalyticsProvider>
         <Analytics />
       </body>

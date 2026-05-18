@@ -32,12 +32,16 @@ function DesktopDropdown({
         </span>
       )}
       <div className="pointer-events-none invisible absolute left-1/2 top-full z-[120] min-w-[280px] -translate-x-1/2 pt-2 opacity-0 transition-[opacity,visibility] duration-150 ease-out group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100">
-        <div role="menu" className="border border-[rgba(255,255,255,0.08)] bg-[#0d0f12] py-2 shadow-none">
+        <div
+          className="wh-nav-dropdown-backdrop fixed inset-0 top-14 z-[110] bg-[#080a0c]/50 backdrop-blur-[8px] sm:top-16"
+          aria-hidden
+        />
+        <div role="menu" className="relative z-[120] border border-[rgba(255,255,255,0.08)] bg-[#0d0f12] py-2 shadow-none">
           {items.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="block px-4 py-3 no-underline transition-opacity duration-150 ease-out hover:opacity-70"
+              className="block border-l-2 border-transparent px-4 py-3 no-underline transition-[border-color,opacity] duration-150 ease-out hover:border-[#c8a96e] hover:opacity-100"
             >
               <span className="block text-[14px] leading-tight text-white">{item.label}</span>
               <span className="mt-1 block text-[13px] leading-snug text-[#8a9099]">{item.description}</span>
