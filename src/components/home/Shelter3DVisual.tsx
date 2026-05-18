@@ -34,16 +34,16 @@ const CAMERA_PRESETS: Record<
   { position: THREE.Vector3; target: THREE.Vector3 }
 > = {
   shelter: {
-    position: new THREE.Vector3(8, 5, 10),
-    target: new THREE.Vector3(0, 1.2, 0),
+    position: new THREE.Vector3(10, 6, 10),
+    target: new THREE.Vector3(0, 2.2, 0),
   },
   power: {
-    position: new THREE.Vector3(11, 4.5, 1.5),
-    target: new THREE.Vector3(0, 1, 0),
+    position: new THREE.Vector3(14, 5, 2),
+    target: new THREE.Vector3(0, 1.5, 0),
   },
   field: {
-    position: new THREE.Vector3(14, 9, 14),
-    target: new THREE.Vector3(0, 0.8, 0),
+    position: new THREE.Vector3(18, 12, 18),
+    target: new THREE.Vector3(0, 2, 0),
   },
 };
 
@@ -53,12 +53,12 @@ const VIEW_HIGHLIGHTS: Record<ShelterViewMode, ShelterZoneId[] | "pulse"> = {
   field: "pulse",
 };
 
-function createWireMaterial(opacity: number, structural = false) {
+function createWireMaterial(opacity = 0.35) {
   return new THREE.MeshBasicMaterial({
     color: GOLD,
     wireframe: true,
     transparent: true,
-    opacity: structural ? Math.max(opacity, 0.5) : opacity,
+    opacity,
   });
 }
 
@@ -69,9 +69,8 @@ function addZoneMesh(
   position: THREE.Vector3,
   rotation?: THREE.Euler,
   scale?: THREE.Vector3,
-  structural = false,
 ) {
-  const material = createWireMaterial(0.3, structural);
+  const material = createWireMaterial(0.35);
   const mesh = new THREE.Mesh(geometry, material);
   mesh.position.copy(position);
   if (rotation) mesh.rotation.copy(rotation);
@@ -91,132 +90,156 @@ function addZoneMesh(
   glow.scale.multiplyScalar(1.04);
   glow.visible = false;
 
-  zones.push({ mesh, glow, material, glowMaterial, zoneId, structural });
+  zones.push({ mesh, glow, material, glowMaterial, zoneId });
   return { mesh, glow };
+}
+
+function createRoofPanelGeometry(
+  length: number,
+  halfDepth: number,
+  wallTop: number,
+  peakY: number,
+  side: 1 | -1,
+): THREE.BufferGeometry {
+  const zEave = side * halfDepth;
+  const halfLen = length / 2;
+  const positions = new Float32Array([
+    -halfLen, peakY, 0,
+    halfLen, peakY, 0,
+    halfLen, wallTop, zEave,
+    -halfLen, wallTop, zEave,
+  ]);
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geom.setIndex([0, 1, 2, 0, 2, 3]);
+  geom.computeVertexNormals();
+  return geom;
+}
+
+function addGuyWire(shelter: THREE.Group, from: THREE.Vector3, to: THREE.Vector3) {
+  const wireGeom = new THREE.CylinderGeometry(0.02, 0.02, 1, 4);
+  const wire = new THREE.Mesh(wireGeom, createWireMaterial(0.35));
+  const dir = to.clone().sub(from);
+  const len = dir.length();
+  wire.position.copy(from).addScaledVector(dir, 0.5);
+  wire.scale.set(1, len, 1);
+  wire.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.normalize());
+  shelter.add(wire);
 }
 
 function buildShelter(mobile: boolean): { group: THREE.Group; zones: ZoneMesh[] } {
   const shelter = new THREE.Group();
   const zones: ZoneMesh[] = [];
 
-  const w = mobile ? 5 : 6;
-  const d = mobile ? 3.2 : 4;
-  const h = mobile ? 2.2 : 2.5;
-  const wallT = 0.12;
+  const w = 10;
+  const d = 6;
+  const wallH = 2.5;
+  const wallT = 0.05;
+  const baseY = 0.05;
+  const wallCenterY = baseY + wallH / 2;
+  const wallTop = baseY + wallH;
+  const peakY = wallTop + 1.5;
+  const halfW = w / 2;
+  const halfD = d / 2;
 
-  // Interior / floor
+  // Ground footprint
   addZoneMesh(
     zones,
-    new THREE.BoxGeometry(w, 0.08, d),
-    "interior",
-    new THREE.Vector3(0, 0.04, 0),
-  );
-
-  // Walls
-  addZoneMesh(
-    zones,
-    new THREE.BoxGeometry(w, h, wallT),
+    new THREE.BoxGeometry(w, 0.1, d),
     "walls",
-    new THREE.Vector3(0, h / 2, d / 2 + wallT / 2),
-  );
-  addZoneMesh(
-    zones,
-    new THREE.BoxGeometry(w, h, wallT),
-    "walls",
-    new THREE.Vector3(0, h / 2, -d / 2 - wallT / 2),
-  );
-  addZoneMesh(
-    zones,
-    new THREE.BoxGeometry(wallT, h, d),
-    "walls",
-    new THREE.Vector3(w / 2 + wallT / 2, h / 2, 0),
-  );
-  addZoneMesh(
-    zones,
-    new THREE.BoxGeometry(wallT, h, d),
-    "walls",
-    new THREE.Vector3(-w / 2 - wallT / 2, h / 2, 0),
+    new THREE.Vector3(0, baseY, 0),
   );
 
-  // Peaked roof — half cylinder along X
-  const roofGeom = new THREE.CylinderGeometry(
-    d / 2 + 0.15,
-    d / 2 + 0.15,
-    w + 0.2,
-    mobile ? 8 : 14,
-    1,
-    false,
-    0,
-    Math.PI,
+  // Four wall panels
+  addZoneMesh(
+    zones,
+    new THREE.BoxGeometry(w, wallH, wallT),
+    "walls",
+    new THREE.Vector3(0, wallCenterY, halfD + wallT / 2),
   );
   addZoneMesh(
     zones,
-    roofGeom,
+    new THREE.BoxGeometry(w, wallH, wallT),
+    "walls",
+    new THREE.Vector3(0, wallCenterY, -halfD - wallT / 2),
+  );
+  addZoneMesh(
+    zones,
+    new THREE.BoxGeometry(wallT, wallH, d),
+    "walls",
+    new THREE.Vector3(halfW + wallT / 2, wallCenterY, 0),
+  );
+  addZoneMesh(
+    zones,
+    new THREE.BoxGeometry(wallT, wallH, d),
+    "walls",
+    new THREE.Vector3(-halfW - wallT / 2, wallCenterY, 0),
+  );
+
+  // Peaked A-frame roof (ridge along X)
+  addZoneMesh(
+    zones,
+    createRoofPanelGeometry(w, halfD, wallTop, peakY, 1),
     "roof",
-    new THREE.Vector3(0, h, 0),
-    new THREE.Euler(0, 0, Math.PI / 2),
-    undefined,
-    true,
+    new THREE.Vector3(0, 0, 0),
   );
-
-  // Ridge cap
   addZoneMesh(
     zones,
-    new THREE.BoxGeometry(w + 0.3, 0.08, 0.15),
+    createRoofPanelGeometry(w, halfD, wallTop, peakY, -1),
     "roof",
-    new THREE.Vector3(0, h + d / 2 + 0.05, 0),
-    undefined,
-    undefined,
-    true,
+    new THREE.Vector3(0, 0, 0),
   );
 
-  // Entrance vestibule (front +Z)
-  const vestW = mobile ? 1.2 : 1.5;
+  // Ridge pole along peak
+  const ridgeGeom = new THREE.CylinderGeometry(0.03, 0.03, w, 6);
+  const ridge = new THREE.Mesh(ridgeGeom, createWireMaterial(0.35));
+  ridge.rotation.z = Math.PI / 2;
+  ridge.position.set(0, peakY, 0);
+  shelter.add(ridge);
+
+  // Entry vestibule — center of +Z short wall
   addZoneMesh(
     zones,
-    new THREE.BoxGeometry(vestW, h * 0.85, 1),
+    new THREE.BoxGeometry(2, 2, 2),
     "entrance",
-    new THREE.Vector3(0, h * 0.42, d / 2 + 0.55),
+    new THREE.Vector3(0, baseY + 1, halfD + 1),
   );
 
-  // ECU (+X)
+  // ECU against +X long wall
   addZoneMesh(
     zones,
-    new THREE.BoxGeometry(0.75, mobile ? 1 : 1.2, mobile ? 1.1 : 1.4),
+    new THREE.BoxGeometry(1, 0.8, 0.8),
     "ecu",
-    new THREE.Vector3(w / 2 + 0.55, (mobile ? 0.5 : 0.6), 0.3),
+    new THREE.Vector3(halfW + 0.5, baseY + 0.4, 0),
   );
 
-  // Power (-X)
+  // Power box against -X long wall
   addZoneMesh(
     zones,
-    new THREE.BoxGeometry(0.65, mobile ? 0.9 : 1, mobile ? 1 : 1.2),
+    new THREE.BoxGeometry(0.5, 0.5, 0.5),
     "power",
-    new THREE.Vector3(-w / 2 - 0.5, 0.5, -0.2),
+    new THREE.Vector3(-halfW - 0.35, baseY + 0.25, 0),
   );
 
-  // Guy wires (structural, not interactive)
-  if (!mobile) {
-    const peak = new THREE.Vector3(0, h + d / 2, 0);
-    const stakes: [number, number, number][] = [
-      [w / 2 + 0.5, 0, d / 2 + 0.5],
-      [-w / 2 - 0.5, 0, d / 2 + 0.5],
-      [w / 2 + 0.5, 0, -d / 2 - 0.5],
-      [-w / 2 - 0.5, 0, -d / 2 - 0.5],
-    ];
-    for (const [sx, sy, sz] of stakes) {
-      const wireGeom = new THREE.CylinderGeometry(0.015, 0.015, 1, 4);
-      const wireMat = createWireMaterial(0.5, true);
-      const wire = new THREE.Mesh(wireGeom, wireMat);
-      const end = new THREE.Vector3(sx, sy, sz);
-      const mid = peak.clone().add(end).multiplyScalar(0.5);
-      const len = peak.distanceTo(end);
-      wire.scale.set(1, len, 1);
-      wire.position.copy(mid);
-      wire.lookAt(end);
-      wire.rotateX(Math.PI / 2);
-      shelter.add(wire);
-    }
+  // Guy wires — roof eave corners to exterior stakes
+  const eaveCorners: THREE.Vector3[] = [
+    new THREE.Vector3(halfW, wallTop, halfD),
+    new THREE.Vector3(-halfW, wallTop, halfD),
+    new THREE.Vector3(halfW, wallTop, -halfD),
+    new THREE.Vector3(-halfW, wallTop, -halfD),
+  ];
+  const stakes: THREE.Vector3[] = [
+    new THREE.Vector3(halfW + 1, 0, halfD + 1),
+    new THREE.Vector3(-halfW - 1, 0, halfD + 1),
+    new THREE.Vector3(halfW + 1, 0, -halfD - 1),
+    new THREE.Vector3(-halfW - 1, 0, -halfD - 1),
+  ];
+  for (let i = 0; i < 4; i++) {
+    addGuyWire(shelter, eaveCorners[i]!, stakes[i]!);
+  }
+
+  if (mobile) {
+    shelter.scale.setScalar(0.55);
   }
 
   for (const z of zones) {
@@ -283,7 +306,7 @@ export function Shelter3DVisual({ activeView, className }: Props) {
     scene.fog = new THREE.Fog(BG, 18, 32);
 
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-    camera.position.set(8, 5, 10);
+    camera.position.set(10, 6, 10);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.5 : 2));
@@ -307,8 +330,8 @@ export function Shelter3DVisual({ activeView, className }: Props) {
 
     const grid = new THREE.GridHelper(24, 24, GOLD, GOLD);
     const gridMat = grid.material as THREE.Material;
-    if (Array.isArray(gridMat)) gridMat.forEach((m) => ((m as THREE.Material).opacity = 0.08));
-    else (gridMat as THREE.LineBasicMaterial).opacity = 0.08;
+    if (Array.isArray(gridMat)) gridMat.forEach((m) => ((m as THREE.Material).opacity = 0.06));
+    else (gridMat as THREE.LineBasicMaterial).opacity = 0.06;
     if (Array.isArray(gridMat)) gridMat.forEach((m) => ((m as THREE.Material).transparent = true));
     else (gridMat as THREE.LineBasicMaterial).transparent = true;
     scene.add(grid);
@@ -321,7 +344,7 @@ export function Shelter3DVisual({ activeView, className }: Props) {
     controls.dampingFactor = 0.05;
     controls.minDistance = 5;
     controls.maxDistance = 20;
-    controls.target.set(0, 1.2, 0);
+    controls.target.set(0, 2.2, 0);
     controls.enablePan = true;
     controls.mouseButtons = {
       LEFT: THREE.MOUSE.ROTATE,
@@ -354,7 +377,7 @@ export function Shelter3DVisual({ activeView, className }: Props) {
         } else if (mode === "dim") {
           z.material.opacity = 0.12;
         } else {
-          z.material.opacity = z.structural ? 0.5 : 0.3;
+          z.material.opacity = 0.35;
         }
       }
     };
